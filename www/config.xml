@@ -6,10 +6,10 @@
         id        = "com.webcreators.textsol"
         version   = "0.0.1">
 
-    <name>Text Solutions</name>
+    <name>Live Chat by Text Solutions</name>
 
     <description>
-        Text Solutions is a chat mobile app to expand live chat with your customers.
+        Live Chat is a chat mobile app to expand live chat with your customers.
     </description>
 
     <author href="http://www.webcreators.com" email="support@webcreators.com">
