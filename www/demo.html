@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Live Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <link href="css/codiqa.ext.css" rel="stylesheet">
+  <link href="css/jquery.mobile.theme-1.3.1.css" rel="stylesheet">
+  <link href="css/textsol.css" rel="stylesheet">
+  <link href="css/jquery.mobile.structure-1.3.1.css" rel="stylesheet">
+
+  <script src="js/jquery-1.9.1.js"></script>
+  <script src="js/jquery.mobile-1.3.1.js"></script>
+  <script src="js/codiqa.ext.js"></script>
+  <script src="js/textsol.js"></script>
+</head>
+<body>
+  <div data-role="page" data-control-title="Home" id="page1" style="background: url('img/homebg.png') repeat">
+      <div data-role="content">
+          <div style="" data-controltype="image">
+              <img style="width: 285px; height: 143px" src="img/homelogo.png">
+          </div>
+          <div data-role="fieldcontain" data-controltype="textinput">
+              <input name="" id="textinput1" placeholder="username/email" value="" type="text">
+          </div>
+          <div data-role="fieldcontain" data-controltype="textinput">
+              <input name="" id="textinput2" placeholder="password" value="" type="text">
+          </div>
+          <a data-role="button" data-transition="flow" href="#page2" data-icon="arrow-r"
+          data-iconpos="right">
+              Login
+          </a>
+      </div>
+      <div data-theme="c" data-role="footer" data-position="fixed">
+          <h2>
+              Copyright © 2013 - TextSol.com
+          </h2>
+      </div>
+  </div>
+  <div data-role="page" data-control-title="Chat" id="page2">
+      <div data-theme="a" data-role="header">
+          <a data-role="button" href="#page1" data-icon="minus" data-iconpos="right"
+          class="ui-btn-right">
+              Log Out
+          </a>
+          <h3>
+              Active Chats
+          </h3>
+      </div>
+      <div data-role="content">
+          <h4>
+              Below are your currently active chats
+          </h4>
+          <div data-role="collapsible-set" data-content-theme="c">
+              <div data-role="collapsible">
+                  <h3>
+                      John Smith
+                  </h3>
+                  <div data-controltype="textblock">
+                      <p>
+                          <b>
+                              John:
+                          </b>
+                          Hello, I want to buy the pink chainsaw.
+                      </p>
+                  </div>
+                  <div data-controltype="textblock">
+                      <p>
+                          <b>
+                              You:
+                          </b>
+                          Sure thing!
+                      </p>
+                  </div>
+                  <div data-role="fieldcontain" data-controltype="textarea">
+                      <textarea name="" id="textarea1" placeholder="Reply here..."></textarea>
+                  </div>
+                  <input type="submit" data-theme="b" data-icon="refresh" data-iconpos="left"
+                  value="Submit">
+              </div>
+              <div data-role="collapsible" data-collapsed="false">
+                  <h3>
+                      Jane Doe
+                  </h3>
+                  <div data-controltype="textblock">
+                      <p>
+                          <b>
+                              Jane:
+                          </b>
+                          Hello, how much for the red dress?
+                      </p>
+                  </div>
+                  <div data-controltype="textblock">
+                      <p>
+                          <b>
+                              You:
+                          </b>
+                          Just $6500!
+                      </p>
+                  </div>
+                  <div data-role="fieldcontain" data-controltype="textarea">
+                      <textarea name="" id="textarea2" placeholder="Reply here..."></textarea>
+                  </div>
+                  <input type="submit" data-theme="b" data-icon="refresh" data-iconpos="left"
+                  value="Submit">
+              </div>
+              <div data-role="collapsible">
+                  <h3>
+                      Mike Horsetail
+                  </h3>
+                  <div data-controltype="textblock">
+                      <p>
+                          <b>
+                              Mike:
+                          </b>
+                          anyone there?
+                      </p>
+                  </div>
+                  <div data-controltype="textblock">
+                      <p>
+                          <b>
+                              You:
+                          </b>
+                          Hi Mike, how can I help you?
+                      </p>
+                  </div>
+                  <div data-role="fieldcontain" data-controltype="textarea">
+                      <label for="textarea3">
+                          Title
+                      </label>
+                      <textarea name="" id="textarea3" placeholder=""></textarea>
+                  </div>
+                  <input type="submit" data-theme="b" data-icon="refresh" data-iconpos="left"
+                  value="Submit">
+              </div>
+          </div>
+      </div>
+      <div data-role="tabbar" data-iconpos="top" data-theme="b">
+          <ul>
+              <li>
+                  <a href="#page2" data-transition="slideup" data-theme="" data-icon="home">
+                      Active Chats
+                  </a>
+              </li>
+              <li>
+                  <a href="#page4" data-transition="slideup" data-theme="" data-icon="gear">
+                      Settings
+                  </a>
+              </li>
+              <li>
+                  <a href="#page5" data-transition="slideup" data-theme="" data-icon="edit">
+                      Account
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <div data-role="page" data-control-title="Settings" id="page4">
+      <div data-theme="a" data-role="header">
+          <a data-role="button" href="#page1" data-icon="minus" data-iconpos="left"
+          class="ui-btn-right">
+              Log Out
+          </a>
+          <h3>
+              Settings
+          </h3>
+      </div>
+      <div data-role="content">
+          <h4>
+              Below are your Live Chat Settings
+          </h4>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <div class="ui-grid-a">
+              <div class="ui-block-a">
+                  <div data-controltype="textblock">
+                      <p>
+                          Remote Chat
+                      </p>
+                  </div>
+              </div>
+              <div class="ui-block-b">
+                  <div data-role="fieldcontain" data-controltype="toggleswitch">
+                      <select name="toggleswitch2" id="toggleswitch2" data-theme="" data-role="slider"
+                      data-mini="true">
+                          <option value="off">
+                              Off
+                          </option>
+                          <option value="on">
+                              On
+                          </option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <a data-role="button" href="#page4" data-icon="gear" data-iconpos="left">
+              Configure Sounds
+          </a>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <a data-role="button" href="#page4" data-icon="search" data-iconpos="left">
+              See Who is online
+          </a>
+      </div>
+      <div data-role="tabbar" data-iconpos="top" data-theme="b">
+          <ul>
+              <li>
+                  <a href="#page2" data-transition="slideup" data-theme="" data-icon="home">
+                      Active Chats
+                  </a>
+              </li>
+              <li>
+                  <a href="#page4" data-transition="slideup" data-theme="" data-icon="gear">
+                      Settings
+                  </a>
+              </li>
+              <li>
+                  <a href="#page5" data-transition="slideup" data-theme="" data-icon="edit">
+                      Account
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <div data-role="page" data-control-title="Account" id="page5">
+      <div data-theme="a" data-role="header">
+          <a data-role="button" href="#page1" data-icon="minus" data-iconpos="left"
+          class="ui-btn-right">
+              Log Out
+          </a>
+          <h3>
+              Acount
+          </h3>
+      </div>
+      <div data-role="content">
+          <h4>
+              Below are your Account Settings
+          </h4>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <h5>
+              Change Password
+          </h5>
+          <div data-role="fieldcontain" data-controltype="textinput">
+              <input name="" id="textinput3" placeholder="Current Password" value=""
+              type="text" data-mini="true">
+          </div>
+          <div data-role="fieldcontain" data-controltype="textinput">
+              <input name="" id="textinput4" placeholder="New Password" value="" type="text"
+              data-mini="true">
+          </div>
+          <div data-role="fieldcontain" data-controltype="textinput">
+              <input name="" id="textinput5" placeholder="Repeat New Password" value=""
+              type="text" data-mini="true">
+          </div>
+          <input type="submit" data-theme="b" data-icon="edit" data-iconpos="left"
+          value="Change Password">
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <a data-role="button" href="#page1" data-icon="delete" data-iconpos="left">
+              Sign Out
+          </a>
+      </div>
+      <div data-role="tabbar" data-iconpos="top" data-theme="b">
+          <ul>
+              <li>
+                  <a href="#page2" data-transition="slideup" data-theme="" data-icon="home">
+                      Active Chats
+                  </a>
+              </li>
+              <li>
+                  <a href="#page4" data-transition="slideup" data-theme="" data-icon="gear">
+                      Settings
+                  </a>
+              </li>
+              <li>
+                  <a href="#page5" data-transition="slideup" data-theme="" data-icon="edit">
+                      Account
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+</body>
+</html>
