@@ -92,7 +92,7 @@ jQuery(document).ready(function($){
 			// $('#toggleswitchremotechat option[value=On]').removeAttr("selected");
 			// $('#toggleswitchremotechat option[value='+valeur+']').attr("selected", "selected");
 			//$('select').selectmenu('refresh', true);
-			//$('#toggleswitchremotechat').val(valeur).slider("refresh");
+			$('#toggleswitchremotechat').val(valeur).slider("refresh");
   
 		});
 		
@@ -133,7 +133,7 @@ jQuery(document).ready(function($){
 					if (ENV == 'dev') {
 						alert(res.message);
 					} else {
-						navigator.notification.alert(res.message, alertDismissed, 'Snap', 'Ok');
+						navigator.notification.alert(res.message, alertDismissed);
 					}
 					$("#btnLogin").removeAttr("disabled");
 			   }
