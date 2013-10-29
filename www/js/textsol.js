@@ -81,6 +81,7 @@ jQuery(document).ready(function($){
 
 	function handleLogin() {
 		console.log('handleLogin');	
+		event.preventDefault();
 		var form = $("#loginForm");  	
 		//disable the button so we can't resubmit while we wait
 		$("#submitButton",form).attr("disabled","disabled");
@@ -130,9 +131,11 @@ jQuery(document).ready(function($){
 	
 	$(document).on('click', '.btn-logout', handleLogout);
 
+	$(document).on('submit', "#loginForm", handleLogin);
+	
 	function deviceReady() {  
 		console.log('deviceReady');
-		$("#loginForm").on("submit",handleLogin);
+		//$("#loginForm").on("submit",handleLogin);
 
 	}
      
@@ -143,8 +146,11 @@ jQuery(document).ready(function($){
     });
   
 
-deviceReady();
-//checkPreAuth();
+  if (ENV == 'dev') {
+	deviceReady();
 
+	//checkPreAuth();
+	}
+	
 });
 
