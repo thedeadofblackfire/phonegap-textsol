@@ -95,13 +95,13 @@ jQuery(document).ready(function($){
 					window.localStorage["password"] = p;             
 					//$.mobile.changePage("some.html");				
 					$.mobile.changePage("#pageChat");
-				} else {
-				
+				} else {				
 					if (ENV == 'dev') {
 						alert('Your login failed');
 					} else {
 						navigator.notification.alert("Your login failed", function() {});
 					}
+					$("#submitButton").removeAttr("disabled");
 			   }
 			 $("#submitButton").removeAttr("disabled");
 			},"json");
