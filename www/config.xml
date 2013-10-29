@@ -21,10 +21,16 @@
         The "device" permission is required for the 'deviceready' event.
         https://build.phonegap.com/docs/config-xml
     -->
+	<!--
     <feature name="http://api.phonegap.com/1.0/device" />
     <feature name="http://api.phonegap.com/1.0/file"/>        
     <feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/notification"/>
+	-->
+	
+	<gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="org.apache.cordova.network-information" />
+	<gap:plugin name="org.apache.cordova.dialogs" />
 
     <!--
         If you do not want any permissions to be added to your app, add the
