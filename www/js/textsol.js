@@ -132,7 +132,7 @@ jQuery(document).ready(function($){
 					if (ENV == 'dev') {
 						alert(res.message);
 					} else {
-						navigator.notification.alert(res.message, function() {});
+						navigator.notification.alert(res.message, alertDismissed);
 					}
 					$("#btnLogin").removeAttr("disabled");
 			   }
@@ -142,7 +142,8 @@ jQuery(document).ready(function($){
 			if (ENV == 'dev') {
 				alert('You must enter a username and password');
 			} else {
-				navigator.notification.alert("You must enter a username and password", function() {});
+				navigator.notification.vibrate(1000);
+				navigator.notification.alert("You must enter a username and password", alertDismissed);
 			}
 			$("#btnLogin").removeAttr("disabled");
 		}
@@ -215,6 +216,10 @@ jQuery(document).ready(function($){
 
 	//checkPreAuth();
   }
+  
+  function alertDismissed() {
+    // do something
+}
 	
 });
 
