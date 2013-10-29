@@ -80,11 +80,11 @@ jQuery(document).ready(function($){
 	}
 
 	function handleLogin() {
-		console.log('handleLogin');	
-		event.preventDefault();
+		console.log('handleLogin');			
 		var form = $("#loginForm");  	
 		//disable the button so we can't resubmit while we wait
-		$("#submitButton",form).attr("disabled","disabled");
+		//$("#submitButton",form).attr("disabled","disabled");
+		$("#btnLogin").attr("disabled","disabled");
 		var u = $("#username", form).val();
 		var p = $("#password", form).val();	
 		if(u != '' && p!= '') {
@@ -102,9 +102,9 @@ jQuery(document).ready(function($){
 					} else {
 						navigator.notification.alert("Your login failed", function() {});
 					}
-					$("#submitButton").removeAttr("disabled");
+					$("#btnLogin").removeAttr("disabled");
 			   }
-			 $("#submitButton").removeAttr("disabled");
+			 $("#btnLogin").removeAttr("disabled");
 			},"json");
 		} else {        
 			if (ENV == 'dev') {
@@ -112,7 +112,7 @@ jQuery(document).ready(function($){
 			} else {
 				navigator.notification.alert("You must enter a username and password", function() {});
 			}
-			$("#submitButton").removeAttr("disabled");
+			$("#btnLogin").removeAttr("disabled");
 		}
 		return false;
 	}
@@ -131,7 +131,14 @@ jQuery(document).ready(function($){
 	
 	$(document).on('click', '.btn-logout', handleLogout);
 
-	$(document).on('submit', "#loginForm", handleLogin);
+	$(document).on('click', "#btnLogin", handleLogin);
+	
+	/*
+	$(document).on('submit', "#loginForm", function(event) {
+		event.preventDefault();
+		handleLogin();
+	});
+	*/
 	
 	function deviceReady() {  
 		console.log('deviceReady');

@@ -16,23 +16,24 @@
 	
 	<div data-role="page" data-control-title="Home" id="pageLogin" style="background: url('img/homebg.png') repeat">
       <div data-role="content">
-          <div style="" data-controltype="image">
+          <div style="text-align:center" data-controltype="image">
               <img style="width: 285px; height: 143px" src="img/homelogo.png">
           </div>
-		  <form id="loginForm" action="" method="POST">
+		  <form id="loginForm" method="POST">
           <div data-role="fieldcontain" data-controltype="textinput">
               <input name="username" id="username" placeholder="email" value="" type="text">
           </div>
           <div data-role="fieldcontain" data-controltype="textinput">
               <input name="password" id="password" placeholder="password" value="" type="password">
           </div>
-		  <!--
-          <a data-role="button" data-transition="flow" href="#page2" data-icon="arrow-r" data-iconpos="right">
+		  
+          <a data-role="button" data-transition="flow" href="#" id="btnLogin" data-icon="arrow-r" data-iconpos="right">
               Login
           </a>
-		  -->
-		   <input type="submit" value="Login" id="submitButton" data-transition="flow" data-icon="arrow-r" data-iconpos="right">
 		  
+		  <!--
+		   <input type="submit" value="Login" id="submitButton" data-transition="flow" data-icon="arrow-r" data-iconpos="right">
+		  -->
       </div>
       <div data-theme="c" data-role="footer" data-position="fixed">
           <h2>
