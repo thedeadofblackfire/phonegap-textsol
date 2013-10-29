@@ -85,8 +85,7 @@ jQuery(document).ready(function($){
 		//disable the button so we can't resubmit while we wait
 		$("#submitButton",form).attr("disabled","disabled");
 		var u = $("#username", form).val();
-		var p = $("#password", form).val();
-		console.log("click");
+		var p = $("#password", form).val();	
 		if(u != '' && p!= '') {
 			$.post(API+"/account/login", {username:u,password:p}, function(res) {
 				console.log(res);
@@ -129,7 +128,7 @@ jQuery(document).ready(function($){
 				
 	}
 	
-	$(document).on('click', '#btn-logout', handleLogout);
+	$(document).on('click', '.btn-logout', handleLogout);
 
 	function deviceReady() {  
 		console.log('deviceReady');

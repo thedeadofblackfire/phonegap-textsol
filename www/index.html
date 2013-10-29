@@ -44,7 +44,7 @@
  
  <div data-role="page" data-control-title="Chat" id="pageChat">
       <div data-theme="a" data-role="header">
-          <a data-role="button" href="#" id="btn-logout" data-icon="minus" data-iconpos="right" class="ui-btn-right">
+          <a data-role="button" href="#" data-icon="minus" data-iconpos="right" class="btn-logout ui-btn-right">
               Log Out
           </a>
           <h3>
@@ -142,17 +142,142 @@
       <div data-role="tabbar" data-iconpos="top" data-theme="b">
           <ul>
               <li>
-                  <a href="#page2" data-transition="slideup" data-theme="" data-icon="home">
+                  <a href="#pageChat" data-transition="slideup" data-theme="" data-icon="home">
                       Active Chats
                   </a>
               </li>
               <li>
-                  <a href="#page4" data-transition="slideup" data-theme="" data-icon="gear">
+                  <a href="#pageSettings" data-transition="slideup" data-theme="" data-icon="gear">
                       Settings
                   </a>
               </li>
               <li>
-                  <a href="#page5" data-transition="slideup" data-theme="" data-icon="edit">
+                  <a href="#pageAccount" data-transition="slideup" data-theme="" data-icon="edit">
+                      Account
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+  
+   <div data-role="page" data-control-title="Settings" id="pageSettings">
+      <div data-theme="a" data-role="header">
+          <a data-role="button" href="#" data-icon="minus" data-iconpos="left"
+          class="btn-logout ui-btn-right">
+              Log Out
+          </a>
+          <h3>
+              Settings
+          </h3>
+      </div>
+      <div data-role="content">
+          <h4>
+              Below are your Live Chat Settings
+          </h4>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <div class="ui-grid-a">
+              <div class="ui-block-a">
+                  <div data-controltype="textblock">
+                      <p>
+                          Remote Chat
+                      </p>
+                  </div>
+              </div>
+              <div class="ui-block-b">
+                  <div data-role="fieldcontain" data-controltype="toggleswitch">
+                      <select name="toggleswitch2" id="toggleswitch2" data-theme="" data-role="slider"
+                      data-mini="true">
+                          <option value="off">
+                              Off
+                          </option>
+                          <option value="on">
+                              On
+                          </option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <a data-role="button" href="#page4" data-icon="gear" data-iconpos="left">
+              Configure Sounds
+          </a>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <a data-role="button" href="#page4" data-icon="search" data-iconpos="left">
+              See Who is online
+          </a>
+      </div>
+      <div data-role="tabbar" data-iconpos="top" data-theme="b">
+          <ul>
+              <li>
+                  <a href="#pageChat" data-transition="slideup" data-theme="" data-icon="home">
+                      Active Chats
+                  </a>
+              </li>
+              <li>
+                  <a href="#pageSettings" data-transition="slideup" data-theme="" data-icon="gear">
+                      Settings
+                  </a>
+              </li>
+              <li>
+                  <a href="#pageAccount" data-transition="slideup" data-theme="" data-icon="edit">
+                      Account
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+  
+  <div data-role="page" data-control-title="Account" id="pageAccount">
+      <div data-theme="a" data-role="header">
+          <a data-role="button" href="#" data-icon="minus" data-iconpos="left"
+          class="btn-logout ui-btn-right">
+              Log Out
+          </a>
+          <h3>
+              Acount
+          </h3>
+      </div>
+      <div data-role="content">
+          <h4>
+              Below are your Account Settings
+          </h4>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <h5>
+              Change Password
+          </h5>
+          <div data-role="fieldcontain" data-controltype="textinput">
+              <input name="" id="textinput3" placeholder="Current Password" value=""
+              type="text" data-mini="true">
+          </div>
+          <div data-role="fieldcontain" data-controltype="textinput">
+              <input name="" id="textinput4" placeholder="New Password" value="" type="text"
+              data-mini="true">
+          </div>
+          <div data-role="fieldcontain" data-controltype="textinput">
+              <input name="" id="textinput5" placeholder="Repeat New Password" value=""
+              type="text" data-mini="true">
+          </div>
+          <input type="submit" data-theme="b" data-icon="edit" data-iconpos="left"
+          value="Change Password">
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <a data-role="button" href="#page1" data-icon="delete" data-iconpos="left">
+              Sign Out
+          </a>
+      </div>
+      <div data-role="tabbar" data-iconpos="top" data-theme="b">
+          <ul>
+              <li>
+                  <a href="#pageChat" data-transition="slideup" data-theme="" data-icon="home">
+                      Active Chats
+                  </a>
+              </li>
+              <li>
+                  <a href="#pageSettings" data-transition="slideup" data-theme="" data-icon="gear">
+                      Settings
+                  </a>
+              </li>
+              <li>
+                  <a href="#pageAccount" data-transition="slideup" data-theme="" data-icon="edit">
                       Account
                   </a>
               </li>
