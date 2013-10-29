@@ -2,6 +2,7 @@
 //var API = 'http://textwc.local/api';
 var ENV = 'production';
 var API = 'http://www.textsol.com/api';
+var user = {};
 
 var app = {
     // Application Constructor
@@ -14,7 +15,15 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-//document.addEventListener('load', this.onDeviceReady, true);		
+		
+		// get automatically user from session
+		user = window.sessionStorage.getItem('user');
+		if (user) {
+			user = JSON.parse(user);	
+			console.log('retrieved user: ', user);
+		}		
+		
+		//document.addEventListener('load', this.onDeviceReady, true);		
     },
     // deviceready Event Handler
     //
@@ -69,6 +78,26 @@ function init() {
 jQuery(document).ready(function($){
 	
 
+    $(document).on('pagebeforeshow', '#pageSettings', function(){  
+		console.log('#pageSettings pagebeforeshow');	
+		
+		$.getJSON(API+"/account/onlinestatus?user_id="+user.user_id, function(res) {
+			console.log(res);
+			 var valeur = 'Off';
+			 if (res.status == '1') {
+				valeur = 'On';
+			 }
+			 //console.log(valeur);
+			 //$('#toggleswitchremotechat option[value=Off]').removeAttr("selected");
+			// $('#toggleswitchremotechat option[value=On]').removeAttr("selected");
+			// $('#toggleswitchremotechat option[value='+valeur+']').attr("selected", "selected");
+			//$('select').selectmenu('refresh', true);
+			//$('#toggleswitchremotechat').val(valeur).slider("refresh");
+  
+		});
+		
+    });
+	
 	function checkPreAuth() {
 		console.log('checkPreAuth');
 		var form = $("#loginForm");	
@@ -93,14 +122,17 @@ jQuery(document).ready(function($){
 				if(res.success == true) {
 					//store
 					window.localStorage["username"] = u;
-					window.localStorage["password"] = p;             
+					window.localStorage["password"] = p; 			
+					//window.sessionStorage["user_id"] = res.user.user_id; 
+					window.sessionStorage.setItem('user', JSON.stringify(res.user));
+				    user = res.user;
 					//$.mobile.changePage("some.html");				
 					$.mobile.changePage("#pageChat");
 				} else {				
 					if (ENV == 'dev') {
-						alert('Your login failed');
+						alert(res.message);
 					} else {
-						navigator.notification.alert("Your login failed", function() {});
+						navigator.notification.alert(res.message, function() {});
 					}
 					$("#btnLogin").removeAttr("disabled");
 			   }
@@ -122,7 +154,8 @@ jQuery(document).ready(function($){
 		
 		$.getJSON(API+"/account/logout", function(res) {
 			if (res.success) {
-				window.localStorage.clear();            							
+				window.localStorage.clear();  
+				window.sessionStorage.clear();		
 				$.mobile.changePage("#pageLogin");
 			}
 		});
@@ -133,6 +166,28 @@ jQuery(document).ready(function($){
 
 	$(document).on('click', "#btnLogin", handleLogin);
 	
+	$(document).on('change', '#toggleswitchremotechat', function(e) {		
+       var current_status = $(this).val();
+       console.log('toggleswitchremotechat '+$(this).val());
+	
+	   //var url = 'http://textwc.local/user/changeOnlineStatus';
+	   var url = API+"/account/onlinestatus";
+       $.ajax({
+              url : url,
+              type: "POST",
+              dataType : 'json',
+              data:{user_id: user.user_id, action:'chatStatus', status:current_status},
+              success :function(data){
+              	//window.location.reload();
+				console.log(data);
+              },
+              error:function(data){    
+				console.log(data);			  
+              } 
+        });
+		
+	});
+	
 	/*
 	$(document).on('submit', "#loginForm", function(event) {
 		event.preventDefault();
@@ -140,24 +195,26 @@ jQuery(document).ready(function($){
 	});
 	*/
 	
+	/*
 	function deviceReady() {  
 		console.log('deviceReady');
 		//$("#loginForm").on("submit",handleLogin);
 
 	}
+	*/
      
     //Insert code here
     $(document).on("pageinit", "#pageLogin", function(e) {
-	//$("#pageLogin").on("pageinit", function(e) {
+		//$("#pageLogin").on("pageinit", function(e) {
         checkPreAuth();
     });
   
 
   if (ENV == 'dev') {
-	deviceReady();
+	//deviceReady();
 
 	//checkPreAuth();
-	}
+  }
 	
 });
 
