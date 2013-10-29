@@ -128,11 +128,12 @@ jQuery(document).ready(function($){
 				    user = res.user;
 					//$.mobile.changePage("some.html");				
 					$.mobile.changePage("#pageChat");
-				} else {				
+				} else {	
+					console.log(res.message);
 					if (ENV == 'dev') {
 						alert(res.message);
 					} else {
-						navigator.notification.alert(res.message, alertDismissed);
+						navigator.notification.alert(res.message, alertDismissed, 'Snap', 'Ok');
 					}
 					$("#btnLogin").removeAttr("disabled");
 			   }
