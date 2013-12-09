@@ -99,6 +99,10 @@ jQuery(document).ready(function($){
 		
     });
     
+    function alertDismissed() {
+        // do something
+    } 
+  
     /* 
      * mobile framework - Change Page
      * pageid = test.html or #changePage
@@ -230,6 +234,8 @@ jQuery(document).ready(function($){
 			window.sessionStorage.setItem('chatConfig', JSON.stringify(res));
             chatConfig = res;
 		
+            handleRefreshOnlineUser();
+            
 		});
         
         /*
@@ -241,6 +247,12 @@ jQuery(document).ready(function($){
         */
 	}
 
+    function handleRefreshOnlineUser() {
+        console.log('handleRefreshOnlineUser');
+        
+        // loop online users to display list of active chats
+        
+    }
   
         
         
@@ -250,9 +262,6 @@ jQuery(document).ready(function($){
 	//checkPreAuth();
   }
   
-  function alertDismissed() {
-    // do something
-  } 
 	
 });
 
