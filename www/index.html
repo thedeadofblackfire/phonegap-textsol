@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">     
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/codiqa.ext.css" rel="stylesheet">
 		<link href="css/jquery.mobile.theme-1.3.1.css" rel="stylesheet">
 		<link href="css/textsol.css" rel="stylesheet">
@@ -45,17 +46,131 @@
  
  <div data-role="page" data-control-title="Chat" id="pageChat">
       <div data-theme="a" data-role="header">
+	  <a data-role="button" href="#left-panel" data-icon="bars" >12 Users <span style="color:green">(+3)</span></a>
           <a data-role="button" href="#" class="btn-logout ui-btn-right">
               Log Out
           </a>
           <h3>
               Active Chats
           </h3>
+		    
       </div>
       <div data-role="content">
-          <h4>
-              Below are your currently active chats
-          </h4>
+       	  
+		  
+<style>
+    li.new_user a{
+        background: #AFD898;
+        color: #23580E;
+    }
+    .messageWrapper {
+        min-height:200px; margin-bottom: 20px; max-height: 300px; overflow: auto; padding-right: 20px;
+    }
+    .message span, .reply span{ color: #999999; display:block; float:right}
+    .message { background:#F9F9F9; padding:5px; margin-bottom:2px;}
+    .reply { background:#FFFEEE;padding:4px; margin-bottom:2px; }
+    a:focus{outline:none}
+
+    p.err{color:#f00;}
+    input.bordererr, input.bordererr:focus, .bordererr, .bordererr:focus {border: 1px solid #f00}
+    .plugins { margin-bottom: 10px; text-align: right}
+    .badge { margin-left: 5px}
+    .user_info { margin-bottom: 20px;}
+    .user_info b { margin-left: 15px;}
+</style>
+
+<div id="chatWindow">  
+    <!--
+    <span align='right' style="float: right">
+        <?php if ($chat_sound['sound'] == "off"): ?>
+            <a class="btn soundOff btn-danger" user_id='<?php echo $current_user->user_id; ?>' >Sound<i class="icon-remove"></i></a>
+        <?php else : ?>
+            <a class="btn soundOff btn-success" user_id='<?php echo $current_user->user_id; ?>' >Sound<i class="icon-ok"></i></a>
+        <?php endif; ?>
+    </span>
+	-->
+ 
+	<div id="chatHeader"></div>
+	
+    <div class="tab-content">
+		<!--<div id="chatLoop"></div>-->		        
+    </div>
+
+</div>
+
+
+<script id="chat-template-header" type="text/x-handlebars-template">
+<ul class="nav nav-tabs" id="chat">
+  {{#each online_user}}
+     <li><a href="#{{session_id}}">{{name}}</a></li>    
+  {{/each}}
+  </ul>
+</script>
+
+<script id="chat-template-headernew" type="text/x-handlebars-template">
+<ul id="chat" data-role="listview" data-inset="false" data-theme="d" data-divider-theme="e" data-count-theme="b">
+<li data-role="list-divider">Active Users</li>
+  {{#each online_user}} 
+	 <li><a href="#{{session_id}}" data-theme="e">{{name}} <span class="ui-li-count">12</span></a></li>
+  {{/each}}
+  </ul>
+</script>
+
+
+<script id="chat-template-loop" type="text/x-handlebars-template">
+ {{#each online_user}}
+    <div class="tab-pane" id="{{session_id}}">
+                <div class="plugins">
+				   {{{displayChatClose sent_email}}}				 
+                   <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>
+                </div>
+
+                <div class="messageWrapper">
+
+                </div>
+
+                <div class="chatform">
+			
+                    <textarea style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea><br/>
+                    <!--<input type="submit" value="Send" class="btn btn-primary chatBtn" />-->
+					<a data-role="button" href="#" class="btn btn-primary chatBtn">Send</a>
+                </div>
+    </div>
+  {{/each}}
+</script>
+
+<!-- Modal -->
+<div id="emailModal" style="margin-top:-150px;display:none;" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Send Email</h3>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Your email address :</label>
+                <div class="controls">
+                    <input type="text" id="toEmail" name="email" value=""/>
+                    <input type="hidden" id="session_id" name="session_id" value=""/>                        
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <input type="submit"  class="btn btn-primary btn_sendEmail" value="Send Email" />
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    </div>
+</div>		  
+		  
+		  
+		  
+		  
+		  
+		  <!--
+		  
           <div data-role="collapsible-set" data-content-theme="c">
               <div data-role="collapsible">
                   <h3>
@@ -139,7 +254,28 @@
                   value="Submit">
               </div>
           </div>
+		  -->
+		  
+		  <div class="play"></div>
       </div>
+	  <div data-role="panel" id="left-panel" data-theme="c">
+        <ul data-role="listview" data-theme="d">
+            <li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+            <!--<li data-role="list-divider">Menu</li>-->
+        </ul>
+	
+		<!-- <div id="chatHeader"></div>-->
+		
+<!--
+<ul data-role="listview" data-inset="false" data-theme="d" data-divider-theme="e" data-count-theme="b">
+    <li data-role="list-divider">Users</li>
+    <li><a href="index.html" data-theme="e">Inbox <span class="ui-li-count">12</span></a></li>
+    <li><a href="index.html">Outbox <span class="ui-li-count">0</span></a></li>
+    <li><a href="index.html">Sent <span class="ui-li-count">328</span></a></li>
+</ul>
+-->
+    
+    </div><!-- /panel -->
       <div data-role="tabbar" data-iconpos="top" data-theme="b">
           <ul>
               <li>
@@ -290,7 +426,11 @@
 		<script type="text/javascript" charset="utf-8" src="js/jquery-1.9.1.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.3.1.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/codiqa.ext.js"></script>	
+		<script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/bootstrap-tab.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/textsol.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/chat.js"></script>
   
         <script type="text/javascript">
             app.initialize();

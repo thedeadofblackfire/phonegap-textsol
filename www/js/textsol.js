@@ -1,8 +1,12 @@
-//var ENV = 'dev';
-//var API = 'http://textwc.local/api';
-var ENV = 'production';
-var API = 'http://www.textsol.com/api';
-var user = {};
+var ENV = 'dev';
+//var ENV = 'production';
+var BASE_URL = 'http://textwc.local';
+//var BASE_URL = 'http://www.textsol.com';
+var API = BASE_URL+'/api';
+var AjaxURL = BASE_URL+'/chat/';
+
+var objUser = {};
+var objChat = {};
 
 var app = {
     // Application Constructor
@@ -17,10 +21,10 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
 		
 		// get automatically user from session
-		user = window.sessionStorage.getItem('user');
-		if (user) {
-			user = JSON.parse(user);	
-			console.log('retrieved user: ', user);
+		objUser = window.sessionStorage.getItem('user');
+		if (objUser) {
+			objUser = JSON.parse(objUser);	
+			console.log('retrieved user: ', objUser);
 		}		
 		
 		//document.addEventListener('load', this.onDeviceReady, true);		
@@ -49,26 +53,6 @@ var app = {
 };
 
 /*
-jQuery(document).ready(function($){
-
-	$(document).on('pageinit', '#login', function(){ 
-				$('form').validate({
-					rules: {
-						username: {
-							required: true
-						},
-						password: {
-							required: true
-						}
-					}
-				});
-	});
-
-        
-});
-*/
-
-/*
 function init() {
    document.addEventListener("deviceready", deviceReady, true);
    delete init;
@@ -77,11 +61,59 @@ function init() {
 
 jQuery(document).ready(function($){
 	
+	$(document).on('pagebeforeshow', '#pageChat', function(){  
+		console.log('#pageChat pagebeforeshow');	
+		
+		var sourceHeader = $("#chat-template-header").html();
+		var templateChatHeader = Handlebars.compile(sourceHeader);
+		
+		var sourceLoop = $("#chat-template-loop").html();
+		var templateChatLoop = Handlebars.compile(sourceLoop);
 
+		Handlebars.registerHelper('displayChatClose', function(object) {
+			if (object == '1') {
+				return new Handlebars.SafeString(
+					'<a class="btn btn-success disabled">Chat Closed</a>'
+				);
+			} else {
+				return new Handlebars.SafeString(
+					'<a class="btn closeChat btn-danger" style="width:auto!important;"><i class="icon-remove"></i> Close Chat</a>'
+				);
+			}
+		});
+
+		// save the online chat status
+		$.getJSON(API+"/chat/init?user_id="+objUser.user_id, function(res) {			
+			objChat = res;
+			console.log(objChat);
+			/*
+			if (res.online_status == '1') {
+				online = true;
+			} else {
+				online = false;
+				// @todo display offline message
+			}	
+			*/
+			//var context = {title: "My New Post", body: "This is my first post!"}
+			var htmlHeader = templateChatHeader(objChat);
+		    var htmlLoop = templateChatLoop(objChat);
+			//console.log(htmlLoop);
+			$('#chatHeader').html(htmlHeader);
+			$('.tab-content').html(htmlLoop);
+			//$( "#left-panel" ).trigger( "updatelayout" );
+			
+			
+			chat_start();
+			
+		});
+		
+    });
+	
     $(document).on('pagebeforeshow', '#pageSettings', function(){  
 		console.log('#pageSettings pagebeforeshow');	
 		
-		$.getJSON(API+"/account/onlinestatus?user_id="+user.user_id, function(res) {
+		// save the online chat status
+		$.getJSON(API+"/account/onlinestatus?user_id="+objUser.user_id, function(res) {
 			console.log(res);
 			 var valeur = 'Off';
 			 if (res.status == '1') {
@@ -125,7 +157,7 @@ jQuery(document).ready(function($){
 					window.localStorage["password"] = p; 			
 					//window.sessionStorage["user_id"] = res.user.user_id; 
 					window.sessionStorage.setItem('user', JSON.stringify(res.user));
-				    user = res.user;
+				    objUser = res.user;
 					//$.mobile.changePage("some.html");				
 					$.mobile.changePage("#pageChat");
 				} else {	
@@ -143,7 +175,7 @@ jQuery(document).ready(function($){
 			if (ENV == 'dev') {
 				alert('You must enter a username and password');
 			} else {
-				navigator.notification.vibrate(1000);
+				//navigator.notification.vibrate(1000);
 				navigator.notification.alert("You must enter a username and password", alertDismissed);
 			}
 			$("#btnLogin").removeAttr("disabled");
@@ -178,7 +210,7 @@ jQuery(document).ready(function($){
               url : url,
               type: "POST",
               dataType : 'json',
-              data:{user_id: user.user_id, action:'chatStatus', status:current_status},
+              data:{user_id: objUser.user_id, action:'chatStatus', status:current_status},
               success :function(data){
               	//window.location.reload();
 				console.log(data);
