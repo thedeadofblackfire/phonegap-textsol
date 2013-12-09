@@ -3,6 +3,7 @@
 var ENV = 'production';
 var API = 'http://www.textsol.com/api';
 var user = {};
+var chatConfig = {};
 
 var app = {
     // Application Constructor
@@ -97,6 +98,15 @@ jQuery(document).ready(function($){
 		});
 		
     });
+    
+    /* 
+     * mobile framework - Change Page
+     * pageid = test.html or #changePage
+     */
+    function mofChangePage(pageid) {
+        //$.mobile.changePage("some.html");				
+        $.mobile.changePage(pageid);
+    }
 	
 	function checkPreAuth() {
 		console.log('checkPreAuth');
@@ -126,8 +136,8 @@ jQuery(document).ready(function($){
 					//window.sessionStorage["user_id"] = res.user.user_id; 
 					window.sessionStorage.setItem('user', JSON.stringify(res.user));
 				    user = res.user;
-					//$.mobile.changePage("some.html");				
-					$.mobile.changePage("#pageChat");
+					
+                    mofChangePage('#pageChat');
 				} else {	
 					console.log(res.message);
 					if (ENV == 'dev') {
@@ -158,7 +168,8 @@ jQuery(document).ready(function($){
 			if (res.success) {
 				window.localStorage.clear();  
 				window.sessionStorage.clear();		
-				$.mobile.changePage("#pageLogin");
+                
+                mofChangePage('#pageLogin');
 			}
 		});
 				
@@ -211,7 +222,28 @@ jQuery(document).ready(function($){
         checkPreAuth();
     });
   
+	function loadChatInit() {
+		console.log('loadChatInit');
+	
+        $.getJSON(API+"/chat/init?user_id="+user.user_id, function(res) {
+			console.log(res);
+			window.sessionStorage.setItem('chatConfig', JSON.stringify(res));
+            chatConfig = res;
+		
+		});
+        
+        /*
+		if(window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+			$("#username", form).val(window.localStorage["username"]);
+			$("#password", form).val(window.localStorage["password"]);
+			handleLogin();
+		}
+        */
+	}
 
+  
+        
+        
   if (ENV == 'dev') {
 	//deviceReady();
 
@@ -220,7 +252,7 @@ jQuery(document).ready(function($){
   
   function alertDismissed() {
     // do something
-}
+  } 
 	
 });
 
