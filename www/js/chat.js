@@ -51,6 +51,9 @@ $(document).ready(function() {
         var textarea = $(this).siblings('textarea');
         var message = $.trim(textarea.val());
 
+		var session_id = $('#chat li.active a').attr('href');
+        session_id = session_id && session_id.replace(/#/, ''); //strip for ie7 
+		
         $this.siblings('p.err').remove();
 
         if (message.length < 1)
@@ -67,7 +70,7 @@ $(document).ready(function() {
         $.ajax({
             url: API + "/chat/save_reply_message",
             type: "POST",
-            data: {id: id, message: message, support: objChat.support_display_name, user_id: objUser.user_id},
+            data: {id: id, message: message, support: objChat.support_display_name, user_id: objUser.user_id, session_id: session_id},
             success: function(data) {
                 $(".tab-content .active .messageWrapper").append(data);
                 //var wrapper=$(".tab-content .active .messageWrapper");
