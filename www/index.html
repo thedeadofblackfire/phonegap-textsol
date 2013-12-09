@@ -55,21 +55,15 @@
           </h3>
 		    
       </div>
-      <div data-role="content">
- 
+      <div data-role="content" id="listview-content">
+ <!--
   <h4>
               Below are your currently active chats
           </h4>
+		  -->
           
           
-          <ul data-role="listview" data-count-theme="c" data-inset="true">
-            <li><a href="#"><h2>james</h2> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">12</span></a></li>
-            <li><a href="#">Outbox <span class="ui-li-count">0</span></a></li>
-            <li><a href="#">Drafts <span class="ui-li-count">4</span></a></li>
-            <li><a href="#">Sent <span class="ui-li-count">328</span></a></li>
-            <li><a href="#">Trash <span class="ui-li-count">62</span></a></li>
-         </ul>
-		  
+     
 <style>
     li.new_user a{
         background: #AFD898;
@@ -102,6 +96,8 @@
     </span>
 	-->
  
+    <div id="container_chat_userlist"></div>
+ 
 	<div id="chatHeader"></div>
 	
     <div class="tab-content">
@@ -109,6 +105,17 @@
     </div>
 
 </div>
+
+
+ 
+<script id="chat-template-userlist" type="text/x-handlebars-template">
+<ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">
+<li data-role="list-divider">Below are your currently active chats</li>
+  {{#each online_user}} 
+	 <li><a href="#{{session_id}}" data-theme="e">{{name}}<p>CA</p> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">{{{displayTotal totalmsg totalreply}}}</span></a></li>
+  {{/each}}
+  </ul>
+</script>
 
 
 <script id="chat-template-header" type="text/x-handlebars-template">

@@ -270,6 +270,25 @@ function chat_update()
     });
 }
 
+function chat_view(id) {
+    console.log('chat_view');
+        
+    //$target.children('.messageWrapper').html('Loading....')
+	console.log('load_message '+id);
+       var s_id=id.replace(/#/, '');
+            $.ajax({
+                url: API+"/chat/get_conversation_by_session",
+                type: "post",
+                data: {replyname: objChat.support_display_name, session_id: s_id, user_id: objUser.user_id},
+                success: function(msg){                  
+                   element.children('.messageWrapper').html(msg);
+                     var wrapper=$(".tab-content .active .messageWrapper");
+                    wrapper.scrollTop = wrapper.animate({scrollTop:10000});
+                }
+            });
+            
+}
+
 function IsEmail(email) {
     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);

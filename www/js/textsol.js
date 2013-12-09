@@ -62,8 +62,8 @@ function init() {
 
 jQuery(document).ready(function($){
 	
-	$(document).on('pagebeforeshow', '#pageChat', function(){  
-		console.log('#pageChat pagebeforeshow');	
+		var sourceUserList = $("#chat-template-userlist").html();
+		var templateChatUserList = Handlebars.compile(sourceUserList);
 		
 		var sourceHeader = $("#chat-template-header").html();
 		var templateChatHeader = Handlebars.compile(sourceHeader);
@@ -82,31 +82,18 @@ jQuery(document).ready(function($){
 				);
 			}
 		});
-
-		// save the online chat status
-		$.getJSON(API+"/chat/init?user_id="+objUser.user_id, function(res) {			
-			objChat = res;
-			console.log(objChat);
-			/*
-			if (res.online_status == '1') {
-				online = true;
-			} else {
-				online = false;
-				// @todo display offline message
-			}	
-			*/
-			//var context = {title: "My New Post", body: "This is my first post!"}
-			var htmlHeader = templateChatHeader(objChat);
-		    var htmlLoop = templateChatLoop(objChat);
-			//console.log(htmlLoop);
-			$('#chatHeader').html(htmlHeader);
-			$('.tab-content').html(htmlLoop);
-			//$( "#left-panel" ).trigger( "updatelayout" );
+		
+			Handlebars.registerHelper('displayTotal', function(msg,reply) {
 			
-			
-			chat_start();
+				return (parseInt(msg) + parseInt(reply));
 			
 		});
+		
+		
+	$(document).on('pagebeforeshow', '#pageChat', function(){  
+		console.log('#pageChat pagebeforeshow');	
+		
+		loadChatInit();			
 		
     });
 	
@@ -276,6 +263,7 @@ jQuery(document).ready(function($){
 			}	
 			*/
 			//var context = {title: "My New Post", body: "This is my first post!"}
+			
 			var htmlHeader = templateChatHeader(objChat);
 		    var htmlLoop = templateChatLoop(objChat);
 			//console.log(htmlLoop);
@@ -301,9 +289,43 @@ jQuery(document).ready(function($){
         console.log('handleRefreshOnlineUser');
         
         // loop online users to display list of active chats
-        
+        showDataUserList();
     }
   
+  /*
+  $(document).on('pagebeforeshow', '#listview-page', function(){
+    parseRSS(); 
+});
+
+function parseRSS() {
+      var articles = { entries: []};
+      for (var i = 0; i <=4; i++)
+      {
+        var obj = {
+          title: "test" + i
+        };
+        articles.entries.push(obj);
+      }
+      showData(articles);
+
+}
+*/
+  function showDataUserList()
+{
+	var htmlUserList = templateChatUserList(objChat);
+			$('#container_chat_userlist').html(htmlUserList);
+			//$("#container_chat_userlist ul").listview('refresh');
+			$("chat_userlist").listview('refresh');
+			
+			
+ //var source   = $("#articles-template").html();
+  //var template = Handlebars.compile(source);
+	
+  $("#listview-content").trigger('create');  
+  $("#pageChat").trigger('pagecreate');
+  $("#chat_userlist ul").listview('refresh');
+  $("#chat_userlist ul").listview().listview('refresh');
+ }
         
         
   if (ENV == 'dev') {
