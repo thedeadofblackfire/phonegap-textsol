@@ -8,7 +8,6 @@ var AjaxURL = BASE_URL+'/chat/';
 
 var objUser = {};
 var objChat = {};
-var chatConfig = {};
 
 var app = {
     // Application Constructor
@@ -263,13 +262,30 @@ jQuery(document).ready(function($){
 	function loadChatInit() {
 		console.log('loadChatInit');
 	
-        $.getJSON(API+"/chat/init?user_id="+user.user_id, function(res) {
-			console.log(res);
-			window.sessionStorage.setItem('chatConfig', JSON.stringify(res));
-            chatConfig = res;
-		
-            handleRefreshOnlineUser();
-            
+		// save the online chat status
+		$.getJSON(API+"/chat/init?user_id="+objUser.user_id, function(res) {			
+			objChat = res;
+			//window.sessionStorage.setItem('objChat', JSON.stringify(objChat));
+			console.log(objChat);
+			/*
+			if (res.online_status == '1') {
+				online = true;
+			} else {
+				online = false;
+				// @todo display offline message
+			}	
+			*/
+			//var context = {title: "My New Post", body: "This is my first post!"}
+			var htmlHeader = templateChatHeader(objChat);
+		    var htmlLoop = templateChatLoop(objChat);
+			//console.log(htmlLoop);
+			$('#chatHeader').html(htmlHeader);
+			$('.tab-content').html(htmlLoop);
+			//$( "#left-panel" ).trigger( "updatelayout" );
+			
+			handleRefreshOnlineUser();
+			chat_start();
+			
 		});
         
         /*
