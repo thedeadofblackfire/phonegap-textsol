@@ -42,6 +42,63 @@ $(document).ready(function() {
         $(this).tab('show');
     })   
 
+    $(document).on('click', ".btnChatSendReply", function(e) {
+		e.preventDefault();		
+        var $this = $(this);
+        var session_id = $(this).attr('data-session');
+      
+        var wrapper = $(".messageWrapper");
+        var id = $(".messageWrapper p.message:last").attr('mid');
+        //  var wrapper = $(".tab-content .active .messageWrapper");
+        //var id = $(".tab-content .active .messageWrapper p.message:last").attr('mid');
+        var textarea = $(this).siblings('textarea');
+        var message = $.trim(textarea.val());
+        
+        console.log('sessionid='+session_id + ' message='+message+' mid='+id);
+	
+        $this.siblings('p.err').remove();
+
+        if (message.length < 1)
+        {
+            textarea.addClass('bordererr');
+            textarea.after('<p class="err">Please enter your message.</p>');
+            return false;
+
+        }
+        $(this).html(' Wait... ');
+        $(this).attr('disabled', 'disabled');
+
+        $.ajax({
+            url: API + "/chat/save_reply_message",
+            type: "POST",
+            data: {id: id, message: message, support: objChat.support_display_name, user_id: objUser.user_id, session_id: session_id},
+            success: function(data) {
+                // echo '<p class="reply"><b>' . objChat.support_display_name . '</b>: ' . $reply->reply . ' <span>' . change_date_format('h:i:s a', $reply->post_date) . '</span></p>';
+                var str = '';
+                //change_date_format('h:i:s a', $reply->post_date)
+                if (data.reply) {
+                    str += '<p class="reply" rid="'+data.reply.id+'"><b>'+objChat.support_display_name+'</b>: '+data.reply.reply+' <span class="time">'+data.reply.post_date_format+'</span></p>';
+                    $(".messageWrapper").append(str);
+                }
+                //$(".tab-content .active .messageWrapper").append(data);
+                
+                //var wrapper=$(".tab-content .active .messageWrapper");
+                //var selector=$('#chat li.active a').attr('href');
+                // session_id = selector && selector.replace(/#/, ''); //strip for ie7                  
+                // select_tab_by_id(session_id);
+                $this.removeAttr('disabled');
+                $this.html('Send');
+				// $this.val('Send');
+                textarea.val('');
+                textarea.removeClass('bordererr');
+                wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
+            }
+        })
+        
+
+    });
+
+    
 	$(document).on('click', ".chatBtn", function(e) {
     //$('.chatBtn').on('click', function(e) {
 		e.preventDefault();		

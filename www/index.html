@@ -70,7 +70,8 @@
         color: #23580E;
     }
     .messageWrapper {
-        min-height:200px; margin-bottom: 20px; max-height: 300px; overflow: auto; padding-right: 20px;
+        margin-bottom: 20px; padding-right: 20px;
+        /* min-height:200px; margin-bottom: 20px; max-height: 300px; overflow: auto; padding-right: 20px;*/
     }
     .message span, .reply span{ color: #999999; display:block; float:right}
     .message { background:#F9F9F9; padding:5px; margin-bottom:2px;}
@@ -117,6 +118,31 @@
   </ul>
 </script>
 
+<script id="chat-template-userconversation" type="text/x-handlebars-template">
+    <div class="tab-pane" id="{{session_id}}">
+                <div class="plugins">
+				   {{{displayChatClose 0}}}				 
+                   <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>
+                </div>
+
+                <div class="messageWrapper">
+                {{#each conversation}} 
+                    <p class="message" mid="{{message.id}}"><b>{{message.name}} </b> : {{message.message}} <span class="time">{{message.post_date}} 09:44:30 am</span></p>
+                    {{#each reply}} 
+                        <p class="reply" rid="{{id}}"><b>{{../../replyname}}</b>: {{reply}} <span class="time">05:44:54 pm</span></p>
+                    {{/each}}
+                {{/each}}
+                </div>
+
+                <div class="chatform">			
+                    <textarea style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea><br/>
+                    <!--<input type="submit" value="Send" class="btn btn-primary chatBtn" />-->
+					<a data-role="button" href="#" data-session="{{session_id}}" class="btn btn-primary btnChatSendReply">Send</a>
+                </div>
+    </div>
+
+</script>
+
 
 <script id="chat-template-header" type="text/x-handlebars-template">
 <ul class="nav nav-tabs" id="chat">
@@ -148,8 +174,7 @@
 
                 </div>
 
-                <div class="chatform">
-			
+                <div class="chatform">			
                     <textarea style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea><br/>
                     <!--<input type="submit" value="Send" class="btn btn-primary chatBtn" />-->
 					<a data-role="button" href="#" class="btn btn-primary chatBtn">Send</a>
@@ -232,19 +257,20 @@
   
    <div data-role="page" id="pageChatSession">
       <div data-theme="a" data-role="header" data-position="fixed">
-          <a data-role="button" href="#pageChat" 
-          class="btn-back ui-btn-left">
+          <a data-role="button" href="#pageChat" class="btn-back ui-btn-left">
               List
           </a>
           <h1></h1>
       </div>
       <div data-role="content"></div>
+      <!--
       <div data-theme="d" data-role="footer" data-position="fixed">
           <h2>
               send
           </h2>
            <span class="ui-title" />
       </div>
+      -->
   </div>
   
    <div data-role="page" data-control-title="Settings" id="pageSettings">

@@ -67,6 +67,9 @@ jQuery(document).ready(function($){
 	
 		var sourceUserList = $("#chat-template-userlist").html();
 		var templateChatUserList = Handlebars.compile(sourceUserList);
+        
+        var sourceUserConversation = $("#chat-template-userconversation").html();
+        var templateChatUserConversation = Handlebars.compile(sourceUserConversation);
 		
 		var sourceHeader = $("#chat-template-header").html();
 		var templateChatHeader = Handlebars.compile(sourceHeader);
@@ -84,7 +87,7 @@ jQuery(document).ready(function($){
 					'<a class="btn closeChat btn-danger" style="width:auto!important;"><i class="icon-remove"></i> Close Chat</a>'
 				);
 			}
-		});
+		});        
 		
 	    Handlebars.registerHelper('displayTotal', function(msg,reply) {			
 			return (parseInt(msg) + parseInt(reply));		
@@ -98,33 +101,6 @@ jQuery(document).ready(function($){
 		
     });
     
-    // Bind to the click of the example link
-    /*
-    $(document).on('click', '.goview', function( event ) {
-
-  // Append #bar
-  alert('goview');
-  mofChangePage('#pageChatView');
-  
-  $.mobile.navigate( "#bar", {
-    info: "info about the #bar hash"
-  });
-
-  // Replace #bar with #baz
-  $.mobile.navigate( "#baz" );
-
-  // Log the results of the navigate event
-  $( window ).on( "navigate", function( event, data ){
-    console.log( data.state.info );
-    console.log( data.state.direction );
-    console.log( data.state.url );
-    console.log( data.state.hash );
-  });
-
-  // Go back to pop the state for #bar and log it
-  window.history.back();
-});
-*/
 
 //http://www.moretechtips.net/2012/07/dynamic-page-generation-in-jquery.html
 //http://jquerymobile.com/demos/1.0rc1/docs/pages/page-dynamic.html
@@ -229,8 +205,12 @@ function loadSession(urlObj, options) {
            });
            */
            chapterHTML += res.html_visitor;
-           chapterHTML += res.html_conversation;
-           //chapterHTML += '<p>bla bla bla bla session='+sessionid+'</p>';
+           //chapterHTML += res.html_conversation;
+    
+           	var htmlUserConversation = templateChatUserConversation(res);
+            chapterHTML += htmlUserConversation;
+			//$('#container_chat_userlist').html(htmlUserConversation);
+			//$("chat_userlist").listview('refresh');
            
            // Get the content element for the page to set it
            $content = $page.children( ":jqmData(role=content)" );
@@ -251,200 +231,6 @@ function loadSession(urlObj, options) {
    
 };
     
-// Load the data for a specific category, based on
-// the URL passed in. Generate markup for the items in the
-// category, inject it into an embedded page, and then make
-// that page the current active page.
-function showSession( urlObj, options ) {
-    var params = hashParams(urlObj.hash);
-    console.log(params);
-    
-	//var categoryName = urlObj.hash.replace( /.*id=/, "" ),
-    var sessionid = params['id'];
-    if( !sessionid ) {
-      alert('Session not found!');
-      return
-    };
-       
-    var book = objSession[ '_' + sessionid ];
-   // book xml was not loaded ?   
-   if( !book || book['text']==undefined || !book['text'] ){
-      // call loadBook first
-      loadSession( sessionid, urlObj, options);
-      return
-   };
-   
-
-            
-   // get chapter num
-   //var chapterNum = parseInt( params['num'] );
-   //if ( isNaN(chapterNum) || chapterNum<=0 ) chapterNum=1;
-
-
-		// Get the object that represents the category we
-		// are interested in. Note, that at this point we could
-		// instead fire off an ajax request to fetch the data, but
-		// for the purposes of this sample, it's already in memory.
-		//category = categoryData[ categoryName ],
-
-		// The pages we use to display our content are already in
-		// the DOM. The id of the page we are going to write our
-		// content into is specified in the hash before the '?'.
-		//var pageSelector = urlObj.hash.replace( /\?.*$/, "" );
-
-   // Get the empty page we are going to insert our content into.
-   var $page = $('#pageChatSession');
-   //var $page = $( pageSelector );
-  
-   // Get the header for the page to set it
-   $header = $page.children( ":jqmData(role=header)" );
-   $header.find( "h1" ).html( 'test' );
-   //$header.find( "h1" ).html( book.bname +' '+ chapterNum );
-
-   var chapterHTML = '';
-   /*
-   $( verseNodeName , chapter).each(function(i) {
-      var vers = $(this);
-      chapterHTML += '<p><sup>'+ (i+1) +'</sup> '+ vers.text() +'</p>'
-   });
-   */
-   chapterHTML += '<p>bla bla bla bla session='+sessionid+'</p>';
-   
-   // Get the content element for the page to set it
-   $content = $page.children( ":jqmData(role=content)" );
-   $content.html(chapterHTML);
-
-   // change href of next links to the next chapter
-   //var nextChapterNum = chapterNum >= chaptersSize? chaptersSize : chapterNum+1;
-   //$('a.next', $page).attr('href' , '#chapter?book='+ params['book'] + '&num='+ nextChapterNum );
-
-   // update data-url that shows up in the browser location
-   options.dataUrl = urlObj.href;
-   console.log(options);
-
-   // switch to the page we just modified.
-   $.mobile.changePage( $page, options );
-   
-   /*
-	if ( category ) {
-		// Get the page we are going to dump our content into.
-		var $page = $( pageSelector ),
-
-			// Get the header for the page.
-			$header = $page.children( ":jqmData(role=header)" ),
-
-			// Get the content area element for the page.
-			$content = $page.children( ":jqmData(role=content)" ),
-
-			// The markup we are going to inject into the content
-			// area of the page.
-			markup = "<p>" + category.description + "</p><ul data-role='listview' data-inset='true'>",
-
-			// The array of items for this category.
-			cItems = category.items,
-
-			// The number of items in the category.
-			numItems = cItems.length;
-
-		// Generate a list item for each item in the category
-		// and add it to our markup.
-		for ( var i = 0; i < numItems; i++ ) {
-			markup += "<li>" + cItems[i].name + "</li>";
-		}
-		markup += "</ul>";
-
-		// Find the h1 element in our header and inject the name of
-		// the category into it.
-		$header.find( "h1" ).html( category.name );
-
-		// Inject the category items markup into the content element.
-		$content.html( markup );
-
-		// Pages are lazily enhanced. We call page() on the page
-		// element to make sure it is always enhanced before we
-		// attempt to enhance the listview markup we just injected.
-		// Subsequent calls to page() are ignored since a page/widget
-		// can only be enhanced once.
-		$page.page();
-
-		// Enhance the listview we just injected.
-		$content.find( ":jqmData(role=listview)" ).listview();
-
-		// We don't want the data-url of the page we just modified
-		// to be the url that shows up in the browser's location field,
-		// so set the dataUrl option to the URL for the category
-		// we just loaded.
-		options.dataUrl = urlObj.href;
-
-		// Now call changePage() and tell it to switch to
-		// the page we just modified.
-		$.mobile.changePage( $page, options );
-	}
-    */
-}
-
-
-
-function showChapter( url, options ) {
-   // parse params in url hash
-   var params = hashParams(url.hash);
-
-   // Get book by its short-name 
-   var book = books[ '_' + params['book'] ];
-   if( !book ) {
-      alert('Book not found!');
-      return
-   };
-
-   // book xml was not loaded ?
-   if( book['xml']==undefined || !book['xml'] ){
-      // call loadBook first
-      loadBook( params['book'], url, options);
-      return
-   };
-
-   // get chapter num
-   var chapterNum = parseInt( params['num'] );
-   if ( isNaN(chapterNum) || chapterNum<=0 ) chapterNum=1;
-
-   // get chapters nodes in book, chapterNodeName='chapter' for OSIS XML
-   var chapters = $( chapterNodeName , book['xml']);
-   var chaptersSize = chapters.size();
-   // Use last chapter if num is greater than chapters count
-   if( chapterNum > chaptersSize ) chapterNum= chaptersSize;
-
-   // get chapter
-   var chapter = chapters.eq( chapterNum-1 );
-
-   // append verses as paragraphs
-   var chapterHTML = '';
-   $( verseNodeName , chapter).each(function(i) {
-      var vers = $(this);
-      chapterHTML += '<p><sup>'+ (i+1) +'</sup> '+ vers.text() +'</p>'
-   });
-
-   // Get the empty page we are going to insert our content into.
-   var $page = $('#chapter');
-  
-   // Get the header for the page to set it
-   $header = $page.children( ":jqmData(role=header)" );
-   $header.find( "h1" ).html( book.bname +' '+ chapterNum );
-
-   // Get the content element for the page to set it
-   $content = $page.children( ":jqmData(role=content)" );
-   $content.html(chapterHTML);
-
-   // change href of next links to the next chapter
-   var nextChapterNum = chapterNum >= chaptersSize? chaptersSize : chapterNum+1;
-   $('a.next', $page).attr('href' , '#chapter?book='+ params['book'] + '&num='+ nextChapterNum );
-
-   // update data-url that shows up in the browser location
-   options.dataUrl = url.href;
-
-   // switch to the page we just modified.
-   $.mobile.changePage( $page, options )
-};
-
 
 
 /*
@@ -632,12 +418,14 @@ var currentUrl = $.mobile.activePage.data('url');
 			*/
 			//var context = {title: "My New Post", body: "This is my first post!"}
 			
+            /*
 			var htmlHeader = templateChatHeader(objChat);
 		    var htmlLoop = templateChatLoop(objChat);
 			//console.log(htmlLoop);
 			$('#chatHeader').html(htmlHeader);
 			$('.tab-content').html(htmlLoop);
 			//$( "#left-panel" ).trigger( "updatelayout" );
+            */
 			
 			handleRefreshOnlineUser();
 			chat_start();
