@@ -2,7 +2,8 @@
 var BASE_URL = 'http://www.textsol.com';
 var ENV = 'production';
 if (window.location.hostname == 'livechat.phonegap.local') {
-    BASE_URL = 'http://wctext.local';
+    BASE_URL = 'http://textwc.local';
+	//BASE_URL = 'http://wctext.local';
     ENV = 'dev';
 }
 var API = BASE_URL+'/api';
@@ -63,6 +64,13 @@ function init() {
 }
 */
 
+	function formatDate(d) {
+		var str = d.substr(11,8);
+		if (parseInt(d.substr(11,2)) < 12) str += ' am';
+		else str += ' pm';
+		return str;
+	}
+	
 jQuery(document).ready(function($){
 	
 		var sourceUserList = $("#chat-template-userlist").html();
@@ -92,6 +100,11 @@ jQuery(document).ready(function($){
 	    Handlebars.registerHelper('displayTotal', function(msg,reply) {			
 			return (parseInt(msg) + parseInt(reply));		
 		});
+		
+		Handlebars.registerHelper('formatDate', function(v) {			
+			return formatDate(v); 		
+		});
+		
 		
 		
 	$(document).on('pagebeforeshow', '#pageChat', function(){  
@@ -147,6 +160,7 @@ jQuery(document).ready(function($){
 	    return ret
 	};
     
+
  
 
 function loadSession(urlObj, options) {
@@ -157,7 +171,8 @@ function loadSession(urlObj, options) {
     
     var sessionid = params['id'];
     if( !sessionid ) {
-      alert('Session not found!');
+      //alert('Session not found!');
+	  mofChangePage('#pageChat');
       return
     };
 

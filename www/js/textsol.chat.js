@@ -23,12 +23,17 @@ function select_tab_by_id(id)
     })
 }
 function new_message(id) {
-
+    
+	// @todo if sounds ok and phonegap audio
+	
     //if ($(".soundOff").hasClass('btn-success'))
-        $.playSound(objChat.chat_sound_path);
+	// incoming message
+        $.playSound(objChat.chat_sound_path_local);
 
     $(function() {
         //$('#chat a[href="#' + id + '"]').tab('show');
+		
+		// @todo detect incoming chat (sounds)
 		$('#chat a[href="#' + id + '"]').tab('new_message');
     })
 }
@@ -280,14 +285,15 @@ function chat_start()
 
 function chat_update()
 {
-    var wrapper = $(".tab-content .active .messageWrapper");
+    var wrapper = $(".messageWrapper");
+	//var wrapper = $(".tab-content .active .messageWrapper");
     var selector = $('#chat li.active a').attr('href');
     session_id = selector && selector.replace(/#/, ''); //strip for ie7   
     
     var current_session_id = $('#current_session_id').val();
     var last_message_id = $(".messageWrapper p.message:last").attr('mid');
     console.log(current_session_id+' mid='+last_message_id);
-    /*
+    
     $.ajax({
         //url: AjaxURL + 'update_chat',
 		url: API+'/chat/update_chat',
@@ -295,7 +301,8 @@ function chat_update()
         type: 'POST',
         data: {session_id: session_id, user_id: objUser.user_id, mid: last_message_id},
         success: function(data) {
-
+			//console.log(data);
+			
             if (data.user.session_id) {
 
                 var find = $('#chat').find('a[href="#' + data.user.session_id + '"]');
@@ -308,7 +315,6 @@ function chat_update()
 
             }
 
-            var newfind = $(".tab-content .active .messageWrapper p.message[mid='" + data.message.id + "']");
             //console.log(data.alert);
             if (data.alert != null)
             {
@@ -318,20 +324,35 @@ function chat_update()
                     }
                 })
             }
+			
+			if (data.messages != null) {
+				console.log(data);
+				//var newfind = $(".tab-content .active .messageWrapper p.message[mid='" + data.message.id + "']");
+				$.each(data.messages, function(k, v) {
+				    var newfind = $(".messageWrapper p.message[mid='" + v.id + "']");
+					if (newfind.length == 0) {
+						var str = '<p class="message" mid="'+v.id+'"><b>'+v.name+'</b>: '+v.message+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
+						$(".messageWrapper").append(str);
+						//$(".tab-content .active .messageWrapper").append(data.message.text);
+					}
+                })
 
-            if (newfind.length == 0)
-            {
-                $(".tab-content .active .messageWrapper").append(data.message.text);
-                $('#chat li.active a span').fadeOut(700);
-                setTimeout(function() {
-                    $('#chat li.active a span').remove()
-                }, 1500);
-                wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
-            }
+				/*
+				if (newfind.length == 0)
+				{
+					$(".tab-content .active .messageWrapper").append(data.message.text);
+					$('#chat li.active a span').fadeOut(700);
+					setTimeout(function() {
+						$('#chat li.active a span').remove()
+					}, 1500);
+					wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
+				}
+				*/
+			}
 
         }
     });
-    */
+    
 }
 
 /*

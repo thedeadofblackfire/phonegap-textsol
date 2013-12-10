@@ -129,9 +129,9 @@
                 
                 <div class="messageWrapper">
                 {{#each conversation}} 
-                    <p class="message" mid="{{message.id}}"><b>{{message.name}} </b> : {{message.message}} <span class="time">{{message.post_date}} 09:44:30 am</span></p>
+                    <p class="message" mid="{{message.id}}"><b>{{message.name}} </b> : {{message.message}} <span class="time">{{formatDate message.post_date}}</span></p>
                     {{#each reply}} 
-                        <p class="reply" rid="{{id}}"><b>{{../../replyname}}</b>: {{reply}} <span class="time">05:44:54 pm</span></p>
+                        <p class="reply" rid="{{id}}"><b>{{../../replyname}}</b>: {{reply}} <span class="time">{{formatDate post_date}}</span></p>
                     {{/each}}
                 {{/each}}
                 </div>
@@ -215,7 +215,8 @@
 		  
 		  
 		  
-		  <div class="play"></div>
+		  <!--<div class="play"></div>-->
+		  
       </div>
 	  <div data-role="panel" id="left-panel" data-theme="c">
         <ul data-role="listview" data-theme="d">
@@ -273,6 +274,7 @@
            <span class="ui-title" />
       </div>
       -->
+	  
   </div>
   
    <div data-role="page" data-control-title="Settings" id="pageSettings">
@@ -399,6 +401,8 @@
           </ul>
       </div>
   </div>
+  
+  <div class="play"></div>
   
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script> 
 		<script type="text/javascript" charset="utf-8" src="js/jquery-1.9.1.js"></script>
