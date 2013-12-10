@@ -124,7 +124,9 @@
 				   {{{displayChatClose 0}}}				 
                    <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>
                 </div>
-
+                
+                <input type="hidden" name="current_session_id" id="current_session_id" value="{{session_id}}" />
+                
                 <div class="messageWrapper">
                 {{#each conversation}} 
                     <p class="message" mid="{{message.id}}"><b>{{message.name}} </b> : {{message.message}} <span class="time">{{message.post_date}} 09:44:30 am</span></p>
