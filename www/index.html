@@ -112,7 +112,7 @@
 <ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">
 <li data-role="list-divider">Below are your currently active chats</li>
   {{#each online_user}} 
-	 <li><a href="#pageChatSession?id={{session_id}}" hrefxxxx="#/pageChatSession/{{session_id}}" class="goview" data-theme="e">{{name}}<p>CA</p> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">{{{displayTotal totalmsg totalreply}}}</span></a></li>
+	 <li><a href="#pageChatSession?id={{session_id}}" hrefxxxx="#/pageChatSession/{{session_id}}" data-theme="e">{{name}}<p>CA</p> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">{{{displayTotal totalmsg totalreply}}}</span></a></li>
   {{/each}}
   </ul>
 </script>

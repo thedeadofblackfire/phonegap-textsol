@@ -142,14 +142,15 @@ jQuery(document).ready(function($){
             var url = $.mobile.path.parseUrl( data.toPage ),
                 regex = /^#pageChatSession/;
 
-            //console.log(url);
+            console.log(url);
             
             if ( url.hash.search(regex) !== -1 ) {
 
                 // We're being asked to display the items for a specific category.
                 // Call our internal method that builds the content for the category
-                // on the fly based on our in-memory category data structure.               
-                loadSession(url, data.options);
+                // on the fly based on our in-memory category data structure.
+               // showSession( url, data.options );
+                loadSession2(url, data.options);
 
                 // Make sure to tell changePage() we've handled this call so it doesn't have to do anything.
                 e.preventDefault();
@@ -171,10 +172,45 @@ jQuery(document).ready(function($){
 	    return ret
 	};
     
- 
+    // load book xml by its short name
+function loadSession(s_id, url, options) {
+   // show loading icon
+   $.mobile.showPageLoadingMsg();
 
-function loadSession(urlObj, options) {
-   console.log('loadSession');
+   $.ajax({
+      url: API+"/chat/get_conversation_by_session",
+      datatype: 'json',
+      type: "post",
+      data: {replyname: objChat.support_display_name, session_id: s_id, user_id: objUser.user_id},
+      //datatype:'xml',
+      success:function(res){
+         $.mobile.hidePageLoadingMsg();
+         console.log(res);
+     
+         // save xml document as a property of the array element
+                        
+         if( !objSession[ '_' + s_id ] ) {
+            objSession[ '_' + s_id ] = {};
+		
+		  };
+         var book = objSession[ '_' + s_id ];
+         book['text'] = res;
+         //book.text = res;
+        
+         console.log(objSession);
+         
+         // call showSession 
+         showSession( url, options );
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+         alert('Error loading session, try again!');
+      }
+   });
+   
+};
+
+function loadSession2(urlObj, options) {
+   console.log('loadSession2');
  
     var params = hashParams(urlObj.hash);
     //console.log(params);
@@ -212,13 +248,12 @@ function loadSession(urlObj, options) {
          */
             
          // Get the empty page we are going to insert our content into.
-            var pageSelector = urlObj.hash.replace( /\?.*$/, "" );
-           //var $page = $('#pageChatSession');
-           var $page = $( pageSelector );
+           var $page = $('#pageChatSession');
+           //var $page = $( pageSelector );
           
            // Get the header for the page to set it
            $header = $page.children( ":jqmData(role=header)" );
-           $header.find( "h1" ).html( res.name+' #'+sessionid );
+           $header.find( "h1" ).html( 'test '+sessionid );
            //$header.find( "h1" ).html( book.bname +' '+ chapterNum );
 
            var chapterHTML = '';
