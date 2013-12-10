@@ -112,7 +112,7 @@
 <ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">
 <li data-role="list-divider">Below are your currently active chats</li>
   {{#each online_user}} 
-	 <li><a href="#{{session_id}}" data-theme="e">{{name}}<p>CA</p> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">{{{displayTotal totalmsg totalreply}}}</span></a></li>
+	 <li><a href="#pageChatSession?id={{session_id}}" hrefxxxx="#/pageChatSession/{{session_id}}" class="goview" data-theme="e">{{name}}<p>CA</p> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">{{{displayTotal totalmsg totalreply}}}</span></a></li>
   {{/each}}
   </ul>
 </script>
@@ -188,106 +188,6 @@
 		  
 		  
 		  
-		  <!--
-		  
-          <h4>
-              Below are your currently active chats
-          </h4>
-          
-          
-          <ul data-role="listview" data-count-theme="c" data-inset="true">
-            <li><a href="#"><h2>james</h2> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">12</span></a></li>
-            <li><a href="#">Outbox <span class="ui-li-count">0</span></a></li>
-            <li><a href="#">Drafts <span class="ui-li-count">4</span></a></li>
-            <li><a href="#">Sent <span class="ui-li-count">328</span></a></li>
-            <li><a href="#">Trash <span class="ui-li-count">62</span></a></li>
-         </ul>
-
-          <div data-role="collapsible-set" data-content-theme="c">
-              <div data-role="collapsible">
-                  <h3>
-                      John Smith
-                  </h3>
-                  <div data-controltype="textblock">
-                      <p>
-                          <b>
-                              John:
-                          </b>
-                          Hello, I want to buy the pink chainsaw.
-                      </p>
-                  </div>
-                  <div data-controltype="textblock">
-                      <p>
-                          <b>
-                              You:
-                          </b>
-                          Sure thing!
-                      </p>
-                  </div>
-                  <div data-role="fieldcontain" data-controltype="textarea">
-                      <textarea name="" id="textarea1" placeholder="Reply here..."></textarea>
-                  </div>
-                  <input type="submit" data-theme="b" data-icon="refresh" data-iconpos="left"
-                  value="Submit">
-              </div>
-              <div data-role="collapsible" data-collapsed="false">
-                  <h3>
-                      Jane Doe
-                  </h3>
-                  <div data-controltype="textblock">
-                      <p>
-                          <b>
-                              Jane:
-                          </b>
-                          Hello, how much for the red dress?
-                      </p>
-                  </div>
-                  <div data-controltype="textblock">
-                      <p>
-                          <b>
-                              You:
-                          </b>
-                          Just $6500!
-                      </p>
-                  </div>
-                  <div data-role="fieldcontain" data-controltype="textarea">
-                      <textarea name="" id="textarea2" placeholder="Reply here..."></textarea>
-                  </div>
-                  <input type="submit" data-theme="b" data-icon="refresh" data-iconpos="left"
-                  value="Submit">
-              </div>
-              <div data-role="collapsible">
-                  <h3>
-                      Mike Horsetail
-                  </h3>
-                  <div data-controltype="textblock">
-                      <p>
-                          <b>
-                              Mike:
-                          </b>
-                          anyone there?
-                      </p>
-                  </div>
-                  <div data-controltype="textblock">
-                      <p>
-                          <b>
-                              You:
-                          </b>
-                          Hi Mike, how can I help you?
-                      </p>
-                  </div>
-                  <div data-role="fieldcontain" data-controltype="textarea">
-                      <label for="textarea3">
-                          Title
-                      </label>
-                      <textarea name="" id="textarea3" placeholder=""></textarea>
-                  </div>
-                  <input type="submit" data-theme="b" data-icon="refresh" data-iconpos="left"
-                  value="Submit">
-              </div>
-          </div>
-		  -->
-		  
 		  <div class="play"></div>
       </div>
 	  <div data-role="panel" id="left-panel" data-theme="c">
@@ -326,6 +226,24 @@
                   </a>
               </li>
           </ul>
+      </div>
+  </div>
+  
+  
+   <div data-role="page" id="pageChatSession">
+      <div data-theme="a" data-role="header" data-position="fixed">
+          <a data-role="button" href="#pageChat" 
+          class="btn-back ui-btn-left">
+              List
+          </a>
+          <h1></h1>
+      </div>
+      <div data-role="content"></div>
+      <div data-theme="d" data-role="footer" data-position="fixed">
+          <h2>
+              send
+          </h2>
+           <span class="ui-title" />
       </div>
   </div>
   

@@ -214,9 +214,11 @@ function chat_start()
         $('#chat a:first').tab('show');      
     }
 	
+    /*
     auto_refresh = setInterval(function() {
         chat_update()
     }, 5000); // refresh every 5 seconds 
+    */
 	
 }
 
