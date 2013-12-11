@@ -25,6 +25,7 @@ function select_tab_by_id(id)
 function new_message(id) {
     
 	// @todo if sounds ok and phonegap audio
+    //http://docs.phonegap.com/en/3.2.0/cordova_media_media.md.html#Media
 	
     //if ($(".soundOff").hasClass('btn-success'))
 	// incoming message
@@ -263,24 +264,23 @@ $(document).ready(function() {
     });
 
 
-
 })
 
 function chat_start() 
 {
- 	console.log(objChat.session_id);
+ 	//console.log(objChat.session_id);
+    /*
     if (objChat.session_id && objChat.session_id!="") {
         $('#chat a[href="#' + objChat.session_id + '"]').tab('show');         
     } else {
         $('#chat a:first').tab('show');      
     }
-	
-    
+    */
+	    
     auto_refresh = setInterval(function() {
         chat_update()
     }, 5000); // refresh every 5 seconds 
-    
-	
+    	
 }
 
 
@@ -306,6 +306,9 @@ function chat_update()
         success: function(data) {
 			console.log(data);
 			
+            badgeChatCount = 1;            
+            displayBadgeChat();
+            
             if (data.users != null) {
                 $.each(data.users, function(k, v) {                
                     // incoming chat

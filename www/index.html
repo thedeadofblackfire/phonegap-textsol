@@ -11,6 +11,7 @@
 		<link href="css/codiqa.ext.css" rel="stylesheet">
 		<link href="css/jquery.mobile.theme-1.3.1.css" rel="stylesheet">
 		<link href="css/textsol.css" rel="stylesheet">
+        <link href="css/textsol.custom.css" rel="stylesheet">
 		<link href="css/jquery.mobile.structure-1.3.1.css" rel="stylesheet">			    
     </head>
     <body>
@@ -61,53 +62,28 @@
               Below are your currently active chats
           </h4>
 		  -->
-          
-          
-     
-<style>
+            
 
-    li.new_user a{
-        background: #AFD898;
-        color: #23580E;
-    }
-    
-    .messageWrapper {
-        margin-bottom: 20px; padding-right: 20px;
-        /* min-height:200px; margin-bottom: 20px; max-height: 300px; overflow: auto; padding-right: 20px;*/
-    }
-    .message span, .reply span{ color: #999999; display:block; float:right}
-    .message { background:#F9F9F9; padding:5px; margin-bottom:2px;}
-    .reply { background:#FFFEEE;padding:4px; margin-bottom:2px; }
-    a:focus{outline:none}
+        <div id="chatWindow">  
+            <!--
+            <span align='right' style="float: right">
+                <?php if ($chat_sound['sound'] == "off"): ?>
+                    <a class="btn soundOff btn-danger" user_id='<?php echo $current_user->user_id; ?>' >Sound<i class="icon-remove"></i></a>
+                <?php else : ?>
+                    <a class="btn soundOff btn-success" user_id='<?php echo $current_user->user_id; ?>' >Sound<i class="icon-ok"></i></a>
+                <?php endif; ?>
+            </span>
+            -->
+         
+            <div id="container_chat_userlist"></div>
+         
+            <div id="chatHeader"></div>
+            
+            <div class="tab-content">
+                <!--<div id="chatLoop"></div>-->		        
+            </div>
 
-    p.err{color:#f00;}
-    input.bordererr, input.bordererr:focus, .bordererr, .bordererr:focus {border: 1px solid #f00}
-    .plugins { margin-bottom: 10px; text-align: right}
-    .badge { margin-left: 5px}
-    .user_info { margin-bottom: 20px;}
-    .user_info b { margin-left: 15px;}
-</style>
-
-<div id="chatWindow">  
-    <!--
-    <span align='right' style="float: right">
-        <?php if ($chat_sound['sound'] == "off"): ?>
-            <a class="btn soundOff btn-danger" user_id='<?php echo $current_user->user_id; ?>' >Sound<i class="icon-remove"></i></a>
-        <?php else : ?>
-            <a class="btn soundOff btn-success" user_id='<?php echo $current_user->user_id; ?>' >Sound<i class="icon-ok"></i></a>
-        <?php endif; ?>
-    </span>
-	-->
- 
-    <div id="container_chat_userlist"></div>
- 
-	<div id="chatHeader"></div>
-	
-    <div class="tab-content">
-		<!--<div id="chatLoop"></div>-->		        
-    </div>
-
-</div>
+        </div>
 
 
  
@@ -115,7 +91,7 @@
 <ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">
     <li data-role="list-divider">Below are your currently active chats</li>
   {{#each online_user}} 
-	<li><a href="#pageChatSession?id={{session_id}}" hrefxxxx="#/pageChatSession/{{session_id}}" sid="{{session_id}}" data-theme="e">{{name}}<p>CA</p> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">{{{displayTotal totalmsg totalreply}}}</span></a></li>
+	<li><a href="#pageChatSession?id={{session_id}}" sid="{{session_id}}" data-theme="e">{{name}}<p>CA</p> <p class="ui-li-aside"><strong>{{formatDate start_date}}</strong></p> <span class="ui-li-count">{{{displayTotal totalmsg totalreply}}}</span></a></li>
   {{/each}}
   </ul>
 </script>
@@ -240,7 +216,9 @@
     </div><!-- /panel -->
       <div data-role="tabbar" data-iconpos="top" data-theme="b">
           <ul>
-              <li>
+              <li class="ui-badge-container">
+              
+                 <span class="badge-chat notification_badge yellow"></span>
                   <a href="#pageChat" data-transition="slideup" data-theme="" data-icon="home">
                       Active Chats
                   </a>

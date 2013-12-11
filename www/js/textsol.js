@@ -10,7 +10,8 @@ var AjaxURL = BASE_URL+'/chat/';
 
 var objUser = {};
 var objChat = {};
-var objSession = {};
+var objSession = {}; // notification
+var badgeChatCount = 0;
 
 var app = {
     // Application Constructor
@@ -235,9 +236,12 @@ function loadSession(urlObj, options) {
            $content = $page.children( ":jqmData(role=content)" );
            $content.html(chapterHTML);
                    
+           // flag unread 
+           checkUnread(sessionid);
+           
            options.dataUrl = urlObj.href;
            //options.changeHash = false;
-           //console.log(options);
+           //console.log(options);                      
 
            // switch to the page we just modified.
            $.mobile.changePage( $page, options );
@@ -420,36 +424,41 @@ var currentUrl = $.mobile.activePage.data('url');
     });
   
 	function loadChatInit() {
-		console.log('loadChatInit');
-	
-		// save the online chat status
-		$.getJSON(API+"/chat/init?user_id="+objUser.user_id, function(res) {			
-			objChat = res;
-			//window.sessionStorage.setItem('objChat', JSON.stringify(objChat));
-			console.log(objChat);
-			/*
-			if (res.online_status == '1') {
-				online = true;
-			} else {
-				online = false;
-				// @todo display offline message
-			}	
-			*/
-			//var context = {title: "My New Post", body: "This is my first post!"}
-			
-            /*
-			var htmlHeader = templateChatHeader(objChat);
-		    var htmlLoop = templateChatLoop(objChat);
-			//console.log(htmlLoop);
-			$('#chatHeader').html(htmlHeader);
-			$('.tab-content').html(htmlLoop);
-			//$( "#left-panel" ).trigger( "updatelayout" );
-            */
-			
-			handleRefreshOnlineUser();
-			chat_start();
-			
-		});
+      console.log('loadChatInit');
+      
+      if (Object.keys(objChat).length == 0 ){
+            console.log('Chat init & start');
+            // save the online chat status
+            
+            $.getJSON(API+"/chat/init?user_id="+objUser.user_id, function(res) {			
+                objChat = res;
+                //window.sessionStorage.setItem('objChat', JSON.stringify(objChat));
+                console.log(objChat);
+                /*
+                if (res.online_status == '1') {
+                    online = true;
+                } else {
+                    online = false;
+                    // @todo display offline message
+                }	
+                */
+                //var context = {title: "My New Post", body: "This is my first post!"}
+                
+                /*
+                var htmlHeader = templateChatHeader(objChat);
+                var htmlLoop = templateChatLoop(objChat);
+                //console.log(htmlLoop);
+                $('#chatHeader').html(htmlHeader);
+                $('.tab-content').html(htmlLoop);
+                //$( "#left-panel" ).trigger( "updatelayout" );
+                */
+                
+                handleRefreshOnlineUser();
+                
+                chat_start();
+                
+            });
+        }
         
         /*
 		if(window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
@@ -464,7 +473,7 @@ var currentUrl = $.mobile.activePage.data('url');
         console.log('handleRefreshOnlineUser');
         
         // loop online users to display list of active chats
-        resetDataUserList();
+        loadDataUserList(objChat);
     }
   
   /*
@@ -496,8 +505,21 @@ function parseRSS() {
 	
 });
 
-function resetDataUserList() {
-	var htmlUserList = templateChatUserList(objChat);
+function loadDataUserList(data) {
+	//var htmlUserList = templateChatUserList(data);
+    
+    var htmlUserList = '';
+    
+    htmlUserList += '<ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">';
+    htmlUserList += '<li data-role="list-divider">Below are your currently active chats</li>';
+    $.each(data.online_user, function(k, v) {                
+        htmlUserList += '<li><a href="#pageChatSession?id='+v.session_id+'" sid="'+v.session_id+'" data-theme="e">'+v.name+'<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+    
+        updateSession(v); 
+        
+    });
+    htmlUserList += '</ul>';
+    
 	$('#container_chat_userlist').html(htmlUserList);
 	//$("#container_chat_userlist ul").listview('refresh');
 	//$("chat_userlist").listview('refresh');
@@ -512,10 +534,48 @@ function resetDataUserList() {
       
 }
 
+function updateSession(v) {
+    if( !objSession[ v.session_id ] ) {
+        console.log('updateUser new='+v.session_id);
+        v.unreadMessage = 0;
+        objSession[ v.session_id ] = v; //{}
+    } else {
+        // update
+        var sess = objSession[ v.session_id ];     
+        sess.end_date = v.end_date;
+        sess.unreadMessage = sess.unreadMessage + (parseInt(v.totalmsg) - parseInt(sess.totalmsg));
+        console.log('updateUser update='+v.session_id);
+        
+        console.log(sess); 
+    }
+        
+}
+
+function displayBadgeChat() {
+    if (badgeChatCount > 0) $('.badge-chat').html(badgeChatCount).fadeIn();
+    else $('.badge-chat').html('').fadeOut();
+}
+
+function checkUnread(session_id) {
+    var sess = objSession[ session_id ]; 
+    if (sess.unreadMessage > 0) {     
+        console.log('checkUnread '+session_id);   
+        badgeChatCount -= sess.unreadMessage; 
+        sess.unreadMessage = 0;         
+        displayBadgeChat();    
+        
+        console.log(sess); 
+    }
+}
+
 function updateDataUserList(v) {
     $('#chat_userlist > li:first').after('<li class="new_user"><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + v.name + '<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p><span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>');
     //$('#chat_userlist').prepend('<li class="new_user"><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + v.name + '<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p><span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>');
-	$("#chat_userlist").listview('refresh');			
+	$("#chat_userlist").listview('refresh');
+
+    updateSession(v);     
+    
+    // @todo play incoming user
 }     
 
 function updateSessionMessage(v) {

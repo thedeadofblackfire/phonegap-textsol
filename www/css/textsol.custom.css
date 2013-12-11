@@ -1,0 +1,42 @@
+
+    li.new_user a{
+        background: #AFD898;
+        color: #23580E;
+    }
+    
+    .messageWrapper {
+        margin-bottom: 20px; padding-right: 20px;
+        /* min-height:200px; margin-bottom: 20px; max-height: 300px; overflow: auto; padding-right: 20px;*/
+    }
+    .message span, .reply span{ color: #999999; display:block; float:right}
+    .message { background:#F9F9F9; padding:5px; margin-bottom:2px;}
+    .reply { background:#FFFEEE;padding:4px; margin-bottom:2px; }
+    a:focus{outline:none}
+
+    p.err{color:#f00;}
+    input.bordererr, input.bordererr:focus, .bordererr, .bordererr:focus {border: 1px solid #f00}
+    .plugins { margin-bottom: 10px; text-align: right}
+    .badge { margin-left: 5px}
+    .user_info { margin-bottom: 20px;}
+    .user_info b { margin-left: 15px;}
+    
+    /* badge */
+    .notification_badge {
+      display: none;
+      background: #BA070F;
+      color: #fff;
+      padding: 1px 7px;
+      position: absolute;
+      right: 4px;
+      top: -12px;
+      z-index: 999;
+      border-radius: .8em;
+      border: 2px solid #fff;
+    }
+    .notification_badge.yellow {
+       background:#FBEE87;
+       color:#000;
+    }
+    .ui-badge-container {
+      position: relative;
+    }
