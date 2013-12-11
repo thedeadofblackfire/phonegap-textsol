@@ -67,11 +67,11 @@ var templateChatUserList = Handlebars.compile(sourceUserList);
 var sourceUserConversation = $("#chat-template-userconversation").html();
 var templateChatUserConversation = Handlebars.compile(sourceUserConversation);
 		
-var sourceHeader = $("#chat-template-header").html();
-var templateChatHeader = Handlebars.compile(sourceHeader);
+//var sourceHeader = $("#chat-template-header").html();
+//var templateChatHeader = Handlebars.compile(sourceHeader);
 		
-var sourceLoop = $("#chat-template-loop").html();
-var templateChatLoop = Handlebars.compile(sourceLoop);
+//var sourceLoop = $("#chat-template-loop").html();
+//var templateChatLoop = Handlebars.compile(sourceLoop);
 
 Handlebars.registerHelper('displayChatClose', function(object) {
 			if (object == '1') {
@@ -569,9 +569,17 @@ function checkUnread(session_id) {
         badgeChatCount -= sess.unreadMessage; 
         sess.unreadMessage = 0;         
         displayBadgeChat();    
+           
+        removeNewUserTag(session_id);
         
         console.log(sess); 
     }
+}
+
+function removeNewUserTag(session_id) {
+     var find = $('#chat_userlist').find('a[href="#pageChatSession?id=' + session_id + '"]');
+     find.parent('li').removeClass('new_user');
+        
 }
 
 function updateDataUserList(v) {
