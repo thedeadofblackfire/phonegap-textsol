@@ -12,6 +12,7 @@ var objUser = {};
 var objChat = {};
 var objSession = {}; // notification
 var badgeChatCount = 0;
+var audioEnable = true;
 
 var app = {
     // Application Constructor
@@ -541,11 +542,16 @@ function updateSession(v) {
         objSession[ v.session_id ] = v; //{}
     } else {
         // update
+        console.log('updateUser update='+v.session_id);
+          
         var sess = objSession[ v.session_id ];     
         sess.end_date = v.end_date;
-        sess.unreadMessage = sess.unreadMessage + (parseInt(v.totalmsg) - parseInt(sess.totalmsg));
-        console.log('updateUser update='+v.session_id);
+        var newIncomingMessage = parseInt(v.totalmsg) - parseInt(sess.totalmsg);
+        sess.unreadMessage = sess.unreadMessage + newIncomingMessage;
         
+        badgeChatCount += newIncomingMessage;
+        displayBadgeChat();
+
         console.log(sess); 
     }
         
@@ -575,7 +581,9 @@ function updateDataUserList(v) {
 
     updateSession(v);     
     
-    // @todo play incoming user
+    // play incoming chat
+    play_audio(objChat.chat_sound_path_local_incomingchat);
+      
 }     
 
 function updateSessionMessage(v) {

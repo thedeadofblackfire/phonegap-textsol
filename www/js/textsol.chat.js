@@ -22,21 +22,31 @@ function select_tab_by_id(id)
         $('#chat a[href="#' + id + '"]').tab('show');
     })
 }
-function new_message(id) {
-    
-	// @todo if sounds ok and phonegap audio
-    //http://docs.phonegap.com/en/3.2.0/cordova_media_media.md.html#Media
-	
-    //if ($(".soundOff").hasClass('btn-success'))
-	// incoming message
-        $.playSound(objChat.chat_sound_path_local);
 
+function play_audio(audiofile) {
+    // @todo if sounds ok and phonegap audio
+    //http://docs.phonegap.com/en/3.2.0/cordova_media_media.md.html#Media
+    if (audioEnable) $.playSound(audiofile);
+}
+
+function new_message(id) {
+
+    //if ($(".soundOff").hasClass('btn-success'))
+    
+    badgeChatCount += 1;
+    displayBadgeChat();
+        
+	// incoming message
+    play_audio(objChat.chat_sound_path_local_incomingmessage);
+      
+      /*
     $(function() {
         //$('#chat a[href="#' + id + '"]').tab('show');
 		
 		// @todo detect incoming chat (sounds)
 		$('#chat a[href="#' + id + '"]').tab('new_message');
     })
+    */
 }
 
 var auto_refresh;
