@@ -47,12 +47,11 @@
  
  <div data-role="page" data-control-title="Chat" id="pageChat">
       <div data-theme="a" data-role="header">
-	  <a data-role="button" href="#left-panel" data-icon="bars" >12 Users <span style="color:green">(+3)</span></a>
           <a data-role="button" href="#" class="btn-logout ui-btn-right">
               Log Out
           </a>
           <h3>
-              Active Chats
+              Chats
           </h3>
 		    
       </div>
@@ -115,7 +114,7 @@
                 </div>
 
                 <div class="chatform">			
-                    <textarea style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea><br/>
+                    <textarea style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea>
                     <!--<input type="submit" value="Send" class="btn btn-primary chatBtn" />-->
 					<a data-role="button" href="#" data-session="{{session_id}}" class="btn btn-primary btnChatSendReply">Send</a>
                 </div>
@@ -191,45 +190,23 @@
 		  
 		  
 		  
-		  
-		  
-		  <!--<div class="play"></div>-->
-		  
       </div>
-	  <div data-role="panel" id="left-panel" data-theme="c">
-        <ul data-role="listview" data-theme="d">
-            <li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
-            <!--<li data-role="list-divider">Menu</li>-->
-        </ul>
-	
-		<!-- <div id="chatHeader"></div>-->
-		
-<!--
-<ul data-role="listview" data-inset="false" data-theme="d" data-divider-theme="e" data-count-theme="b">
-    <li data-role="list-divider">Users</li>
-    <li><a href="index.html" data-theme="e">Inbox <span class="ui-li-count">12</span></a></li>
-    <li><a href="index.html">Outbox <span class="ui-li-count">0</span></a></li>
-    <li><a href="index.html">Sent <span class="ui-li-count">328</span></a></li>
-</ul>
--->
-    
-    </div><!-- /panel -->
       <div data-role="tabbar" data-iconpos="top" data-theme="b">
           <ul>
               <li class="ui-badge-container">
               
                  <span class="badge-chat notification_badge yellow"></span>
                   <a href="#pageChat" data-transition="slideup" data-theme="" data-icon="home">
-                      Active Chats
+                      Chats
+                  </a>
+              </li>
+               <li>
+                  <a href="#pageAccount" data-transition="slideup" data-theme="" data-icon="edit">
+                      Visitors
                   </a>
               </li>
               <li>
                   <a href="#pageSettings" data-transition="slideup" data-theme="" data-icon="gear">
-                      Settings
-                  </a>
-              </li>
-              <li>
-                  <a href="#pageAccount" data-transition="slideup" data-theme="" data-icon="edit">
                       Account
                   </a>
               </li>
@@ -306,18 +283,20 @@
       </div>
       <div data-role="tabbar" data-iconpos="top" data-theme="b">
           <ul>
-              <li>
+              <li class="ui-badge-container">
+              
+                 <span class="badge-chat notification_badge yellow"></span>
                   <a href="#pageChat" data-transition="slideup" data-theme="" data-icon="home">
-                      Active Chats
-                  </a>
-              </li>
-              <li>
-                  <a href="#pageSettings" data-transition="slideup" data-theme="" data-icon="gear">
-                      Settings
+                      Chats
                   </a>
               </li>
               <li>
                   <a href="#pageAccount" data-transition="slideup" data-theme="" data-icon="edit">
+                      Visitors
+                  </a>
+              </li>
+              <li>
+                  <a href="#pageSettings" data-transition="slideup" data-theme="" data-icon="gear">
                       Account
                   </a>
               </li>
@@ -332,7 +311,7 @@
               Log Out
           </a>
           <h3>
-              Acount
+              Account
           </h3>
       </div>
       <div data-role="content">

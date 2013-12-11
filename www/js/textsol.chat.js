@@ -170,7 +170,8 @@ $(document).ready(function() {
 
 
     $('.btn_sendEmail').on('click', function() {
-        var session_id = $('#session_id').val();
+        //var session_id = $('#session_id').val();
+		var session_id = $('#current_session_id').val();
         var emailAdd = $('#toEmail').val();
         $('#toEmail').siblings('p.err').remove();
         if (!IsEmail(emailAdd))
@@ -183,9 +184,9 @@ $(document).ready(function() {
         $(this).attr('disabled', 'disabled');
 
         $.ajax({
-            url: AjaxURL + "send_chat_transcript_to_email",
+            url: API + "/chat/send_chat_transcript_to_email",
             type: "GET",
-            data: {session_id: session_id, email: emailAdd, support: objChat.support_display_name, status: false},
+            data: {user_id: objUser.user_id, session_id: session_id, email: emailAdd, support: objChat.support_display_name, status: false},
             success: function(data) {
                 $('.btn_sendEmail').remove();
                 if (data == "OK")
@@ -220,7 +221,7 @@ $(document).ready(function() {
         $.ajax({
             url: API + "/chat/send_chat_transcript_to_email",
             type: "GET",
-            data: {session_id: session_id, email: objUser.email, support: objChat.support_display_name, status: true},
+            data: {user_id: objUser.user_id, session_id: session_id, email: objUser.email, support: objChat.support_display_name, status: true},
             success: function(data) {
                 if (data == 'OK')
                 {
@@ -343,7 +344,7 @@ function chat_update()
             }
 			
 			if (data.messages != null) {
-				console.log(data.messages);
+				//console.log(data.messages);
 				$.each(data.messages, function(k, v) {
 				    var newfind = $(".messageWrapper p.message[mid='" + v.id + "']");
 					if (newfind.length == 0) {

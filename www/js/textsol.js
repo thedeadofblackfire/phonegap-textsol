@@ -516,7 +516,7 @@ function loadDataUserList(data) {
     var htmlUserList = '';
     
     htmlUserList += '<ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">';
-    htmlUserList += '<li data-role="list-divider">Below are your currently active chats</li>';
+    htmlUserList += '<li data-role="list-divider">Your currently active chats</li>';
     $.each(data.online_user, function(k, v) {                
         htmlUserList += '<li><a href="#pageChatSession?id='+v.session_id+'" sid="'+v.session_id+'" data-theme="e">'+v.name+'<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
     
