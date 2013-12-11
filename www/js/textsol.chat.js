@@ -33,8 +33,7 @@ function new_message(id) {
 
     //if ($(".soundOff").hasClass('btn-success'))
     
-    badgeChatCount += 1;
-    displayBadgeChat();
+    addUnread(id);
         
 	// incoming message
     play_audio(objChat.chat_sound_path_local_incomingmessage);
@@ -213,22 +212,26 @@ $(document).ready(function() {
             return false;
         }
         var $this = $(this);
-        var session_id = $('#chat li.active a').attr('href');
-        session_id = session_id && session_id.replace(/#/, ''); //strip for ie7 
+		var session_id = $('#current_session_id').val();
+        //var session_id = $('#chat li.active a').attr('href');
+        //session_id = session_id && session_id.replace(/#/, ''); //strip for ie7 
         $this.html(' wait... ');
         $this.addClass('disabled');
         $.ajax({
-            url: AjaxURL + "send_chat_transcript_to_email",
+            url: API + "/chat/send_chat_transcript_to_email",
             type: "GET",
-            data: {session_id: session_id, email: '', support: objChat.support_display_name, status: true},
+            data: {session_id: session_id, email: objUser.email, support: objChat.support_display_name, status: true},
             success: function(data) {
                 if (data == 'OK')
                 {
                     $this.addClass('btn-success disabled');
                     $this.removeClass('closeChat btn-danger');
                     $this.html('Chat Closed');
-                    $('.tab-content .active .chatBtn').siblings('textarea').remove();
-                    $('.tab-content .active .chatBtn').remove();
+                    $('.btnChatSendReply').siblings('textarea').remove();
+                    $('.btnChatSendReply').remove();
+					//$('.tab-content .active .chatBtn').siblings('textarea').remove();
+                    //$('.tab-content .active .chatBtn').remove();
+					
                 }
                 else
                 {
@@ -298,8 +301,8 @@ function chat_update()
 {
     var wrapper = $(".messageWrapper");
 	//var wrapper = $(".tab-content .active .messageWrapper");
-    var selector = $('#chat li.active a').attr('href');
-    session_id = selector && selector.replace(/#/, ''); //strip for ie7   
+    //var selector = $('#chat li.active a').attr('href');
+    //session_id = selector && selector.replace(/#/, ''); //strip for ie7   
     
     var current_session_id = $('#current_session_id').val();
     var last_message_id = $(".messageWrapper p.message:last").attr('mid');
@@ -312,12 +315,12 @@ function chat_update()
 		url: API+'/chat/update_chat',
         dataType: "json",
         type: 'POST',
-        data: {session_id: session_id, user_id: objUser.user_id, mid: last_message_id, rid: last_reply_id},
+        data: {session_id: current_session_id, user_id: objUser.user_id, mid: last_message_id, rid: last_reply_id},
         success: function(data) {
 			console.log(data);
 			
-            badgeChatCount = 1;            
-            displayBadgeChat();
+            //badgeChatCount = 1;            
+            //displayBadgeChat();
             
             if (data.users != null) {
                 $.each(data.users, function(k, v) {                
@@ -340,7 +343,7 @@ function chat_update()
             }
 			
 			if (data.messages != null) {
-				//console.log(data.messages);
+				console.log(data.messages);
 				$.each(data.messages, function(k, v) {
 				    var newfind = $(".messageWrapper p.message[mid='" + v.id + "']");
 					if (newfind.length == 0) {

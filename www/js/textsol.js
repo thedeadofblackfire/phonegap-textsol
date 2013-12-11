@@ -13,6 +13,7 @@ var objChat = {};
 var objSession = {}; // notification
 var badgeChatCount = 0;
 var audioEnable = true;
+var isChatSession = false;
 
 var app = {
     // Application Constructor
@@ -118,6 +119,7 @@ jQuery(document).ready(function($){
 		
 		loadChatInit();			
 		
+		isChatSession = false;
     });
     
 
@@ -170,8 +172,7 @@ jQuery(document).ready(function($){
  
 
 function loadSession(urlObj, options) {
-   console.log('loadSession');
- 
+   
     var params = hashParams(urlObj.hash);
     //console.log(params);
     
@@ -181,7 +182,9 @@ function loadSession(urlObj, options) {
 	  mofChangePage('#pageChat');
       return
     };
-
+	
+	console.log('loadSession '+sessionid);
+ 
    // show loading icon
    $.mobile.showPageLoadingMsg();   
    
@@ -237,6 +240,7 @@ function loadSession(urlObj, options) {
            $content = $page.children( ":jqmData(role=content)" );
            $content.html(chapterHTML);
                    
+		   isChatSession = true;
            // flag unread 
            checkUnread(sessionid);
            
@@ -558,12 +562,30 @@ function updateSession(v) {
 }
 
 function displayBadgeChat() {
+	console.log('displayBadgeChat '+badgeChatCount);
     if (badgeChatCount > 0) $('.badge-chat').html(badgeChatCount).fadeIn();
     else $('.badge-chat').html('').fadeOut();
 }
 
+function addUnread(session_id) {
+	console.log('addUnread '+session_id+' badgeChatCount='+badgeChatCount);
+	var current_session_id = $('#current_session_id').val();
+	// don't display bubble if current session
+	if (isChatSession && session_id == current_session_id) {
+		// do nothing but play the incoming message sound
+	} else {
+		var sess = objSession[ session_id ]; 
+		sess.unreadMessage += 1; 
+		badgeChatCount += 1;
+		displayBadgeChat();
+		console.log(sess);
+	}
+}
+
 function checkUnread(session_id) {
+    console.log('checkUnread '+session_id+' badgeChatCount='+badgeChatCount);
     var sess = objSession[ session_id ]; 
+	//console.log(sess);
     if (sess.unreadMessage > 0) {     
         console.log('checkUnread '+session_id);   
         badgeChatCount -= sess.unreadMessage; 
@@ -577,8 +599,13 @@ function checkUnread(session_id) {
 }
 
 function removeNewUserTag(session_id) {
+	 console.log('removeNewUserTag '+session_id);
      var find = $('#chat_userlist').find('a[href="#pageChatSession?id=' + session_id + '"]');
-     find.parent('li').removeClass('new_user');
+	 console.log(find);
+	 if (find.length > 0) {
+	    
+		find.parent('li').removeClass('new_user');
+	 }
         
 }
 
