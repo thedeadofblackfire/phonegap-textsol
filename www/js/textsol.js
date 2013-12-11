@@ -56,35 +56,22 @@ var app = {
     }
 };
 
-/*
-function init() {
-   document.addEventListener("deviceready", deviceReady, true);
-   delete init;
-}
-*/
-
-	function formatDate(d) {
-		var str = d.substr(11,8);
-		if (parseInt(d.substr(11,2)) < 12) str += ' am';
-		else str += ' pm';
-		return str;
-	}
-	
-jQuery(document).ready(function($){
-	
-		var sourceUserList = $("#chat-template-userlist").html();
-		var templateChatUserList = Handlebars.compile(sourceUserList);
+// --
+// templates
+// --
+var sourceUserList = $("#chat-template-userlist").html();
+var templateChatUserList = Handlebars.compile(sourceUserList);
         
-        var sourceUserConversation = $("#chat-template-userconversation").html();
-        var templateChatUserConversation = Handlebars.compile(sourceUserConversation);
+var sourceUserConversation = $("#chat-template-userconversation").html();
+var templateChatUserConversation = Handlebars.compile(sourceUserConversation);
 		
-		var sourceHeader = $("#chat-template-header").html();
-		var templateChatHeader = Handlebars.compile(sourceHeader);
+var sourceHeader = $("#chat-template-header").html();
+var templateChatHeader = Handlebars.compile(sourceHeader);
 		
-		var sourceLoop = $("#chat-template-loop").html();
-		var templateChatLoop = Handlebars.compile(sourceLoop);
+var sourceLoop = $("#chat-template-loop").html();
+var templateChatLoop = Handlebars.compile(sourceLoop);
 
-		Handlebars.registerHelper('displayChatClose', function(object) {
+Handlebars.registerHelper('displayChatClose', function(object) {
 			if (object == '1') {
 				return new Handlebars.SafeString(
 					'<a class="btn btn-success disabled">Chat Closed</a>'
@@ -94,17 +81,35 @@ jQuery(document).ready(function($){
 					'<a class="btn closeChat btn-danger" style="width:auto!important;"><i class="icon-remove"></i> Close Chat</a>'
 				);
 			}
-		});        
+});        
 		
-	    Handlebars.registerHelper('displayTotal', function(msg,reply) {			
-			return (parseInt(msg) + parseInt(reply));		
-		});
+Handlebars.registerHelper('displayTotal', function(msg,reply) {			
+	return (parseInt(msg) + parseInt(reply));		
+});
 		
-		Handlebars.registerHelper('formatDate', function(v) {			
-			return formatDate(v); 		
-		});
-		
-		
+Handlebars.registerHelper('formatDate', function(v) {			
+	return formatDate(v); 		
+});
+  
+  
+/*
+function init() {
+   document.addEventListener("deviceready", deviceReady, true);
+   delete init;
+}
+*/
+
+// --
+// functions
+// --
+function formatDate(d) {
+	var str = d.substr(11,8);
+	if (parseInt(d.substr(11,2)) < 12) str += ' am';
+	else str += ' pm';
+	return str;
+}
+	
+jQuery(document).ready(function($){
 		
 	$(document).on('pagebeforeshow', '#pageChat', function(){  
 		console.log('#pageChat pagebeforeshow');	
@@ -459,7 +464,7 @@ var currentUrl = $.mobile.activePage.data('url');
         console.log('handleRefreshOnlineUser');
         
         // loop online users to display list of active chats
-        showDataUserList();
+        resetDataUserList();
     }
   
   /*
@@ -480,23 +485,7 @@ function parseRSS() {
 
 }
 */
-  function showDataUserList()
-{
-	var htmlUserList = templateChatUserList(objChat);
-			$('#container_chat_userlist').html(htmlUserList);
-			//$("#container_chat_userlist ul").listview('refresh');
-			$("chat_userlist").listview('refresh');
-			
-			
- //var source   = $("#articles-template").html();
-  //var template = Handlebars.compile(source);
-	
-  $("#listview-content").trigger('create');  
-  $("#pageChat").trigger('pagecreate');
-  $("#chat_userlist ul").listview('refresh');
-  $("#chat_userlist ul").listview().listview('refresh');
- }
-        
+       
         
   if (ENV == 'dev') {
 	//deviceReady();
@@ -507,3 +496,34 @@ function parseRSS() {
 	
 });
 
+function resetDataUserList() {
+	var htmlUserList = templateChatUserList(objChat);
+	$('#container_chat_userlist').html(htmlUserList);
+	//$("#container_chat_userlist ul").listview('refresh');
+	//$("chat_userlist").listview('refresh');
+					
+    //var source   = $("#articles-template").html();
+    //var template = Handlebars.compile(source);
+	
+    $("#listview-content").trigger('create');  
+     // $("#pageChat").trigger('pagecreate');
+      //$("#chat_userlist ul").listview('refresh');
+      //$("#chat_userlist ul").listview().listview('refresh');
+      
+}
+
+function updateDataUserList(v) {
+    $('#chat_userlist > li:first').after('<li class="new_user"><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + v.name + '<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p><span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>');
+    //$('#chat_userlist').prepend('<li class="new_user"><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + v.name + '<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p><span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>');
+	$("#chat_userlist").listview('refresh');			
+}     
+
+function updateSessionMessage(v) {
+    var str = '<p class="message" mid="'+v.id+'"><b>'+v.name+'</b>: '+v.message+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
+	$(".messageWrapper").append(str);		
+}  
+
+function updateSessionReply(v) {
+    var str = '<p class="reply" rid="'+v.id+'"><b>'+objChat.support_display_name+'</b>: '+v.reply+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
+	$(".messageWrapper").append(str);			
+}      

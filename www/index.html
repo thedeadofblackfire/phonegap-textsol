@@ -65,10 +65,12 @@
           
      
 <style>
+
     li.new_user a{
         background: #AFD898;
         color: #23580E;
     }
+    
     .messageWrapper {
         margin-bottom: 20px; padding-right: 20px;
         /* min-height:200px; margin-bottom: 20px; max-height: 300px; overflow: auto; padding-right: 20px;*/
@@ -111,9 +113,9 @@
  
 <script id="chat-template-userlist" type="text/x-handlebars-template">
 <ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">
-<li data-role="list-divider">Below are your currently active chats</li>
+    <li data-role="list-divider">Below are your currently active chats</li>
   {{#each online_user}} 
-	 <li><a href="#pageChatSession?id={{session_id}}" hrefxxxx="#/pageChatSession/{{session_id}}" data-theme="e">{{name}}<p>CA</p> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">{{{displayTotal totalmsg totalreply}}}</span></a></li>
+	<li><a href="#pageChatSession?id={{session_id}}" hrefxxxx="#/pageChatSession/{{session_id}}" sid="{{session_id}}" data-theme="e">{{name}}<p>CA</p> <p class="ui-li-aside"><strong>4:48</strong>PM</p> <span class="ui-li-count">{{{displayTotal totalmsg totalreply}}}</span></a></li>
   {{/each}}
   </ul>
 </script>

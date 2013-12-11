@@ -78,11 +78,11 @@ $(document).ready(function() {
             type: "POST",
             data: {id: id, message: message, support: objChat.support_display_name, user_id: objUser.user_id, session_id: session_id},
             success: function(data) {
-                // echo '<p class="reply"><b>' . objChat.support_display_name . '</b>: ' . $reply->reply . ' <span>' . change_date_format('h:i:s a', $reply->post_date) . '</span></p>';
-                var str = '';                
+                // echo '<p class="reply"><b>' . objChat.support_display_name . '</b>: ' . $reply->reply . ' <span>' . change_date_format('h:i:s a', $reply->post_date) . '</span></p>';                     
                 if (data.reply) {
-                    str += '<p class="reply" rid="'+data.reply.id+'"><b>'+objChat.support_display_name+'</b>: '+data.reply.reply+' <span class="time">'+data.reply.post_date_format+'</span></p>';
-                    $(".messageWrapper").append(str);
+                    updateSessionReply(data.reply);
+                    //var str = '<p class="reply" rid="'+data.reply.id+'"><b>'+objChat.support_display_name+'</b>: '+data.reply.reply+' <span class="time">'+data.reply.post_date_format+'</span></p>';
+                    //$(".messageWrapper").append(str);
                 }
                 //$(".tab-content .active .messageWrapper").append(data);
                 
@@ -283,6 +283,7 @@ function chat_start()
 	
 }
 
+
 function chat_update()
 {
     var wrapper = $(".messageWrapper");
@@ -292,32 +293,32 @@ function chat_update()
     
     var current_session_id = $('#current_session_id').val();
     var last_message_id = $(".messageWrapper p.message:last").attr('mid');
-    console.log(current_session_id+' mid='+last_message_id);
+    var last_reply_id = $(".messageWrapper p.reply:last").attr('rid');
+    if (current_session_id != undefined) {
+        console.log(current_session_id+' mid='+last_message_id+' rid='+last_reply_id);
+    }
     
-    $.ajax({
-        //url: AjaxURL + 'update_chat',
+    $.ajax({  
 		url: API+'/chat/update_chat',
         dataType: "json",
         type: 'POST',
-        data: {session_id: session_id, user_id: objUser.user_id, mid: last_message_id},
+        data: {session_id: session_id, user_id: objUser.user_id, mid: last_message_id, rid: last_reply_id},
         success: function(data) {
-			//console.log(data);
+			console.log(data);
 			
-            if (data.user.session_id) {
-
-                var find = $('#chat').find('a[href="#' + data.user.session_id + '"]');
-                //console.log(find.length);
-                if (find.length == 0)
-                {
-                    $('#chat').prepend('<li class="new_user"><a href="#' + data.user.session_id + '">' + data.user.name + '</a></li>');
-                    $('.tab-content').prepend('<div class="tab-pane" id="' + data.user.session_id + '"><div class="plugins"> <a class="btn closeChat btn-danger"><i class="icon-remove"></i> Close Chat</a> <a class="btn btn-primary sendEmail"><i class="icon-envelope"></i> Send Email</a></div><div class="messageWrapper">' + data.user.name + '</div><div class="chatform"><textarea style="width:80%; height: 60px;" name="chatText" id="chatInput"></textarea><br/><input type="submit" value="Send" class="btn btn-primary chatBtn" /></div></div>');
-                }
-
+            if (data.users != null) {
+                $.each(data.users, function(k, v) {                
+                    // incoming chat
+                    var find = $('#chat_userlist').find('a[href="#pageChatSession?id=' + v.session_id + '"]');
+                    //console.log(find);
+                    if (find.length == 0) {    
+                        updateDataUserList(v);
+                    }                    
+                })
             }
-
+            
             //console.log(data.alert);
-            if (data.alert != null)
-            {
+            if (data.alert != null) {
                 $.each(data.alert, function(k, v) {
                     for (var i = 0; i < v.no; i++) {
                         new_message(v.session_id);
@@ -326,42 +327,23 @@ function chat_update()
             }
 			
 			if (data.messages != null) {
-				console.log(data.messages);
-				//var newfind = $(".tab-content .active .messageWrapper p.message[mid='" + data.message.id + "']");
+				//console.log(data.messages);
 				$.each(data.messages, function(k, v) {
 				    var newfind = $(".messageWrapper p.message[mid='" + v.id + "']");
 					if (newfind.length == 0) {
-						var str = '<p class="message" mid="'+v.id+'"><b>'+v.name+'</b>: '+v.message+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
-						$(".messageWrapper").append(str);
-						//$(".tab-content .active .messageWrapper").append(data.message.text);
+                        updateSessionMessage(v);					
 					}
                 })
-
-				/*
-				if (newfind.length == 0)
-				{
-					$(".tab-content .active .messageWrapper").append(data.message.text);
-					$('#chat li.active a span').fadeOut(700);
-					setTimeout(function() {
-						$('#chat li.active a span').remove()
-					}, 1500);
-					wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
-				}
-				*/
 			}               
                 
             if (data.replies != null) {
-				console.log(data.replies);
-				//var newfind = $(".tab-content .active .messageWrapper p.message[mid='" + data.message.id + "']");
+				//console.log(data.replies);
 				$.each(data.replies, function(k, v) {
 				    var newfind = $(".messageWrapper p.reply[rid='" + v.id + "']");
 					if (newfind.length == 0) {
-						var str = '<p class="reply" rid="'+v.id+'"><b>'+objChat.support_display_name+'</b>: '+v.reply+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
-						$(".messageWrapper").append(str);
-						//$(".tab-content .active .messageWrapper").append(data.message.text);
+                        updateSessionReply(v);	
 					}
-                })
-				
+                })				
 			}
 
         }
