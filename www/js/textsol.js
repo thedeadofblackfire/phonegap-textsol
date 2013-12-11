@@ -3,7 +3,6 @@ var BASE_URL = 'http://www.textsol.com';
 var ENV = 'production';
 if (window.location.hostname == 'livechat.phonegap.local') {
     BASE_URL = 'http://textwc.local';
-	//BASE_URL = 'http://wctext.local';
     ENV = 'dev';
 }
 var API = BASE_URL+'/api';

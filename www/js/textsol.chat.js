@@ -326,7 +326,7 @@ function chat_update()
             }
 			
 			if (data.messages != null) {
-				console.log(data);
+				console.log(data.messages);
 				//var newfind = $(".tab-content .active .messageWrapper p.message[mid='" + data.message.id + "']");
 				$.each(data.messages, function(k, v) {
 				    var newfind = $(".messageWrapper p.message[mid='" + v.id + "']");
@@ -348,6 +348,20 @@ function chat_update()
 					wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
 				}
 				*/
+			}               
+                
+            if (data.replies != null) {
+				console.log(data.replies);
+				//var newfind = $(".tab-content .active .messageWrapper p.message[mid='" + data.message.id + "']");
+				$.each(data.replies, function(k, v) {
+				    var newfind = $(".messageWrapper p.reply[rid='" + v.id + "']");
+					if (newfind.length == 0) {
+						var str = '<p class="reply" rid="'+v.id+'"><b>'+objChat.support_display_name+'</b>: '+v.reply+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
+						$(".messageWrapper").append(str);
+						//$(".tab-content .active .messageWrapper").append(data.message.text);
+					}
+                })
+				
 			}
 
         }
