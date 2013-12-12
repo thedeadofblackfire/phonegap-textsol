@@ -62,18 +62,21 @@ var app = {
 // --
 // templates
 // --
+/*
 var sourceUserList = $("#chat-template-userlist").html();
 var templateChatUserList = Handlebars.compile(sourceUserList);
         
 var sourceUserConversation = $("#chat-template-userconversation").html();
 var templateChatUserConversation = Handlebars.compile(sourceUserConversation);
-		
+*/
+
 //var sourceHeader = $("#chat-template-header").html();
 //var templateChatHeader = Handlebars.compile(sourceHeader);
 		
 //var sourceLoop = $("#chat-template-loop").html();
 //var templateChatLoop = Handlebars.compile(sourceLoop);
 
+/*
 Handlebars.registerHelper('displayChatClose', function(object) {
 			if (object == '1') {
 				return new Handlebars.SafeString(
@@ -93,7 +96,8 @@ Handlebars.registerHelper('displayTotal', function(msg,reply) {
 Handlebars.registerHelper('formatDate', function(v) {			
 	return formatDate(v); 		
 });
-  
+
+  */
   
 /*
 function init() {
@@ -231,8 +235,10 @@ function loadSession(urlObj, options) {
            chapterHTML += res.html_visitor;
            //chapterHTML += res.html_conversation;
     
-           	var htmlUserConversation = templateChatUserConversation(res);
-            chapterHTML += htmlUserConversation;
+             chapterHTML += generatePageSession(res);
+           	//var htmlUserConversation = templateChatUserConversation(res);
+            //chapterHTML += htmlUserConversation;
+            
 			//$('#container_chat_userlist').html(htmlUserConversation);
 			//$("chat_userlist").listview('refresh');
            
@@ -621,6 +627,44 @@ function generateLineUser(v, newuser) {
     str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + v.name + ' <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
     
     updateSession(v); 
+    
+    return str;
+}
+
+function generatePageSession(data) {
+   console.log('generatePageSession');
+    var displayChatClose = false;
+    var str = '';
+    str += '<div class="tab-pane" id="'+data.session_id+'">';
+    str += '<div class="plugins">';    
+    if (displayChatClose) {
+		str += '<a class="btn btn-success disabled">Chat Closed</a>';		
+	} else {
+		str += '<a class="btn closeChat btn-danger" style="width:auto!important;"><i class="icon-remove"></i> Close Chat</a>';		
+	}            
+    str += ' <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>';
+    str += '</div>';
+    str += '<input type="hidden" name="current_session_id" id="current_session_id" value="'+data.session_id+'" />';
+    
+    str += '<div class="messageWrapper">';
+    if (data.conversation != null) {
+        $.each(data.conversation, function(k, v) {        
+            str += '<p class="message" mid="'+v.message.id+'"><b>'+v.message.name+'</b>: '+v.message.message+' <span class="time">'+formatDate(v.message.post_date)+'</span></p>';
+            if (v.reply != null) {
+                $.each(v.reply, function(i, r) {
+                    str += '<p class="reply" rid="'+r.id+'"><b>'+objChat.support_display_name+'</b>: '+r.reply+' <span class="time">'+formatDate(r.post_date)+'</span></p>';
+                }); 
+            }
+        });
+    }
+    str += '</div>';
+    
+    str += '<div class="chatform">';
+    str += '<textarea style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea>';
+    str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">Send</a>';
+    str += '</div>';
+        
+    str += '</div>';
     
     return str;
 }

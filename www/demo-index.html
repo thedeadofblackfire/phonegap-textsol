@@ -122,6 +122,46 @@
 
 </script>
 
+
+<script id="chat-template-header" type="text/x-handlebars-template">
+<ul class="nav nav-tabs" id="chat">
+  {{#each online_user}}
+     <li><a href="#{{session_id}}">{{name}}</a></li>    
+  {{/each}}
+  </ul>
+</script>
+
+<script id="chat-template-headernew" type="text/x-handlebars-template">
+<ul id="chat" data-role="listview" data-inset="false" data-theme="d" data-divider-theme="e" data-count-theme="b">
+<li data-role="list-divider">Active Users</li>
+  {{#each online_user}} 
+	 <li><a href="#{{session_id}}" data-theme="e">{{name}} <span class="ui-li-count">12</span></a></li>
+  {{/each}}
+  </ul>
+</script>
+
+
+<script id="chat-template-loop" type="text/x-handlebars-template">
+ {{#each online_user}}
+    <div class="tab-pane" id="{{session_id}}">
+                <div class="plugins">
+				   {{{displayChatClose sent_email}}}				 
+                   <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>
+                </div>
+
+                <div class="messageWrapper">
+
+                </div>
+
+                <div class="chatform">			
+                    <textarea style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea><br/>
+                    <!--<input type="submit" value="Send" class="btn btn-primary chatBtn" />-->
+					<a data-role="button" href="#" class="btn btn-primary chatBtn">Send</a>
+                </div>
+    </div>
+  {{/each}}
+</script>
+
 <!-- Modal -->
 <div id="emailModal" style="margin-top:-150px;display:none;" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
@@ -344,7 +384,7 @@
 
 		<script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/bootstrap-tab.js"></script>
-		<!--<script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>-->
+		<script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/textsol.js"></script>		
         <script type="text/javascript" charset="utf-8" src="js/textsol.chat.js"></script>
   
