@@ -232,7 +232,7 @@ function loadSession(urlObj, options) {
               chapterHTML += '<p><sup>'+ (i+1) +'</sup> '+ vers.text() +'</p>'
            });
            */
-           chapterHTML += res.html_visitor;
+           //chapterHTML += res.html_visitor;
            //chapterHTML += res.html_conversation;
     
              chapterHTML += generatePageSession(res);
@@ -631,10 +631,30 @@ function generateLineUser(v, newuser) {
     return str;
 }
 
+function generateDetailVisitor(data) {
+    console.log('generateDetailVisitor');
+    var str = '';
+    str += '<div class="user_info">';
+    str += '<strong>User Info:</strong>&nbsp;&nbsp;';
+    if (data.visitor.email != '' || data.visitor.email != '0') str += '&nbsp;&nbsp;<b>Email:</b> '+data.visitor.email;
+    if (data.visitor.phone != '' || data.visitor.phone != '0') str += '&nbsp;&nbsp;<b>Phone:</b> '+data.visitor.phone;
+    if (data.visitor.country != '') str += '&nbsp;&nbsp;<b>Country:</b> '+data.visitor.country;   
+    if (data.visitor.city != '') str += '&nbsp;&nbsp;<b>City:</b> '+data.visitor.city;
+    if (data.visitor.region != '') str += '&nbsp;&nbsp;<b>Region:</b> '+data.visitor.region;
+    if (data.visitor.browser != '') str += '&nbsp;&nbsp;<b>Browser:</b> '+data.visitor.browser;
+    if (data.visitor.referrer != '') str += '&nbsp;&nbsp;<b>Url:</b> '+data.visitor.referrer;
+    if (data.visitor.visit != '') str += '&nbsp;&nbsp;<b>Visit Time:</b> '+data.visitor.visit;
+    str += '</div>';
+    
+    return str;
+}
+
 function generatePageSession(data) {
-   console.log('generatePageSession');
+    console.log('generatePageSession');
     var displayChatClose = false;
     var str = '';
+    
+    str += generateDetailVisitor(data);
     str += '<div class="tab-pane" id="'+data.session_id+'">';
     str += '<div class="plugins">';    
     if (displayChatClose) {
