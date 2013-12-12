@@ -63,7 +63,7 @@ $(document).ready(function() {
         var session_id = $(this).attr('data-session');
       
         var wrapper = $(".messageWrapper");
-        var id = $(".messageWrapper p.message:last").attr('mid');
+        var id = $(".messageWrapper .message:last").attr('mid');
         //  var wrapper = $(".tab-content .active .messageWrapper");
         //var id = $(".tab-content .active .messageWrapper p.message:last").attr('mid');
         var textarea = $(this).siblings('textarea');
@@ -306,8 +306,8 @@ function chat_update()
     //session_id = selector && selector.replace(/#/, ''); //strip for ie7   
     
     var current_session_id = $('#current_session_id').val();
-    var last_message_id = $(".messageWrapper p.message:last").attr('mid');
-    var last_reply_id = $(".messageWrapper p.reply:last").attr('rid');
+    var last_message_id = $(".messageWrapper .message:last").attr('mid');
+    var last_reply_id = $(".messageWrapper .reply:last").attr('rid');
     if (current_session_id != undefined) {
         console.log(current_session_id+' mid='+last_message_id+' rid='+last_reply_id);
     }
@@ -346,7 +346,7 @@ function chat_update()
 			if (data.messages != null) {
 				//console.log(data.messages);
 				$.each(data.messages, function(k, v) {
-				    var newfind = $(".messageWrapper p.message[mid='" + v.id + "']");
+				    var newfind = $(".messageWrapper .message[mid='" + v.id + "']");
 					if (newfind.length == 0) {
                         updateSessionMessage(v, true);					
 					}
@@ -356,7 +356,7 @@ function chat_update()
             if (data.replies != null) {
 				//console.log(data.replies);
 				$.each(data.replies, function(k, v) {
-				    var newfind = $(".messageWrapper p.reply[rid='" + v.id + "']");
+				    var newfind = $(".messageWrapper .reply[rid='" + v.id + "']");
 					if (newfind.length == 0) {
                         updateSessionReply(v, true);	
 					}

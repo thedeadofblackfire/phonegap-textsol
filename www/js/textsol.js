@@ -665,9 +665,9 @@ function generatePageSession(data) {
     if (displayChatClose) {
 		str += '<a class="btn btn-success disabled">Chat Closed</a>';		
 	} else {
-		str += '<a class="btn closeChat btn-danger" style="width:auto!important;"><i class="icon-remove"></i> Close Chat</a>';		
+		str += '<a class="btn closeChat btn-danger" style="width:auto!important;color:white;"><i class="icon-remove"></i> Close Chat</a>';		
 	}            
-    str += ' <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>';
+    //str += ' <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>';
     str += '</div>';
     
     str += '<input type="hidden" name="current_session_id" id="current_session_id" value="'+data.session_id+'" />';
@@ -696,6 +696,7 @@ function generatePageSession(data) {
 }
 
 function updateDataUserList(v) {
+	console.log('updateDataUserList');
     var str = generateLineUser(v,true);    
     $('#chat_userlist > li:first').after(str);
     $('#chat_userlist li:first').html('Your currently active chats');

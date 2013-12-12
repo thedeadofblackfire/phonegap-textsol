@@ -28,7 +28,9 @@
 
     p.err{color:#f00;}
     input.bordererr, input.bordererr:focus, .bordererr, .bordererr:focus {border: 1px solid #f00}
-    .plugins { margin-bottom: 10px; text-align: right}
+    .plugins { margin-bottom: 10px; text-align: right; color:white;}
+	.closeChat {color: white; }
+	
     .badge { margin-left: 5px}
     
     .user_info { margin:0px; 
