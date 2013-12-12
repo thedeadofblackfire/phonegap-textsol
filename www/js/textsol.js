@@ -634,7 +634,7 @@ function generateLineUser(v, newuser) {
 function generateDetailVisitor(data) {
     console.log('generateDetailVisitor');
     var str = '';
-    str += '<div class="user_info">';
+    str += '<div class="user_info both_shadow">';
     str += '<strong>User Info:</strong>&nbsp;&nbsp;';
     if (data.visitor.email != '' || data.visitor.email != '0') str += '&nbsp;&nbsp;<b>Email:</b> '+data.visitor.email;
     if (data.visitor.phone != '' || data.visitor.phone != '0') str += '&nbsp;&nbsp;<b>Phone:</b> '+data.visitor.phone;
@@ -653,9 +653,9 @@ function generatePageSession(data) {
     console.log('generatePageSession');
     var displayChatClose = false;
     var str = '';
-    
+       
+    str += '<div class="zone_session2" id="'+data.session_id+'">';
     str += generateDetailVisitor(data);
-    str += '<div class="tab-pane" id="'+data.session_id+'">';
     str += '<div class="plugins">';    
     if (displayChatClose) {
 		str += '<a class="btn btn-success disabled">Chat Closed</a>';		
@@ -664,15 +664,16 @@ function generatePageSession(data) {
 	}            
     str += ' <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>';
     str += '</div>';
+    
     str += '<input type="hidden" name="current_session_id" id="current_session_id" value="'+data.session_id+'" />';
     
-    str += '<div class="messageWrapper">';
+    str += '<div class="messageWrapper chat">';
     if (data.conversation != null) {
         $.each(data.conversation, function(k, v) {        
-            str += '<p class="message" mid="'+v.message.id+'"><b>'+v.message.name+'</b>: '+v.message.message+' <span class="time">'+formatDate(v.message.post_date)+'</span></p>';
+            str += updateSessionMessage(v.message, false);			
             if (v.reply != null) {
                 $.each(v.reply, function(i, r) {
-                    str += '<p class="reply" rid="'+r.id+'"><b>'+objChat.support_display_name+'</b>: '+r.reply+' <span class="time">'+formatDate(r.post_date)+'</span></p>';
+                    str += updateSessionReply(r, false);
                 }); 
             }
         });
@@ -700,12 +701,20 @@ function updateDataUserList(v) {
     play_audio(objChat.chat_sound_path_local_incomingchat);      
 }     
 
-function updateSessionMessage(v) {
-    var str = '<p class="message" mid="'+v.id+'"><b>'+v.name+'</b>: '+v.message+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
-	$(".messageWrapper").append(str);		
+function updateSessionMessage(v, toAppend) {
+    //var str = '<p class="message tmessage" mid="'+v.id+'"><b>'+v.name+'</b>: '+v.message+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
+    //var str = '<div class="message bubble_me me"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+v.name+' • '+formatDate(v.post_date)+'</time></div>';
+    var str = '<div class="message bubble_me me"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+formatDate(v.post_date)+'</time></div>';
+    
+	if (toAppend) $(".messageWrapper").append(str);
+    else return str;
 }  
 
-function updateSessionReply(v) {
-    var str = '<p class="reply" rid="'+v.id+'"><b>'+objChat.support_display_name+'</b>: '+v.reply+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
-	$(".messageWrapper").append(str);			
+function updateSessionReply(v, toAppend) {
+    //var str = '<p class="reply treply" rid="'+v.id+'"><b>'+objChat.support_display_name+'</b>: '+v.reply+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
+    
+    var str = '<div class="reply bubble_you you"><span class="tail2">&nbsp;</span>'+v.reply+'<time datetime="'+v.post_date+'">'+formatDate(v.post_date)+'</time></div>';
+        
+    if (toAppend) $(".messageWrapper").append(str);	
+    else return str;    
 }      

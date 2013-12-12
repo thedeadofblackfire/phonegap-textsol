@@ -348,7 +348,7 @@ function chat_update()
 				$.each(data.messages, function(k, v) {
 				    var newfind = $(".messageWrapper p.message[mid='" + v.id + "']");
 					if (newfind.length == 0) {
-                        updateSessionMessage(v);					
+                        updateSessionMessage(v, true);					
 					}
                 })
 			}               
@@ -358,7 +358,7 @@ function chat_update()
 				$.each(data.replies, function(k, v) {
 				    var newfind = $(".messageWrapper p.reply[rid='" + v.id + "']");
 					if (newfind.length == 0) {
-                        updateSessionReply(v);	
+                        updateSessionReply(v, true);	
 					}
                 })				
 			}
