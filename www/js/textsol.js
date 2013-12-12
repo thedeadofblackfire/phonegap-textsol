@@ -514,14 +514,16 @@ function loadDataUserList(data) {
 	//var htmlUserList = templateChatUserList(data);
     
     var htmlUserList = '';
+    var title = 'You have no active chats';
+    if (data.online_user.length > 0) title = 'Your currently active chats';
     
-    htmlUserList += '<ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">';
-    htmlUserList += '<li data-role="list-divider">Your currently active chats</li>';
-    $.each(data.online_user, function(k, v) {                
-        htmlUserList += '<li><a href="#pageChatSession?id='+v.session_id+'" sid="'+v.session_id+'" data-theme="e">'+v.name+'<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
-    
-        updateSession(v); 
-        
+    //htmlUserList += '<div class="ui-bar ui-bar-e"><h3 style="display:inline-block; width:92%; margin-top:5px;">This is an alert message. </h3><div style="display:inline-block; width:8%; margin-top:0px; text-align:right;"><a href="#" data-role="button" data-icon="delete" data-inline="true" data-iconpos="notext" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="e" title="Dismiss" class="ui-btn ui-btn-up-e ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text">Dismiss</span><span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span></span></a></div><p style="font-size:85%; margin:-.3em 0 1em;">And here\'s some additional text in a paragraph.</p></div>';
+                    
+    htmlUserList += '<ul id="chat_userlist" data-role="listview" data-theme="d" data-divider-theme="e" data-count-theme="c">';
+    //htmlUserList += '<ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">';
+    htmlUserList += '<li data-role="list-divider" id="activechat_title">'+title+'</li>';
+    $.each(data.online_user, function(k, v) {
+        htmlUserList += generateLineUser(v,false);            
     });
     htmlUserList += '</ul>';
     
@@ -602,23 +604,35 @@ function removeNewUserTag(session_id) {
 	 console.log('removeNewUserTag '+session_id);
      var find = $('#chat_userlist').find('a[href="#pageChatSession?id=' + session_id + '"]');
 	 console.log(find);
-	 if (find.length > 0) {
-	    
+	 if (find.length > 0) {	    
 		find.parent('li').removeClass('new_user');
-	 }
-        
+	 }        
+}
+
+function generateLineUser(v, newuser) {
+    //htmlUserList += '<li data-icon="false"><a href="#pageChatSession?id='+v.session_id+'" sid="'+v.session_id+'" data-theme="e">'+v.name+'<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+    
+    // statehttp://www.iconarchive.com/show/american-states-icons-by-custom-icon-design.html
+    
+    var lg = '<img src="img/country/us.png" alt="United States" class="ui-li-icon">';
+    var str = '<li data-icon="false"';   
+    if (newuser) str += 'class="new_user"';    
+    //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + '<h2>' +v.name + '</h2><p>started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + v.name + ' <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+    
+    updateSession(v); 
+    
+    return str;
 }
 
 function updateDataUserList(v) {
-    $('#chat_userlist > li:first').after('<li class="new_user"><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + v.name + '<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p><span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>');
-    //$('#chat_userlist').prepend('<li class="new_user"><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + v.name + '<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p><span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>');
+    var str = generateLineUser(v,true);
+    $('#chat_userlist > li:first').after(str);
+    //$('#chat_userlist').prepend(str);
 	$("#chat_userlist").listview('refresh');
 
-    updateSession(v);     
-    
     // play incoming chat
-    play_audio(objChat.chat_sound_path_local_incomingchat);
-      
+    play_audio(objChat.chat_sound_path_local_incomingchat);      
 }     
 
 function updateSessionMessage(v) {
