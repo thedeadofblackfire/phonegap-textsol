@@ -670,8 +670,9 @@ function generatePageSession(data) {
 }
 
 function updateDataUserList(v) {
-    var str = generateLineUser(v,true);
+    var str = generateLineUser(v,true);    
     $('#chat_userlist > li:first').after(str);
+    $('#chat_userlist li:first').html('Your currently active chats');
     //$('#chat_userlist').prepend(str);
 	$("#chat_userlist").listview('refresh');
 
