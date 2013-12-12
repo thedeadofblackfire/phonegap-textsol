@@ -707,8 +707,8 @@ function updateDataUserList(v) {
 
 function updateSessionMessage(v, toAppend) {
     //var str = '<p class="message tmessage" mid="'+v.id+'"><b>'+v.name+'</b>: '+v.message+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
-    //var str = '<div class="message bubble_me me"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+v.name+' • '+formatDate(v.post_date)+'</time></div>';
-    var str = '<div class="message bubble_me me"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
+    //var str = '<div class="message bubble_me me" mid="'+v.id+'"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+v.name+' • '+formatDate(v.post_date)+'</time></div>';
+    var str = '<div class="message bubble_me me" mid="'+v.id+'"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
     
 	if (toAppend) $(".messageWrapper").append(str);
     else return str;
@@ -717,7 +717,7 @@ function updateSessionMessage(v, toAppend) {
 function updateSessionReply(v, toAppend) {
     //var str = '<p class="reply treply" rid="'+v.id+'"><b>'+objChat.support_display_name+'</b>: '+v.reply+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
     
-    var str = '<div class="reply bubble_you you"><span class="tail2">&nbsp;</span>'+v.reply+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
+    var str = '<div class="reply bubble_you you" rid="'+v.id+'"><span class="tail2">&nbsp;</span>'+v.reply+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
         
     if (toAppend) $(".messageWrapper").append(str);	
     else return str;    
