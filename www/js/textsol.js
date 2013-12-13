@@ -27,8 +27,9 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-		
+        document.addEventListener('deviceready', this.onDeviceReady, true);
+        //document.addEventListener('deviceready', this.onDeviceReady, false);
+      
 		// get automatically user from session
 		objUser = window.sessionStorage.getItem('user');
 		if (objUser) {
@@ -45,6 +46,8 @@ var app = {
     onDeviceReady: function() {
         //checkConnection();	
 		console.log('onDeviceReady');
+        
+        push_onDeviceReady();
         //app.receivedEvent('deviceready');
         // Do cool things here...
     },	
