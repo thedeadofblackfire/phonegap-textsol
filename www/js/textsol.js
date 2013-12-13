@@ -47,6 +47,9 @@ var app = {
         //checkConnection();	
 		console.log('onDeviceReady');
         
+        // save device info the first time for mobile's ower (device uuid)
+        // http://docs.phonegap.com/en/3.2.0/cordova_device_device.md.html#Device
+        
         push_onDeviceReady();
         //app.receivedEvent('deviceready');
         // Do cool things here...
