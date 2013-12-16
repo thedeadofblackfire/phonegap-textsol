@@ -29,14 +29,16 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, true);
         //document.addEventListener('deviceready', this.onDeviceReady, false);
-      
+       
 		// get automatically user from session
 		objUser = window.sessionStorage.getItem('user');
 		if (objUser) {
 			objUser = JSON.parse(objUser);	
 			console.log('retrieved user: ', objUser);
-		}		
-		
+		}	
+
+        //checkPreAuth();
+		        
 		//document.addEventListener('load', this.onDeviceReady, true);		
     },
     // deviceready Event Handler
@@ -130,14 +132,21 @@ function formatDateLight(d) {
 	
 jQuery(document).ready(function($){
 		
+    //Insert code here
+    $(document).on('pageinit', '#pageLogin', function(e) {
+    //$(document).on('pagebeforeshow', '#pageLogin', function(){  
+		//$("#pageLogin").on("pageinit", function(e) {
+        console.log('#pageLogin pageinit');
+        checkPreAuth();
+    });
+    
 	$(document).on('pagebeforeshow', '#pageChat', function(){  
 		console.log('#pageChat pagebeforeshow');	
 		
 		loadChatInit();			
 		
 		isChatSession = false;
-    });
-    
+    });   
 
 //http://www.moretechtips.net/2012/07/dynamic-page-generation-in-jquery.html
 //http://jquerymobile.com/demos/1.0rc1/docs/pages/page-dynamic.html
@@ -278,7 +287,6 @@ function loadSession(urlObj, options) {
 };
     
 
-
 /*
     $(document).on('pagebeforeshow', '#pageChatView', function(){  
 		console.log('#pageChatView pagebeforeshow');	
@@ -321,84 +329,7 @@ var currentUrl = $.mobile.activePage.data('url');
     function alertDismissed() {
         // do something
     } 
-  
-    /* 
-     * mobile framework - Change Page
-     * pageid = test.html or #changePage
-     */
-    function mofChangePage(pageid) {
-        //$.mobile.changePage("some.html");				
-        $.mobile.changePage(pageid);
-    }
-	
-	function checkPreAuth() {
-		console.log('checkPreAuth');
-		var form = $("#loginForm");	
-		if(window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
-			$("#username", form).val(window.localStorage["username"]);
-			$("#password", form).val(window.localStorage["password"]);
-			handleLogin();
-		}
-	}
-
-	function handleLogin() {
-		console.log('handleLogin');			
-		var form = $("#loginForm");  	
-		//disable the button so we can't resubmit while we wait
-		//$("#submitButton",form).attr("disabled","disabled");
-		$("#btnLogin").attr("disabled","disabled");
-		var u = $("#username", form).val();
-		var p = $("#password", form).val();	
-		if(u != '' && p!= '') {
-			$.post(API+"/account/login", {username:u,password:p}, function(res) {
-				console.log(res);
-				if(res.success == true) {
-					//store
-					window.localStorage["username"] = u;
-					window.localStorage["password"] = p; 			
-					//window.sessionStorage["user_id"] = res.user.user_id; 
-					window.sessionStorage.setItem('user', JSON.stringify(res.user));
-
-				    objUser = res.user;
-					
-                    mofChangePage('#pageChat');
-				} else {	
-					console.log(res.message);
-					if (ENV == 'dev') {
-						alert(res.message);
-					} else {
-						navigator.notification.alert(res.message, alertDismissed);
-					}
-					$("#btnLogin").removeAttr("disabled");
-			   }
-			 $("#btnLogin").removeAttr("disabled");
-			},"json");
-		} else {        
-			if (ENV == 'dev') {
-				alert('You must enter a username and password');
-			} else {
-				//navigator.notification.vibrate(1000);
-				navigator.notification.alert("You must enter a username and password", alertDismissed);
-			}
-			$("#btnLogin").removeAttr("disabled");
-		}
-		return false;
-	}
-
-	function handleLogout() {
-		console.log('handleLogout');	
-		
-		$.getJSON(API+"/account/logout", function(res) {
-			if (res.success) {
-				window.localStorage.clear();  
-				window.sessionStorage.clear();		
-                
-                mofChangePage('#pageLogin');
-			}
-		});
-				
-	}
-	
+  	
 	$(document).on('click', '.btn-logout', handleLogout);
 
 	$(document).on('click', "#btnLogin", handleLogin);
@@ -440,11 +371,6 @@ var currentUrl = $.mobile.activePage.data('url');
 	}
 	*/
      
-    //Insert code here
-    $(document).on("pageinit", "#pageLogin", function(e) {
-		//$("#pageLogin").on("pageinit", function(e) {
-        checkPreAuth();
-    });
   
 	function loadChatInit() {
       console.log('loadChatInit');
@@ -517,8 +443,7 @@ function parseRSS() {
 
 }
 */
-       
-        
+              
   if (ENV == 'dev') {
 	//deviceReady();
 
@@ -528,6 +453,84 @@ function parseRSS() {
 	
 });
 
+    /* 
+     * mobile framework - Change Page
+     * pageid = test.html or #changePage
+     */
+    function mofChangePage(pageid) {
+        //$.mobile.changePage("some.html");				
+        $.mobile.changePage(pageid);
+    }
+	
+	function checkPreAuth() {
+		console.log('checkPreAuth');
+		var form = $("#loginForm");	
+                   
+		if(Object.keys(objUser).length == 0 && window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
+			$("#username", form).val(window.localStorage["username"]);
+			$("#password", form).val(window.localStorage["password"]);
+			handleLogin();
+		}
+	}
+
+	function handleLogin() {
+		console.log('handleLogin');			
+		var form = $("#loginForm");  	
+		//disable the button so we can't resubmit while we wait
+		//$("#submitButton",form).attr("disabled","disabled");
+		$("#btnLogin").attr("disabled","disabled");
+		var u = $("#username", form).val();
+		var p = $("#password", form).val();	
+		if(u != '' && p!= '') {
+			$.post(API+"/account/login", {username:u,password:p}, function(res) {
+				console.log(res);
+				if(res.success == true) {
+					//store
+					window.localStorage["username"] = u;
+					window.localStorage["password"] = p; 			
+					//window.sessionStorage["user_id"] = res.user.user_id; 
+					window.sessionStorage.setItem('user', JSON.stringify(res.user));
+
+				    objUser = res.user;
+					
+                    mofChangePage('#pageChat');
+				} else {	
+					console.log(res.message);
+					if (ENV == 'dev') {
+						alert(res.message);
+					} else {
+						navigator.notification.alert(res.message, alertDismissed);
+					}
+					$("#btnLogin").removeAttr("disabled");
+			   }
+			 $("#btnLogin").removeAttr("disabled");
+			},"json");
+		} else {        
+			if (ENV == 'dev') {
+				alert('You must enter a username and password');
+			} else {
+				//navigator.notification.vibrate(1000);
+				navigator.notification.alert("You must enter a username and password", alertDismissed);
+			}
+			$("#btnLogin").removeAttr("disabled");
+		}
+		return false;
+	}
+
+	function handleLogout() {
+		console.log('handleLogout');	
+		
+		$.getJSON(API+"/account/logout", function(res) {
+			if (res.success) {
+				window.localStorage.clear();  
+				window.sessionStorage.clear();		
+                
+                mofChangePage('#pageLogin');
+			}
+		});
+				
+	}
+    
 function loadDataUserList(data) {
 	//var htmlUserList = templateChatUserList(data);
     
@@ -731,3 +734,4 @@ function updateSessionReply(v, toAppend) {
     if (toAppend) $(".messageWrapper").append(str);	
     else return str;    
 }      
+
