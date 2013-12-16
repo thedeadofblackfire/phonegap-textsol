@@ -651,14 +651,14 @@ function generateDetailVisitor(data) {
     var str = '';
     str += '<div class="user_info both_shadow">';
     //str += '<strong>User Info:</strong>&nbsp;&nbsp;';
-    if (data.visitor.email != '' || data.visitor.email != '0') str += '&nbsp;&nbsp;<b>Email:</b> '+data.visitor.email;
-    if (data.visitor.phone != '' || data.visitor.phone != '0') str += '&nbsp;&nbsp;<b>Phone:</b> '+data.visitor.phone;
+    //if (data.visitor.email != '' || data.visitor.email != '0') str += '&nbsp;&nbsp;<b>Email:</b> '+data.visitor.email;
+    //if (data.visitor.phone != '' || data.visitor.phone != '0') str += '&nbsp;&nbsp;<b>Phone:</b> '+data.visitor.phone;
     if (data.visitor.country != '') str += '&nbsp;&nbsp;<b>Country:</b> '+data.visitor.country;   
     if (data.visitor.city != '') str += '&nbsp;&nbsp;<b>City:</b> '+data.visitor.city;
-    if (data.visitor.region != '') str += '&nbsp;&nbsp;<b>Region:</b> '+data.visitor.region;
+    //if (data.visitor.region != '') str += '&nbsp;&nbsp;<b>Region:</b> '+data.visitor.region;
     if (data.visitor.browser != '') str += '&nbsp;&nbsp;<b>Browser:</b> '+data.visitor.browser;
     if (data.visitor.referrer != '') str += '&nbsp;&nbsp;<b>Url:</b> '+data.visitor.referrer;
-    if (data.visitor.visit != '') str += '&nbsp;&nbsp;<b>Visit Time:</b> '+data.visitor.visit;
+    //if (data.visitor.visit != '') str += '&nbsp;&nbsp;<b>Visit Time:</b> '+data.visitor.visit;
     str += '</div>';
     
     return str;
