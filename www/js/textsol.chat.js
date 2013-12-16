@@ -23,11 +23,43 @@ function select_tab_by_id(id)
     })
 }
 
+// Audio player
+var my_media = null;
+        
 function play_audio(audiofile) {
-    // @todo if sounds ok and phonegap audio
     //http://docs.phonegap.com/en/3.2.0/cordova_media_media.md.html#Media
-    if (audioEnable) $.playSound(audiofile);
+    if (audioEnable) {
+        if (ENV == 'dev') {
+            $.playSound(audiofile);
+        } else {
+            // phonegap    
+            if (my_media == null) {
+                // Create Media object from src
+                //ar myMedia = new Media("documents://beer.mp3")
+                my_media = new Media(audiofile, onMediaSuccess, onMediaError);
+            } // else play current audio
+                    
+            // Play audio
+            my_media.play();
+        }
+    }
+
 }
+// onSuccess Callback
+function onMediaSuccess() {
+    console.log("playAudio():Audio Success");
+}
+
+// onError Callback
+function onMediaError(error) {
+    console.log("playAudio():Audio Error: " + err);
+            /*
+            alert('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+            */
+}
+
+        
 
 function new_message(id) {
 
