@@ -355,6 +355,8 @@ function chat_update()
             //badgeChatCount = 1;            
             //displayBadgeChat();
             
+            $("#app-status-ul").append('<li>--update_chat-- mid=' + last_message_id +'</li>');
+            
             if (data.users != null) {
                 $.each(data.users, function(k, v) {                
                     // incoming chat
