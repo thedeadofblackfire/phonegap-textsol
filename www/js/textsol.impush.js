@@ -1,11 +1,11 @@
-var PushWoosh = {        
+var ImPush = {        
         getHWId : function() {
                 return device.uuid;
         },
         
         register : function(token, lambda, lambdaerror) {
                 var method = 'POST';
-                var url = PushWoosh.baseurl + 'registerDevice';
+                var url = ImPush.baseurl + 'registerDevice';
                 
                 var offset = new Date().getTimezoneOffset() * 60;        //in seconds
                 
@@ -17,100 +17,100 @@ var PushWoosh = {
                 
                 var deviceType = 1;
                 if (device.platform == 'android' || device.platform == 'Android') {
-                        deviceType = 3;
+                    deviceType = 2;
                 }
 
                 var params = {
                                 request : {
-                                        application : PushWoosh.appCode,
+                                        application : ImPush.appCode,
                                         push_token : token,
                                         language : lang,
-                                        hwid : PushWoosh.getHWId(),
+                                        hwid : ImPush.getHWId(),
                                         timezone : offset,
                                         device_type : deviceType
                                 }
                         };
 
                 payload = (params) ? JSON.stringify(params) : '';
-                PushWoosh.helper(url, method, payload, lambda, lambdaerror);
+                ImPush.helper(url, method, payload, lambda, lambdaerror);
         },
         
         unregister : function(lambda, lambdaerror) {
                 var method = 'POST';
-                var url = PushWoosh.baseurl + 'unregisterDevice';
+                var url = ImPush.baseurl + 'unregisterDevice';
                 
                 var params = {
                                 request : {
-                                        application : PushWoosh.appCode,
-                                        hwid : PushWoosh.getHWId()
+                                        application : ImPush.appCode,
+                                        hwid : ImPush.getHWId()
                                 }
                         };
 
                 payload = (params) ? JSON.stringify(params) : '';
-                PushWoosh.helper(url, method, payload, lambda, lambdaerror);
+                ImPush.helper(url, method, payload, lambda, lambdaerror);
         },
         
         sendBadge : function(badgeNumber, lambda, lambdaerror) {
                 var method = 'POST';
-                var url = PushWoosh.baseurl + 'setBadge';
+                var url = ImPush.baseurl + 'setBadge';
                 
                 var params = {
                                 request : {
-                                        application : PushWoosh.appCode,
-                                        hwid : PushWoosh.getHWId(),
+                                        application : ImPush.appCode,
+                                        hwid : ImPush.getHWId(),
                                         badge: badgeNumber
                                 }
                         };
 
                 payload = (params) ? JSON.stringify(params) : '';
-                PushWoosh.helper(url, method, payload, lambda, lambdaerror);
+                ImPush.helper(url, method, payload, lambda, lambdaerror);
         },
 
         sendAppOpen : function(lambda, lambdaerror) {
                 var method = 'POST';
-                var url = PushWoosh.baseurl + 'applicationOpen';
+                var url = ImPush.baseurl + 'applicationOpen';
                 
                 var params = {
                                 request : {
-                                        application : PushWoosh.appCode,
-                                        hwid : PushWoosh.getHWId()
+                                        application : ImPush.appCode,
+                                        hwid : ImPush.getHWId()
                                 }
                         };
 
                 payload = (params) ? JSON.stringify(params) : '';
-                PushWoosh.helper(url, method, payload, lambda, lambdaerror);
+                ImPush.helper(url, method, payload, lambda, lambdaerror);
         },
 
         sendPushStat : function(hashValue, lambda, lambdaerror) {
                 var method = 'POST';
-                var url = PushWoosh.baseurl + 'pushStat';
+                var url = ImPush.baseurl + 'pushStat';
                 
                 var params = {
                                 request : {
-                                        application : PushWoosh.appCode,
-                                        hwid : PushWoosh.getHWId(),
+                                        application : ImPush.appCode,
+                                        hwid : ImPush.getHWId(),
                                         hash: hashValue
                                 }
                         };
 
                 payload = (params) ? JSON.stringify(params) : '';
-                PushWoosh.helper(url, method, payload, lambda, lambdaerror);
+                ImPush.helper(url, method, payload, lambda, lambdaerror);
         },
                 
         setTags : function(tagsJsonObject, lambda, lambdaerror) {
                 var method = 'POST';
-                var url = PushWoosh.baseurl + 'setTags';
+                var url = ImPush.baseurl + 'setTags';
                 
                 var params = {
                                 request : {
-                                        application : PushWoosh.appCode,
-                                        hwid : PushWoosh.getHWId(),
+                                        application : ImPush.appCode,
+                                        hwid : ImPush.getHWId(),
                                         tags: tagsJsonObject
                                 }
                         };
 
                 payload = (params) ? JSON.stringify(params) : '';
-                PushWoosh.helper(url, method, payload, lambda, lambdaerror);
+                ImPush.helper(url, method, payload, lambda, lambdaerror);
         },
         
         helper : function(url, method, params, lambda, lambdaerror) {
@@ -134,4 +134,5 @@ var PushWoosh = {
         }
 };
 
-PushWoosh.baseurl = 'https://cp.pushwoosh.com/json/1.3/';
+ImPush.baseurl = 'http://www.textsol.com/api/notification/';
+if (ENV == 'dev') ImPush.baseurl = BASE_URL+'/api/notification/';

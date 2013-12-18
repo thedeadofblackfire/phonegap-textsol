@@ -2,6 +2,8 @@
             
             var push_senderID = '304393421639';
             
+            var push_homeid = '#pageChat';
+            
             function push_onDeviceReady() {
                 console.log('push_onDeviceReady');
             
@@ -11,11 +13,11 @@
 				{
                 	$("#app-status-ul").append('<li>backbutton event received</li>');
   					
-      				if( $("#home").length > 0)
+      				if( $("#home").length > 0 || $(push_homeid).length > 0 )
 					{
-						// call this to get a new token each time. don't call it to reuse existing token.
-						//pushNotification.unregister(successHandler, errorHandler);
+						// call this to get a new token each time. don't call it to reuse existing token.						
 						e.preventDefault();
+                        //pushNotification.unregister(successHandler, errorHandler);
 						navigator.app.exitApp();
 					}
 					else
@@ -56,7 +58,8 @@
                 }
                 
                 if (e.badge) {
-                    pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
+                    //badgeCount - an integer indicating what number should show up in the badge. Passing 0 will clear the badge.
+                    pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, e.badge);
                 }
             }
             
@@ -76,6 +79,14 @@
                         
                          // Your GCM push server needs to know the regID before it can push to this device
                          // here is where you might want to send it the regID for later use.
+                         ImPush.appCode = "539F5-D40CA";
+                         ImPush.register(e.regid, function(data) {
+                             console.log("ImPush register success: " + JSON.stringify(data));
+                             $("#app-status-ul").append("ImPush register success: " + JSON.stringify(data));
+                         }, function(errorregistration) {
+                             alert("Couldn't register with ImPush" +  errorregistration);
+                         });
+                         
                          PushWoosh.appCode = "539F5-D40CA";
                          PushWoosh.register(e.regid, function(data) {
                              console.log("PushWoosh register success: " + JSON.stringify(data));
@@ -124,6 +135,14 @@
                 $("#app-status-ul").append('<li>token: '+ result +'</li>');
                 // Your iOS push server needs to know the token before it can push to this device
                 // here is where you might want to send it the token for later use.
+                ImPush.appCode = "539F5-D40CA";
+                ImPush.register(result, function(data) {
+                        console.log("ImPush register success: " + JSON.stringify(data));
+                        $("#app-status-ul").append("ImPush register success: " + JSON.stringify(data));
+                    }, function(errorregistration) {
+                        alert("Couldn't register with ImPush" +  errorregistration);
+                    });
+                    
                 PushWoosh.appCode = "539F5-D40CA";
                 PushWoosh.register(result, function(data) {
                         console.log("PushWoosh register success: " + JSON.stringify(data));
