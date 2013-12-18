@@ -325,7 +325,7 @@ function chat_start()
 	    
     auto_refresh = setInterval(function() {
         chat_update()
-    }, 5000); // refresh every 5 seconds 
+    }, 25000); // refresh every 5 seconds 
     	
 }
 
