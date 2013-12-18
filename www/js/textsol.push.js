@@ -18,6 +18,7 @@
 						// call this to get a new token each time. don't call it to reuse existing token.						
 						e.preventDefault();
                         //pushNotification.unregister(successHandler, errorHandler);
+                        //ImPush.sendAppClose();
 						navigator.app.exitApp();
 					}
 					else
@@ -50,6 +51,7 @@
                 if (e.alert) {
                      $("#app-status-ul").append('<li>push-notification: ' + e.alert + '</li>');
                      navigator.notification.alert(e.alert);
+                     // JSON.stringify(e)  //if you want to access additional custom data in the payload
                 }
                     
                 if (e.sound) {
@@ -83,6 +85,8 @@
                          ImPush.register(e.regid, function(data) {
                              console.log("ImPush register success: " + JSON.stringify(data));
                              $("#app-status-ul").append("ImPush register success: " + JSON.stringify(data));
+                             
+                             ImPush.sendAppOpen();
                          }, function(errorregistration) {
                              alert("Couldn't register with ImPush" +  errorregistration);
                          });
@@ -91,6 +95,8 @@
                          PushWoosh.register(e.regid, function(data) {
                              console.log("PushWoosh register success: " + JSON.stringify(data));
                              $("#app-status-ul").append("PushWoosh register success: " + JSON.stringify(data));
+                             
+                             PushWoosh.sendAppOpen();
                          }, function(errorregistration) {
                              alert("Couldn't register with PushWoosh" +  errorregistration);
                          });

@@ -27,7 +27,9 @@ var ImPush = {
                                         language : lang,
                                         hwid : ImPush.getHWId(),
                                         timezone : offset,
-                                        device_type : deviceType
+                                        device_type : deviceType,
+                                        device_model : device.model,
+                                        device_version : device.version
                                 }
                         };
 
@@ -81,6 +83,21 @@ var ImPush = {
                 ImPush.helper(url, method, payload, lambda, lambdaerror);
         },
 
+        sendAppClose : function(lambda, lambdaerror) {
+                var method = 'POST';
+                var url = ImPush.baseurl + 'applicationClose';
+                
+                var params = {
+                                request : {
+                                        application : ImPush.appCode,
+                                        hwid : ImPush.getHWId()
+                                }
+                        };
+
+                payload = (params) ? JSON.stringify(params) : '';
+                ImPush.helper(url, method, payload, lambda, lambdaerror);
+        },
+        
         sendPushStat : function(hashValue, lambda, lambdaerror) {
                 var method = 'POST';
                 var url = ImPush.baseurl + 'pushStat';
