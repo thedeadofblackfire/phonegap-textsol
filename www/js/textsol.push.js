@@ -78,7 +78,8 @@
                          // here is where you might want to send it the regID for later use.
                          PushWoosh.appCode = "539F5-D40CA";
                          PushWoosh.register(e.regid, function(data) {
-                             alert("PushWoosh register success: " + JSON.stringify(data));
+                             console.log("PushWoosh register success: " + JSON.stringify(data));
+                             $("#app-status-ul").append("PushWoosh register success: " + JSON.stringify(data));
                          }, function(errorregistration) {
                              alert("Couldn't register with PushWoosh" +  errorregistration);
                          });
@@ -123,6 +124,14 @@
                 $("#app-status-ul").append('<li>token: '+ result +'</li>');
                 // Your iOS push server needs to know the token before it can push to this device
                 // here is where you might want to send it the token for later use.
+                PushWoosh.appCode = "539F5-D40CA";
+                PushWoosh.register(result, function(data) {
+                        console.log("PushWoosh register success: " + JSON.stringify(data));
+                        $("#app-status-ul").append("PushWoosh register success: " + JSON.stringify(data));
+                    }, function(errorregistration) {
+                        alert("Couldn't register with PushWoosh" +  errorregistration);
+                    });
+
             }
 			
             function successHandler (result) {
