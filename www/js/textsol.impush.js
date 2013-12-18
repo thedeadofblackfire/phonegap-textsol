@@ -1,6 +1,6 @@
 var ImPush = {        
         getHWId : function() {
-                return device.uuid;
+                return device.uuid || '';
         },
         
         register : function(token, lambda, lambdaerror) {
@@ -19,8 +19,12 @@ var ImPush = {
                 if (device.platform == 'android' || device.platform == 'Android') {
                     deviceType = 2;
                 }
+				
+				var deviceModel = device.model || '';
+				var deviceVersion = device.version || '';
 
                 var params = {
+								//user_id : ImPush.userId,
                                 request : {
                                         user_id : ImPush.userId,
                                         application : ImPush.appCode,
@@ -29,12 +33,13 @@ var ImPush = {
                                         hwid : ImPush.getHWId(),
                                         timezone : offset,
                                         device_type : deviceType,
-                                        device_model : device.model,
-                                        device_version : device.version
+                                        device_model : deviceModel,
+                                        device_version : deviceVersion
                                 }
                         };
 
-                payload = (params) ? JSON.stringify(params) : '';
+				//payload = params;
+                payload = (params) ? JSON.stringify(params) : '';			
                 ImPush.helper(url, method, payload, lambda, lambdaerror);
         },
         
@@ -137,7 +142,7 @@ var ImPush = {
         
         helper : function(url, method, params, lambda, lambdaerror) {
                 var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
+                xhr.onreadystatechange = function() {		
                         if(xhr.readyState == 4) { //Request complete !!
                                 if(xhr.status == 200) {
                                         if(lambda) lambda(xhr.responseText);
@@ -151,11 +156,25 @@ var ImPush = {
                 // open the client
                 xhr.open(method, url, true);
                 xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+				//xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+		
                 // send the data
-				//alert("helper: " + JSON.stringify(params));
+				//alert("helper: " + params);
                 xhr.send(params);
         }
 };
 
 ImPush.baseurl = 'http://www.textsol.com/api/notification/';
 if (ENV == 'dev') ImPush.baseurl = BASE_URL+'/api/notification/';
+
+      ImPush.userId = 374;
+                         ImPush.appCode = "539F5-D40CA";
+                         ImPush.register('abc', function(data) {
+                             console.log("ImPush register success: " + JSON.stringify(data));
+                             $("#app-status-ul").append("ImPush register success: " + JSON.stringify(data));
+                             
+                             //ImPush.sendAppOpen();
+                         }, function(errorregistration) {
+                             alert("Couldn't register with ImPush" +  errorregistration);
+                         });
+                         
