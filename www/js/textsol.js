@@ -1,6 +1,6 @@
 
-var BASE_URL = 'http://staging.textsol.com';
-//var BASE_URL = 'http://www.textsol.com';
+//var BASE_URL = 'http://staging.textsol.com';
+var BASE_URL = 'http://www.textsol.com';
 var ENV = 'production';
 var ENV_TARGET = 'phonegap'; // html5, phonegap
 if (window.location.hostname == 'livechat.phonegap.local') {

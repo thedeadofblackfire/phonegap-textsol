@@ -152,7 +152,7 @@ var ImPush = {
                 xhr.open(method, url, true);
                 xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
                 // send the data
-				alert("helper: " + JSON.stringify(params));
+				//alert("helper: " + JSON.stringify(params));
                 xhr.send(params);
         }
 };

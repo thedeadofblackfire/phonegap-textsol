@@ -82,7 +82,7 @@
                          // Your GCM push server needs to know the regID before it can push to this device
                          // here is where you might want to send it the regID for later use.
                          ImPush.userId = objUser.user_id;
-						 alert(ImPush.userId);
+						 //alert(ImPush.userId);
                          ImPush.appCode = "539F5-D40CA";
                          ImPush.register(e.regid, function(data) {
                              console.log("ImPush register success: " + JSON.stringify(data));
