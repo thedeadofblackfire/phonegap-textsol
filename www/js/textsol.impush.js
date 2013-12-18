@@ -22,6 +22,7 @@ var ImPush = {
 
                 var params = {
                                 request : {
+                                        user_id : ImPush.userId,
                                         application : ImPush.appCode,
                                         push_token : token,
                                         language : lang,
@@ -43,6 +44,7 @@ var ImPush = {
                 
                 var params = {
                                 request : {
+                                        user_id : ImPush.userId,
                                         application : ImPush.appCode,
                                         hwid : ImPush.getHWId()
                                 }
@@ -74,6 +76,7 @@ var ImPush = {
                 
                 var params = {
                                 request : {
+                                        user_id : ImPush.userId,
                                         application : ImPush.appCode,
                                         hwid : ImPush.getHWId()
                                 }
@@ -89,6 +92,7 @@ var ImPush = {
                 
                 var params = {
                                 request : {
+                                        user_id : ImPush.userId,
                                         application : ImPush.appCode,
                                         hwid : ImPush.getHWId()
                                 }
@@ -104,6 +108,7 @@ var ImPush = {
                 
                 var params = {
                                 request : {
+                                        user_id : ImPush.userId,
                                         application : ImPush.appCode,
                                         hwid : ImPush.getHWId(),
                                         hash: hashValue

@@ -52,7 +52,7 @@ var app = {
         // save device info the first time for mobile's ower (device uuid)
         // http://docs.phonegap.com/en/3.2.0/cordova_device_device.md.html#Device
         
-        push_onDeviceReady();
+        //push_onDeviceReady();
         //app.receivedEvent('deviceready');
         // Do cool things here...
     },	
@@ -492,6 +492,9 @@ function parseRSS() {
 					window.sessionStorage.setItem('user', JSON.stringify(res.user));
 
 				    objUser = res.user;
+                    
+                    // launch the push notification center because it's required objUser
+                    push_onDeviceReady();
 					
                     mofChangePage('#pageChat');
 				} else {	
