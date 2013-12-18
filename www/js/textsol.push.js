@@ -118,6 +118,7 @@
 							my_media.play();
                             
                             chat_update();
+							$("#app-status-ul").append('<li>--chat_update--' + '</li>');
 						}
 						else
 						{	// otherwise we were launched because the user touched a notification in the notification tray.
