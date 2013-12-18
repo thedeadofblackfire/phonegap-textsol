@@ -166,7 +166,7 @@ var ImPush = {
 
 ImPush.baseurl = 'http://www.textsol.com/api/notification/';
 if (ENV == 'dev') ImPush.baseurl = BASE_URL+'/api/notification/';
-
+/*
       ImPush.userId = 374;
                          ImPush.appCode = "539F5-D40CA";
                          ImPush.register('abc', function(data) {
@@ -177,4 +177,4 @@ if (ENV == 'dev') ImPush.baseurl = BASE_URL+'/api/notification/';
                          }, function(errorregistration) {
                              alert("Couldn't register with ImPush" +  errorregistration);
                          });
-                         
+                         */
