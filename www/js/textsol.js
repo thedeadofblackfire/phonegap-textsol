@@ -485,7 +485,13 @@ function parseRSS() {
     }
         
 	function handleLogin(u,p) {
-		console.log('handleLogin');			
+		console.log('handleLogin');		
+
+        // show loading icon
+       $.mobile.showPageLoadingMsg(); 
+       //$.mobile.loading( 'show' );
+       //$.mobile.showPageLoadingMsg("b", "This is only a test", true);
+   
 		//var form = $("#loginForm");  	
 		//disable the button so we can't resubmit while we wait
 		//$("#submitButton",form).attr("disabled","disabled");
@@ -495,6 +501,7 @@ function parseRSS() {
 		if(u != '' && p!= '') {
 			$.post(API+"/account/login", {username:u,password:p}, function(res) {
 				console.log(res);
+                $.mobile.hidePageLoadingMsg();
 				if(res.success == true) {
 					//store
 					window.localStorage["username"] = u;
