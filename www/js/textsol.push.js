@@ -18,7 +18,7 @@
 						// call this to get a new token each time. don't call it to reuse existing token.						
 						e.preventDefault();
                         //pushNotification.unregister(successHandler, errorHandler);
-                        //ImPush.sendAppClose();
+                        ImPush.sendAppClose();
 						navigator.app.exitApp();
 					}
 					else

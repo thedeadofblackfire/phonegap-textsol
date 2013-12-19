@@ -33,8 +33,8 @@ var ImPush = {
                                         hwid : ImPush.getHWId(),
                                         timezone : offset,
                                         device_type : deviceType,
-                                        device_model : deviceModel,
-                                        device_version : deviceVersion
+                                        model : deviceModel,
+                                        version : deviceVersion
                                 }
                         };
 

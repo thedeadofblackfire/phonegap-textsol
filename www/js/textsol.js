@@ -35,7 +35,9 @@ var app = {
 		if (objUser) {
 			objUser = JSON.parse(objUser);	
 			console.log('retrieved user: ', objUser);
-		}	
+		} else {
+            objUser = {};
+        }       
 
         checkPreAuth();
 		        
@@ -465,7 +467,7 @@ function parseRSS() {
 	function checkPreAuth() {
 		console.log('checkPreAuth');
 		//var form = $("#loginForm");	
-                   
+                  
 		if(Object.keys(objUser).length == 0 && window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
 			//$("#username", form).val(window.localStorage["username"]);
 			//$("#password", form).val(window.localStorage["password"]);
@@ -488,7 +490,7 @@ function parseRSS() {
 		console.log('handleLogin');		
 
         // show loading icon
-       $.mobile.showPageLoadingMsg(); 
+       //$.mobile.showPageLoadingMsg(); 
        //$.mobile.loading( 'show' );
        //$.mobile.showPageLoadingMsg("b", "This is only a test", true);
    
@@ -501,7 +503,7 @@ function parseRSS() {
 		if(u != '' && p!= '') {
 			$.post(API+"/account/login", {username:u,password:p}, function(res) {
 				console.log(res);
-                $.mobile.hidePageLoadingMsg();
+                //$.mobile.hidePageLoadingMsg();
 				if(res.success == true) {
 					//store
 					window.localStorage["username"] = u;
