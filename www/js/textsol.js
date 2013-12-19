@@ -37,7 +37,7 @@ var app = {
 			console.log('retrieved user: ', objUser);
 		}	
 
-        //checkPreAuth();
+        checkPreAuth();
 		        
 		//document.addEventListener('load', this.onDeviceReady, true);		
     },
@@ -332,7 +332,7 @@ var currentUrl = $.mobile.activePage.data('url');
   	
 	$(document).on('click', '.btn-logout', handleLogout);
 
-	$(document).on('click', "#btnLogin", handleLogin);
+	$(document).on('click', "#btnLogin", handleLoginForm);
 	
 	$(document).on('change', '#toggleswitchremotechat', function(e) {		
        var current_status = $(this).val();
@@ -464,23 +464,34 @@ function parseRSS() {
 	
 	function checkPreAuth() {
 		console.log('checkPreAuth');
-		var form = $("#loginForm");	
+		//var form = $("#loginForm");	
                    
 		if(Object.keys(objUser).length == 0 && window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
-			$("#username", form).val(window.localStorage["username"]);
-			$("#password", form).val(window.localStorage["password"]);
-			handleLogin();
+			//$("#username", form).val(window.localStorage["username"]);
+			//$("#password", form).val(window.localStorage["password"]);
+			handleLogin(window.localStorage["username"], window.localStorage["password"]);
 		}
 	}
 
-	function handleLogin() {
-		console.log('handleLogin');			
+    function handleLoginForm() {
+		console.log('handleLoginForm');			
 		var form = $("#loginForm");  	
 		//disable the button so we can't resubmit while we wait
 		//$("#submitButton",form).attr("disabled","disabled");
 		$("#btnLogin").attr("disabled","disabled");
 		var u = $("#username", form).val();
-		var p = $("#password", form).val();	
+		var p = $("#password", form).val();
+        handleLogin(u,p);
+    }
+        
+	function handleLogin(u,p) {
+		console.log('handleLogin');			
+		//var form = $("#loginForm");  	
+		//disable the button so we can't resubmit while we wait
+		//$("#submitButton",form).attr("disabled","disabled");
+		//$("#btnLogin").attr("disabled","disabled");
+		//var u = $("#username", form).val();
+		//var p = $("#password", form).val();	
 		if(u != '' && p!= '') {
 			$.post(API+"/account/login", {username:u,password:p}, function(res) {
 				console.log(res);
