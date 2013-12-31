@@ -122,7 +122,7 @@ $(document).ready(function() {
             success: function(data) {
                 // echo '<p class="reply"><b>' . objChat.support_display_name . '</b>: ' . $reply->reply . ' <span>' . change_date_format('h:i:s a', $reply->post_date) . '</span></p>';                     
                 if (data.reply) {
-                    updateSessionReply(data.reply);
+                    updateSessionReply(data.reply, true);
                     //var str = '<p class="reply" rid="'+data.reply.id+'"><b>'+objChat.support_display_name+'</b>: '+data.reply.reply+' <span class="time">'+data.reply.post_date_format+'</span></p>';
                     //$(".messageWrapper").append(str);
                 }
