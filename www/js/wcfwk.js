@@ -42,6 +42,12 @@ var wcFwk = {
       xhr.send(json_data);
     },
     
+    ajax_postJsonSync : function(url, params, lambda, lambdaerror) {            
+      var payload = (params) ? wcFwk.getAsUriParameters(params) : '';
+      var options = {async: false};
+      wcFwk.ajax_sendRequest(url, 'POST', payload, lambda, lambdaerror, options);
+    },
+    
     ajax_postJsonAsync : function(url, params, lambda, lambdaerror) {            
       var payload = (params) ? wcFwk.getAsUriParameters(params) : '';
       //var options = {async: false};
