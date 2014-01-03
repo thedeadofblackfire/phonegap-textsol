@@ -325,7 +325,7 @@ function chat_start()
 	    
     auto_refresh = setInterval(function() {
         chat_update()
-    }, 25000); // refresh every 5 seconds 
+    }, 15000); // refresh every 25 seconds 
     	
 }
 
@@ -348,6 +348,8 @@ function chat_update()
 		url: API+'/chat/update_chat',
         dataType: "json",
         type: 'POST',
+        //headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-type': 'application/x-www-form-urlencoded'},
+        //crossDomain: false,
         data: {session_id: current_session_id, user_id: objUser.user_id, mid: last_message_id, rid: last_reply_id},
         success: function(data) {
 			console.log(data);

@@ -17,6 +17,7 @@ var badgeChatCount = 0;
 var audioEnable = true;
 var isChatSession = false;
 
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -132,8 +133,18 @@ function formatDateLight(d) {
 	return d.substr(11,5);
 }
 	
+           
+            //http://stackoverflow.com/questions/8163703/cross-domain-ajax-doesnt-send-x-requested-with-header
+            /*
+             $.ajaxSetup({
+                //headers: {"X-Requested-With":"XMLHttpRequest"},
+                crossDomain: false
+            });
+            */
+            
 jQuery(document).ready(function($){
 		
+        
     //Insert code here
     $(document).on('pageinit', '#pageLogin', function(e) {
     //$(document).on('pagebeforeshow', '#pageLogin', function(){  
@@ -393,7 +404,8 @@ var currentUrl = $.mobile.activePage.data('url');
                //},
                
                 headers: {
-                    Cookie: store.getItem('session')
+                    Cookie: store.getItem('session'),
+                    'X-Requested-With': 'XMLHttpRequest'
                 },
                 complete: function (jqXHR, status){
                     if (status != 'success') {
@@ -428,11 +440,8 @@ var currentUrl = $.mobile.activePage.data('url');
                    
             $.ajax(request);
             */
-            /*
-             $.ajaxSetup({
-                headers: {"X-Requested-With":"XMLHttpRequest"}
-            });
-            */
+     
+           
             //{"X-Requested-With":"XMLHttpRequest"}
             $.getJSON(API+"/chat/init?user_id="+objUser.user_id, function(res) {			
                 objChat = res;
