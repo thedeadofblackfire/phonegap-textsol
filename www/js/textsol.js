@@ -381,34 +381,89 @@ var currentUrl = $.mobile.activePage.data('url');
             console.log('Chat init & start');
             // save the online chat status
             
+            /*
+            var store = window.localStorage;
+            var request = {
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: API+"/chat/init?user_id="+objUser.user_id,                
+                //crossdomain: true,
+                //xhrFields: {
+                //  withCredentials: true
+               //},
+               
+                headers: {
+                    Cookie: store.getItem('session')
+                },
+                complete: function (jqXHR, status){
+                    if (status != 'success') {
+                        console.log('ajax status: failure');
+                    } else if (store.getItem('session') != null) {
+                        console.log('ajax status: session exists');
+                    } else {
+                        console.log('ajax status: saving cookie');
+                        var header = jqXHR.getAllResponseHeaders();
+                        console.log( jqXHR.getResponseHeader("Set-Cookie"));
+                        console.log(header);
+                        var match = header.match(/(Set-Cookie|set-cookie): (.+?);/);
+                        if (match) {
+                            session = match[2];
+                            store.setItem("session", session);
+                        }
+                    }
+                },
+                success: function(res) {
+                    objChat = res;
+                    //window.sessionStorage.setItem('objChat', JSON.stringify(objChat));
+                    console.log(objChat);
+          
+                    //var context = {title: "My New Post", body: "This is my first post!"}
+                    
+
+                    handleRefreshOnlineUser();
+                    
+                    chat_start();
+                },
+            }
+                   
+            $.ajax(request);
+            */
+            /*
+             $.ajaxSetup({
+                headers: {"X-Requested-With":"XMLHttpRequest"}
+            });
+            */
+            //{"X-Requested-With":"XMLHttpRequest"}
             $.getJSON(API+"/chat/init?user_id="+objUser.user_id, function(res) {			
                 objChat = res;
                 //window.sessionStorage.setItem('objChat', JSON.stringify(objChat));
                 console.log(objChat);
-                /*
-                if (res.online_status == '1') {
-                    online = true;
-                } else {
-                    online = false;
+                
+                //if (res.online_status == '1') {
+                 //   online = true;
+                //} else {
+                //    online = false;
                     // @todo display offline message
-                }	
-                */
+                //}	
+                
                 //var context = {title: "My New Post", body: "This is my first post!"}
                 
-                /*
-                var htmlHeader = templateChatHeader(objChat);
-                var htmlLoop = templateChatLoop(objChat);
+               
+                //var htmlHeader = templateChatHeader(objChat);
+                //var htmlLoop = templateChatLoop(objChat);
                 //console.log(htmlLoop);
-                $('#chatHeader').html(htmlHeader);
-                $('.tab-content').html(htmlLoop);
+                //$('#chatHeader').html(htmlHeader);
+                //$('.tab-content').html(htmlLoop);
                 //$( "#left-panel" ).trigger( "updatelayout" );
-                */
+                
                 
                 handleRefreshOnlineUser();
                 
                 chat_start();
                 
             });
+       
+            
         }
         
         /*
@@ -501,10 +556,21 @@ function parseRSS() {
 		//var u = $("#username", form).val();
 		//var p = $("#password", form).val();	
 		if(u != '' && p!= '') {
-			$.post(API+"/account/login", {username:u,password:p}, function(res) {
+			$.post(API+"/account/login", {username:u,password:p}, function(res, textStatus, jqXHR) {
 				console.log(res);
                 //$.mobile.hidePageLoadingMsg();
 				if(res.success == true) {
+                    //http://stackoverflow.com/questions/5124300/where-cookie-is-managed-in-phonegap-app-with-jquery
+                    //http://stackoverflow.com/questions/8358588/how-do-i-enable-third-party-cookies-under-phonegap-and-android-3-2
+                    var header = jqXHR.getAllResponseHeaders();
+                    var match = header.match(/(Set-Cookie|set-cookie): (.+?);/);
+                    console.log(match);
+                    if(match) {
+                        my_saved_cookie = match[2];
+                        console.log(my_saved_cookie);
+                         window.localStorage.setItem("session",my_saved_cookie);
+                    }
+                        
 					//store
 					window.localStorage["username"] = u;
 					window.localStorage["password"] = p; 			
