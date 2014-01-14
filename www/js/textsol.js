@@ -336,6 +336,16 @@ var currentUrl = $.mobile.activePage.data('url');
 			$('#toggleswitchremotechat').val(valeur).slider("refresh");
   
 		});
+        
+        $.getJSON(API+"/account/notificationstatus?user_id="+objUser.user_id+"&operator_id="+objUser.operator_id, function(res) {
+			console.log(res);
+			ivar valeur = 'Off';
+			if (res.status == '1') {
+				valeur = 'On';
+			}		
+			$('#toggleswitchnotification').val(valeur).slider("refresh");
+  
+		});
 		
     });
     
@@ -349,9 +359,8 @@ var currentUrl = $.mobile.activePage.data('url');
 	
 	$(document).on('change', '#toggleswitchremotechat', function(e) {		
        var current_status = $(this).val();
-       console.log('toggleswitchremotechat '+$(this).val());
+       console.log('toggleswitchremotechat '+current_status);
 	
-	   //var url = 'http://textwc.local/user/changeOnlineStatus';
 	   var url = API+"/account/onlinestatus";
        $.ajax({
               url : url,
@@ -360,6 +369,26 @@ var currentUrl = $.mobile.activePage.data('url');
               data:{user_id: objUser.user_id, action:'chatStatus', status:current_status},
               success :function(data){
               	//window.location.reload();
+				console.log(data);
+              },
+              error:function(data){    
+				console.log(data);			  
+              } 
+        });
+		
+	});
+    
+    $(document).on('change', '#toggleswitchnotification', function(e) {		
+       var current_status = $(this).val();
+       console.log('toggleswitchnotification '+current_status);
+	
+	   var url = API+"/account/notificationstatus";
+       $.ajax({
+              url : url,
+              type: "POST",
+              dataType : 'json',
+              data:{user_id: objUser.user_id, operator_id: objUser.operator_id, action:'notificationStatus', status:current_status},
+              success :function(data){
 				console.log(data);
               },
               error:function(data){    
