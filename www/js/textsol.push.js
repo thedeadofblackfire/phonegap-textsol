@@ -82,6 +82,7 @@
                          // Your GCM push server needs to know the regID before it can push to this device
                          // here is where you might want to send it the regID for later use.
                          ImPush.userId = objUser.user_id;
+                         ImPush.operatorId = objUser.operator_id;
 						 //alert(ImPush.userId);
                          ImPush.appCode = "539F5-D40CA";
                          ImPush.register(e.regid, function(data) {
@@ -147,6 +148,7 @@
                 // Your iOS push server needs to know the token before it can push to this device
                 // here is where you might want to send it the token for later use.
                 ImPush.userId = objUser.user_id;
+                ImPush.operatorId = objUser.operator_id;
                 ImPush.appCode = "539F5-D40CA";
                 ImPush.register(result, function(data) {
                         console.log("ImPush register success: " + JSON.stringify(data));

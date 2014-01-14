@@ -27,6 +27,7 @@ var ImPush = {
 								//user_id : ImPush.userId,
                                 request : {
                                         user_id : ImPush.userId,
+                                        operator_id : ImPush.operatorId,
                                         application : ImPush.appCode,
                                         push_token : token,
                                         language : lang,
@@ -50,6 +51,7 @@ var ImPush = {
                 var params = {
                                 request : {
                                         user_id : ImPush.userId,
+                                        operator_id : ImPush.operatorId,
                                         application : ImPush.appCode,
                                         hwid : ImPush.getHWId()
                                 }
@@ -82,6 +84,7 @@ var ImPush = {
                 var params = {
                                 request : {
                                         user_id : ImPush.userId,
+                                        operator_id : ImPush.operatorId,
                                         application : ImPush.appCode,
                                         hwid : ImPush.getHWId()
                                 }
@@ -98,6 +101,7 @@ var ImPush = {
                 var params = {
                                 request : {
                                         user_id : ImPush.userId,
+                                        operator_id : ImPush.operatorId,
                                         application : ImPush.appCode,
                                         hwid : ImPush.getHWId()
                                 }
@@ -114,6 +118,7 @@ var ImPush = {
                 var params = {
                                 request : {
                                         user_id : ImPush.userId,
+                                        operator_id : ImPush.operatorId,
                                         application : ImPush.appCode,
                                         hwid : ImPush.getHWId(),
                                         hash: hashValue
