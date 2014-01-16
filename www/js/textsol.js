@@ -339,7 +339,7 @@ var currentUrl = $.mobile.activePage.data('url');
         
         $.getJSON(API+"/account/notificationstatus?user_id="+objUser.user_id+"&operator_id="+objUser.operator_id, function(res) {
 			console.log(res);
-			ivar valeur = 'Off';
+			var valeur = 'Off';
 			if (res.status == '1') {
 				valeur = 'On';
 			}		
@@ -667,8 +667,7 @@ function loadDataUserList(data) {
     
     //htmlUserList += '<div class="ui-bar ui-bar-e"><h3 style="display:inline-block; width:92%; margin-top:5px;">This is an alert message. </h3><div style="display:inline-block; width:8%; margin-top:0px; text-align:right;"><a href="#" data-role="button" data-icon="delete" data-inline="true" data-iconpos="notext" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="e" title="Dismiss" class="ui-btn ui-btn-up-e ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text">Dismiss</span><span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span></span></a></div><p style="font-size:85%; margin:-.3em 0 1em;">And here\'s some additional text in a paragraph.</p></div>';
                     
-    htmlUserList += '<ul id="chat_userlist" data-role="listview" data-theme="d" data-divider-theme="e" data-count-theme="c">';
-    //htmlUserList += '<ul id="chat_userlist" data-role="listview" data-inset="true" data-theme="d" data-divider-theme="e" data-count-theme="c">';
+    htmlUserList += '<ul id="chat_userlist" data-role="listview" data-theme="a" data-divider-theme="d" data-count-theme="a">';
     htmlUserList += '<li data-role="list-divider" id="activechat_title">'+title+'</li>';
     $.each(data.online_user, function(k, v) {
         htmlUserList += generateLineUser(v,false);            
