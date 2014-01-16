@@ -175,12 +175,11 @@ jQuery(document).ready(function($){
             // want to handle URLs that request the data for a specific
             // category.
             var url = $.mobile.path.parseUrl( data.toPage ),
-                regex = /^#pageChatSession/;
-
-            //console.log(url);
+                regex = /^#pageChatSession/;            
             
             if ( url.hash.search(regex) !== -1 ) {
-
+                //console.log(url);
+                
                 // We're being asked to display the items for a specific category.
                 // Call our internal method that builds the content for the category
                 // on the fly based on our in-memory category data structure.               
@@ -192,113 +191,96 @@ jQuery(document).ready(function($){
         }
     });
 
-    // parse params in hash
-	function hashParams(hash) {
-		var ret = {};
-	    var match;
-	    var plus   = /\+/g;
-	    var search = /([^\?&=]+)=([^&]*)/g;
-	    var decode = function(s) { 
-	    	return decodeURIComponent(s.replace(plus, " ")); 
-	    };
-	    while( match = search.exec(hash) ) ret[decode(match[1])] = decode(match[2]);
-	    
-	    return ret
-	};
-    
-
- 
-
-function loadSession(urlObj, options) {
-   
-    var params = hashParams(urlObj.hash);
-    //console.log(params);
-    
-    var sessionid = params['id'];
-    if( !sessionid ) {
-      //alert('Session not found!');
-	  mofChangePage('#pageChat');
-      return
-    };
-	
-	console.log('loadSession '+sessionid);
- 
-   // show loading icon
-   $.mobile.showPageLoadingMsg();   
-   
-   $.ajax({
-      url: API+"/chat/get_conversation_by_session",
-      datatype: 'json',      
-      type: "post",
-      data: {replyname: objChat.support_display_name, session_id: sessionid, user_id: objUser.user_id},
-      //datatype:'xml',
-      success:function(res){
-         $.mobile.hidePageLoadingMsg();
-         console.log(res);
-         //console.log(urlObj);
+    function loadSession(urlObj, options) {       
+        var params = hashParams(urlObj.hash);
+        //console.log(params);
+        
+        var sessionid = params['id'];
+        if( !sessionid ) {
+          //alert('Session not found!');
+          mofChangePage('#pageChat');
+          return
+        };
+        
+        console.log('loadSession '+sessionid);
      
-         // save xml document as a property of the array element
-         /*               
-         if( !objSession[ '_' + sessionid ] ) {
-            objSession[ '_' + sessionid ] = {};
-		
-		  };
-         var book = objSession[ '_' + sessionid ];
-         book['text'] = res;
-         //book.text = res;        
-         console.log(objSession);
-         */
+       // show loading icon
+       $.mobile.loading('show');  
+       
+       $.ajax({
+          url: API+"/chat/get_conversation_by_session",
+          datatype: 'json',      
+          type: "post",
+          data: {replyname: objChat.support_display_name, session_id: sessionid, user_id: objUser.user_id},
+          //datatype:'xml',
+          success:function(res){                    
+             console.log(res);
+             //console.log(urlObj);
+         
+             // save xml document as a property of the array element
+             /*               
+             if( !objSession[ '_' + sessionid ] ) {
+                objSession[ '_' + sessionid ] = {};
             
-         // Get the empty page we are going to insert our content into.
-            var pageSelector = urlObj.hash.replace( /\?.*$/, "" );
-           //var $page = $('#pageChatSession');
-           var $page = $( pageSelector );
-          
-           // Get the header for the page to set it
-           $header = $page.children( ":jqmData(role=header)" );
-           $header.find( "h1" ).html( res.name+' #'+sessionid );
-           //$header.find( "h1" ).html( book.bname +' '+ chapterNum );
+              };
+             var book = objSession[ '_' + sessionid ];
+             book['text'] = res;
+             //book.text = res;        
+             console.log(objSession);
+             */
+                
+             // Get the empty page we are going to insert our content into.
+                var pageSelector = urlObj.hash.replace( /\?.*$/, "" );
+               //var $page = $('#pageChatSession');
+               var $page = $( pageSelector );
+              
+               // Get the header for the page to set it
+               $header = $page.children( ":jqmData(role=header)" );
+               $header.find( "h1" ).html( res.name+' #'+sessionid );
+               //$header.find( "h1" ).html( book.bname +' '+ chapterNum );
 
-           var chapterHTML = '';
-           /*
-           $( verseNodeName , chapter).each(function(i) {
-              var vers = $(this);
-              chapterHTML += '<p><sup>'+ (i+1) +'</sup> '+ vers.text() +'</p>'
-           });
-           */
-           //chapterHTML += res.html_visitor;
-           //chapterHTML += res.html_conversation;
-    
-             chapterHTML += generatePageSession(res);
-           	//var htmlUserConversation = templateChatUserConversation(res);
-            //chapterHTML += htmlUserConversation;
-            
-			//$('#container_chat_userlist').html(htmlUserConversation);
-			//$("chat_userlist").listview('refresh');
-           
-           // Get the content element for the page to set it
-           $content = $page.children( ":jqmData(role=content)" );
-           $content.html(chapterHTML);
-                   
-		   isChatSession = true;
-           // flag unread 
-           checkUnread(sessionid);
-           
-           options.dataUrl = urlObj.href;
-           //options.changeHash = false;
-           //console.log(options);                      
+               var chapterHTML = '';
+               /*
+               $( verseNodeName , chapter).each(function(i) {
+                  var vers = $(this);
+                  chapterHTML += '<p><sup>'+ (i+1) +'</sup> '+ vers.text() +'</p>'
+               });
+               */
+               //chapterHTML += res.html_visitor;
+               //chapterHTML += res.html_conversation;
+        
+                 chapterHTML += generatePageSession(res);
+                //var htmlUserConversation = templateChatUserConversation(res);
+                //chapterHTML += htmlUserConversation;
+                
+                //$('#container_chat_userlist').html(htmlUserConversation);
+                //$("chat_userlist").listview('refresh');
+               
+               // Get the content element for the page to set it
+               $content = $page.children( ".ui-content" );
+               $content.html(chapterHTML);
+                       
+               isChatSession = true;
+               // flag unread 
+               checkUnread(sessionid);
+               
+               options.dataUrl = urlObj.href;
+               //options.changeHash = false;
+               //console.log(options);     
 
-           // switch to the page we just modified.
-           $.mobile.changePage( $page, options );
-   
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-         alert('Error loading session, try again!');
-      }
-   });
-   
-};
-    
+               $.mobile.loading('hide');               
+
+               // switch to the page we just modified.
+               $.mobile.changePage( $page, options );
+       
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+             alert('Error loading session, try again!');
+          }
+       });
+       
+    };
+
 
 /*
     $(document).on('pagebeforeshow', '#pageChatView', function(){  
@@ -349,9 +331,6 @@ var currentUrl = $.mobile.activePage.data('url');
 		
     });
     
-    function alertDismissed() {
-        // do something
-    } 
   	
 	$(document).on('click', '.btn-logout', handleLogout);
 
@@ -548,6 +527,22 @@ function parseRSS() {
 	
 });
 
+    
+    // parse params in hash
+	function hashParams(hash) {
+		var ret = {};
+	    var match;
+	    var plus   = /\+/g;
+	    var search = /([^\?&=]+)=([^&]*)/g;
+	    var decode = function(s) { 
+	    	return decodeURIComponent(s.replace(plus, " ")); 
+	    };
+	    while( match = search.exec(hash) ) ret[decode(match[1])] = decode(match[2]);
+	    
+	    return ret
+	};
+    
+    
     /* 
      * mobile framework - Change Page
      * pageid = test.html or #changePage
@@ -557,6 +552,15 @@ function parseRSS() {
         $.mobile.changePage(pageid);
     }
 	
+    function mofProcessBtn(id, state) {
+        if (state) {
+            $(id).addClass("ui-state-disabled");
+            //$(id).html('processing...');
+        } else {
+            $(id).removeClass("ui-state-disabled");
+        }
+    }
+    
 	function checkPreAuth() {
 		console.log('checkPreAuth');
 		//var form = $("#loginForm");	
@@ -573,7 +577,7 @@ function parseRSS() {
 		var form = $("#loginForm");  	
 		//disable the button so we can't resubmit while we wait
 		//$("#submitButton",form).attr("disabled","disabled");
-		$("#btnLogin").attr("disabled","disabled");
+		//$("#btnLogin").attr("disabled","disabled");
 		var u = $("#username", form).val();
 		var p = $("#password", form).val();
         handleLogin(u,p);
@@ -587,6 +591,7 @@ function parseRSS() {
        //$.mobile.loading( 'show' );
        //$.mobile.showPageLoadingMsg("b", "This is only a test", true);
    
+        mofProcessBtn("#btnLogin", true);
 		//var form = $("#loginForm");  	
 		//disable the button so we can't resubmit while we wait
 		//$("#submitButton",form).attr("disabled","disabled");
@@ -594,6 +599,7 @@ function parseRSS() {
 		//var u = $("#username", form).val();
 		//var p = $("#password", form).val();	
 		if(u != '' && p!= '') {
+            $.mobile.loading('show');
 			$.post(API+"/account/login", {username:u,password:p}, function(res, textStatus, jqXHR) {
 				console.log(res);
                 //$.mobile.hidePageLoadingMsg();
@@ -620,6 +626,10 @@ function parseRSS() {
                     // launch the push notification center because it's required objUser
                     push_onDeviceReady();
 					
+                    $.mobile.loading('hide');
+					
+                    mofProcessBtn("#btnLogin", false);
+                    
                     mofChangePage('#pageChat');
 				} else {	
 					console.log(res.message);
@@ -627,10 +637,9 @@ function parseRSS() {
 						alert(res.message);
 					} else {
 						navigator.notification.alert(res.message, alertDismissed);
-					}
-					$("#btnLogin").removeAttr("disabled");
-			   }
-			 $("#btnLogin").removeAttr("disabled");
+					}					
+                    mofProcessBtn("#btnLogin", false);
+			   }			
 			},"json");
 		} else {        
 			if (ENV == 'dev') {
@@ -639,7 +648,7 @@ function parseRSS() {
 				//navigator.notification.vibrate(1000);
 				navigator.notification.alert("You must enter a username and password", alertDismissed);
 			}
-			$("#btnLogin").removeAttr("disabled");
+			mofProcessBtn("#btnLogin", false);
 		}
 		return false;
 	}
@@ -657,6 +666,10 @@ function parseRSS() {
 		});
 				
 	}
+    
+    function alertDismissed() {
+        // do something
+    } 
     
 function loadDataUserList(data) {
 	//var htmlUserList = templateChatUserList(data);
@@ -735,7 +748,7 @@ function checkUnread(session_id) {
     console.log('checkUnread '+session_id+' badgeChatCount='+badgeChatCount);
     var sess = objSession[ session_id ]; 
 	//console.log(sess);
-    if (sess.unreadMessage > 0) {     
+    if (sess && sess.unreadMessage > 0) {     
         console.log('checkUnread '+session_id);   
         badgeChatCount -= sess.unreadMessage; 
         sess.unreadMessage = 0;         
