@@ -41,6 +41,8 @@ var app = {
         }       
 
         checkPreAuth();
+        
+        $.mobile.transitionFallbacks.slideout = "none";
 		        
 		//document.addEventListener('load', this.onDeviceReady, true);		
     },

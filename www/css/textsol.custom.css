@@ -13,6 +13,10 @@
 	background-image:         linear-gradient( #2dbcf8 /*{a-bar-background-start}*/, #2499cb /*{a-bar-background-end}*/);    
 }
 
+/* http://demos.jquerymobile.com/1.4.0/transitions/ */
+.ui-page { -webkit-backface-visibility: hidden; }
+
+
     li.new_user a{
         background: #AFD898;
         color: #23580E;
