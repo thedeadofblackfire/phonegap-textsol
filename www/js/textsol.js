@@ -754,10 +754,15 @@ function generateLineUser(v, newuser) {
     var browser = pictureBrowser(v);        
     if (browser != '') browser = '<img src="img/browser/'+browser+'" alt="'+v.browser+'">';
     
+    var info = lg;
+    if (v.city && v.city != '') info += ' '+v.city;
+    if (v.region && v.region != '') info += ' '+v.city;
+    if (v.country && v.country != '' && v.country != 'Reserved' ) info += ' '+v.country;
+    
     var str = '<li data-icon="false"';   
     if (newuser) str += 'class="new_user"';    
     //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + '<h2>' +v.name + '</h2><p>started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
-    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="a">' + browser + '<h2>' + v.name + '</h2><p>'+lg+' '+v.city+' '+v.country+'</p> <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="a">' + browser + '<h2>' + v.name + '</h2><p>'+info+'</p> <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
     
     //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + v.name + ' <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
         
