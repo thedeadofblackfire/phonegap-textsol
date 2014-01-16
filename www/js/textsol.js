@@ -732,7 +732,7 @@ function removeNewUserTag(session_id) {
 }
 
 function pictureBrowser(v) {
-    var browser = '';
+    var browser = '';    
     if (v.browser == 'Internet Explorer') browser = 'IE.png';
     else if (v.browser == 'Google Chrome') browser = 'Chrome.png';
     else if (v.browser == 'Mozilla Firefox') browser = 'Firefox.png';
@@ -757,7 +757,7 @@ function generateLineUser(v, newuser) {
     var str = '<li data-icon="false"';   
     if (newuser) str += 'class="new_user"';    
     //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + '<h2>' +v.name + '</h2><p>started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
-    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + browser + '<h2>' + lg + ' ' + v.name + '</h2><p>'+lg+' '+v.city+'</p> <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="a">' + browser + '<h2>' + v.name + '</h2><p>'+lg+' '+v.city+' '+v.country+'</p> <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
     
     //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + v.name + ' <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
         
