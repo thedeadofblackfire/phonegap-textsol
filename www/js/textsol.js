@@ -71,46 +71,6 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
-
-// --
-// templates
-// --
-/*
-var sourceUserList = $("#chat-template-userlist").html();
-var templateChatUserList = Handlebars.compile(sourceUserList);
-        
-var sourceUserConversation = $("#chat-template-userconversation").html();
-var templateChatUserConversation = Handlebars.compile(sourceUserConversation);
-*/
-
-//var sourceHeader = $("#chat-template-header").html();
-//var templateChatHeader = Handlebars.compile(sourceHeader);
-		
-//var sourceLoop = $("#chat-template-loop").html();
-//var templateChatLoop = Handlebars.compile(sourceLoop);
-
-/*
-Handlebars.registerHelper('displayChatClose', function(object) {
-			if (object == '1') {
-				return new Handlebars.SafeString(
-					'<a class="btn btn-success disabled">Chat Closed</a>'
-				);
-			} else {
-				return new Handlebars.SafeString(
-					'<a class="btn closeChat btn-danger" style="width:auto!important;"><i class="icon-remove"></i> Close Chat</a>'
-				);
-			}
-});        
-		
-Handlebars.registerHelper('displayTotal', function(msg,reply) {			
-	return (parseInt(msg) + parseInt(reply));		
-});
-		
-Handlebars.registerHelper('formatDate', function(v) {			
-	return formatDate(v); 		
-});
-
-  */
   
 /*
 function init() {
@@ -236,9 +196,9 @@ jQuery(document).ready(function($){
               
                // Get the header for the page to set it
                $header = $page.children( ":jqmData(role=header)" );
-               $header.find( "h1" ).html( res.name+' #'+sessionid );
-               //$header.find( "h1" ).html( book.bname +' '+ chapterNum );
-
+               $header.find( "h1" ).html( res.name );
+               //$header.find( "h1" ).html( res.name+' #'+sessionid );
+               
                var chapterHTML = '';
                /*
                $( verseNodeName , chapter).each(function(i) {
@@ -737,10 +697,12 @@ function addUnread(session_id) {
 		// do nothing but play the incoming message sound
 	} else {
 		var sess = objSession[ session_id ]; 
-		sess.unreadMessage += 1; 
-		badgeChatCount += 1;
-		displayBadgeChat();
-		console.log(sess);
+        if (sess) {
+            sess.unreadMessage += 1; 
+            badgeChatCount += 1;
+            displayBadgeChat();
+            console.log(sess);
+        }
 	}
 }
 
@@ -769,17 +731,36 @@ function removeNewUserTag(session_id) {
 	 }        
 }
 
+function pictureBrowser(v) {
+    var browser = '';
+    if (v.browser == 'Internet Explorer') browser = 'IE.png';
+    else if (v.browser == 'Google Chrome') browser = 'Chrome.png';
+    else if (v.browser == 'Mozilla Firefox') browser = 'Firefox.png';
+    else if (v.browser == 'Apple Safari') browser = 'Safari.png';
+    else if (v.browser == 'Netscape') browser = 'Netscape.png';
+    else if (v.browser == 'Opera') browser = 'Opera.png';
+    else if (v.browser == 'Maxthon') browser = 'Maxthon.png';
+    else browser = 'TheWorld.png';
+    return browser;
+}
+
 function generateLineUser(v, newuser) {
     //htmlUserList += '<li data-icon="false"><a href="#pageChatSession?id='+v.session_id+'" sid="'+v.session_id+'" data-theme="e">'+v.name+'<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
     
     // statehttp://www.iconarchive.com/show/american-states-icons-by-custom-icon-design.html
     
     var lg = '<img src="img/country/us.png" alt="United States" class="ui-li-icon">';
+    
+    var browser = pictureBrowser(v);        
+    if (browser != '') browser = '<img src="img/browser/'+browser+'" alt="'+v.browser+'">';
+    
     var str = '<li data-icon="false"';   
     if (newuser) str += 'class="new_user"';    
     //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + '<h2>' +v.name + '</h2><p>started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
-    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + v.name + ' <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + browser + '<h2>' + lg + ' ' + v.name + '</h2><p>'+lg+' '+v.city+'</p> <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
     
+    //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + v.name + ' <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+        
     updateSession(v); 
     
     return str;

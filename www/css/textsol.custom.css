@@ -20,6 +20,10 @@
     h3 {color:white;}
     h1 {color:white;}
     
+    .chatform {
+        clear:both;
+    }
+    
     .container_session {
      background:#F4F4F4;
      /*background: green;*/
