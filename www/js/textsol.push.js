@@ -93,7 +93,7 @@
                          }, function(errorregistration) {
                              alert("Couldn't register with ImPush" +  errorregistration);
                          });
-                         
+                         /*
                          PushWoosh.appCode = "539F5-D40CA";
                          PushWoosh.register(e.regid, function(data) {
                              console.log("PushWoosh register success: " + JSON.stringify(data));
@@ -103,7 +103,7 @@
                          }, function(errorregistration) {
                              alert("Couldn't register with PushWoosh" +  errorregistration);
                          });
-              
+                         */
 					}
                     break;
                     
@@ -157,6 +157,7 @@
                         alert("Couldn't register with ImPush" +  errorregistration);
                     });
                     
+                /*
                 PushWoosh.appCode = "539F5-D40CA";
                 PushWoosh.register(result, function(data) {
                         console.log("PushWoosh register success: " + JSON.stringify(data));
@@ -164,7 +165,7 @@
                     }, function(errorregistration) {
                         alert("Couldn't register with PushWoosh" +  errorregistration);
                     });
-
+                */
             }
 			
             function successHandler (result) {
