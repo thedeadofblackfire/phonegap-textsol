@@ -115,7 +115,8 @@
 							$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 							
 							// if the notification contains a soundname, play it.
-							var my_media = new Media("/android_asset/www/"+e.soundname);
+                            //var my_media = new Media("/android_asset/www/"+e.soundname);
+							var my_media = new Media("/android_asset/www/"+e.payload.soundname);
 							my_media.play();
                             
                             chat_update();
