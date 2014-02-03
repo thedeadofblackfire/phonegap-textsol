@@ -377,6 +377,7 @@ function chat_save_reply_message($this) {
      
         $.ajax({
             url: API + "/chat/save_reply_message",
+            dataType: "json",
             type: "POST",  
             data: {id: id, message: message, support: objChat.support_display_name, user_id: objUser.user_id, session_id: session_id},
             success: function(data) {
