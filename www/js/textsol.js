@@ -751,9 +751,11 @@ function generateLineUser(v, newuser) {
     
     // state http://www.iconarchive.com/show/american-states-icons-by-custom-icon-design.html    
  
-    var browser = pictureBrowser(v);        
-    if (browser != '') browser = '<img src="img/browser/'+browser+'" alt="'+v.browser+'">';
- 
+    var browser = '';
+	//browser = pictureBrowser(v);        
+    //if (browser != '') browser = '<img src="img/browser/'+browser+'" alt="'+v.browser+'">';
+    
+	
     var lg = '<img src="img/country/us.png" alt="United States" class="ui-li-icon">';
      
     var info = lg;
