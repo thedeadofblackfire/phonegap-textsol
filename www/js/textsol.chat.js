@@ -246,7 +246,9 @@ function chat_save_reply_message($this) {
         var id = $(".messageWrapper .message:last").attr('mid');
         //  var wrapper = $(".tab-content .active .messageWrapper");
         //var id = $(".tab-content .active .messageWrapper p.message:last").attr('mid');
-        var textarea = $this.siblings('textarea');
+        var textarea = $('#chatInput');
+		//var textarea = $this.siblings('input[type=text]');
+		//var textarea = $this.siblings('textarea');
         var message = $.trim(textarea.val());
         
         console.log('sessionid='+session_id + ' message='+message+' mid='+id);

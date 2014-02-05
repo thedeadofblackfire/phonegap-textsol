@@ -811,7 +811,21 @@ function generatePageSession(data) {
     
     str += '<input type="hidden" name="current_session_id" id="current_session_id" value="'+data.session_id+'" />';
     
-    str += '<div class="messageWrapper chat">';
+    str += '<ul class="messageWrapper chat-messages">';
+    if (data.conversation != null) {
+        $.each(data.conversation, function(k, v) {        
+            str += updateSessionMessage(v.message, false);			
+            if (v.reply != null) {
+                $.each(v.reply, function(i, r) {
+                    str += updateSessionReply(r, false);
+                }); 
+            }
+        });
+    }
+    str += '</ul>';
+    
+	/*
+	str += '<div class="messageWrapper chat">';
     if (data.conversation != null) {
         $.each(data.conversation, function(k, v) {        
             str += updateSessionMessage(v.message, false);			
@@ -823,11 +837,17 @@ function generatePageSession(data) {
         });
     }
     str += '</div>';
-    
+	
     str += '<div class="chatform">';
     str += '<textarea data-session="'+data.session_id+'" style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea>';
     str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">Send</a>';
     str += '</div>';
+	*/
+	
+	str += '<div class="chat-footer chatform">';
+    str += '<input type="text" data-session="'+data.session_id+'" name="chatText" id="chatInput" class="input-light input-large brad chat-search" placeholder="Type and press Enter...">';
+    str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">Send</a>';
+    str += '</div>';				
         
     str += '</div>';
     
@@ -849,8 +869,11 @@ function updateDataUserList(v) {
 function updateSessionMessage(v, toAppend) {
     //var str = '<p class="message tmessage" mid="'+v.id+'"><b>'+v.name+'</b>: '+v.message+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
     //var str = '<div class="message bubble_me me" mid="'+v.id+'"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+v.name+' • '+formatDate(v.post_date)+'</time></div>';
-    var str = '<div class="message bubble_me me" mid="'+v.id+'"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
     
+	//var str = '<div class="message bubble_me me" mid="'+v.id+'"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
+    
+	var str = '<li class="message right" mid="'+v.id+'"><img src="img/placeholders/avatars/2.jpg" class="img-circle"><div class="message_text">'+v.message+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div></li>';         
+			
 	if (toAppend) $(".messageWrapper").append(str);
     else return str;
 }  
@@ -858,8 +881,9 @@ function updateSessionMessage(v, toAppend) {
 function updateSessionReply(v, toAppend) {
     //var str = '<p class="reply treply" rid="'+v.id+'"><b>'+objChat.support_display_name+'</b>: '+v.reply+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
     
-    var str = '<div class="reply bubble_you you" rid="'+v.id+'"><span class="tail2">&nbsp;</span>'+v.reply+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
-        
+    //var str = '<div class="reply bubble_you you" rid="'+v.id+'"><span class="tail2">&nbsp;</span>'+v.reply+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
+    var str = '<li class="reply" rid="'+v.id+'"><img src="img/placeholders/avatars/avatar.jpg" class="img-circle" width="26"><div class="message_text">'+v.reply+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div></li>';         
+	    
     if (toAppend) $(".messageWrapper").append(str);	
     else return str;    
 }      
