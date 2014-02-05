@@ -749,17 +749,17 @@ function pictureBrowser(v) {
 function generateLineUser(v, newuser) {
     //htmlUserList += '<li data-icon="false"><a href="#pageChatSession?id='+v.session_id+'" sid="'+v.session_id+'" data-theme="e">'+v.name+'<p>CA</p> <p class="ui-li-aside"><strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
     
-    // statehttp://www.iconarchive.com/show/american-states-icons-by-custom-icon-design.html
-    
-    var lg = '<img src="img/country/us.png" alt="United States" class="ui-li-icon">';
-    
+    // state http://www.iconarchive.com/show/american-states-icons-by-custom-icon-design.html    
+ 
     var browser = pictureBrowser(v);        
     if (browser != '') browser = '<img src="img/browser/'+browser+'" alt="'+v.browser+'">';
-    
+ 
+    var lg = '<img src="img/country/us.png" alt="United States" class="ui-li-icon">';
+     
     var info = lg;
     if (v.city && v.city != '') info += ' '+v.city;
-    if (v.region && v.region != '') info += ' '+v.city;
-    if (v.country && v.country != '' && v.country != 'Reserved' ) info += ' '+v.country;
+    if (v.region && v.region != '') info += ', '+v.region;
+    //if (v.country && v.country != '' && v.country != 'Reserved' ) info += ' '+v.country;
     
     var str = '<li data-icon="false"';   
     if (newuser) str += 'class="new_user"';    
@@ -823,7 +823,7 @@ function generatePageSession(data) {
     str += '</div>';
     
     str += '<div class="chatform">';
-    str += '<textarea style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea>';
+    str += '<textarea data-session="'+data.session_id+'" style="width:98%; height: 60px;" name="chatText" id="chatInput" placeholder="Reply here..."></textarea>';
     str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">Send</a>';
     str += '</div>';
         
@@ -862,3 +862,23 @@ function updateSessionReply(v, toAppend) {
     else return str;    
 }      
 
+
+function completeSessionReply(v) {
+    console.log('complete '+v.processing_id);
+    var newfind = $(".messageWrapper .reply[rid='"+v.processing_id+"']"); 
+    if (newfind.length > 0) {
+        console.log('complete '+v.processing_id+' changed');
+        newfind.attr('rid', v.id);	  
+    }
+    // put a loader
+}      
+
+function generateProcessingId() {
+    var d = new Date();
+    return d.getMinutes()+''+d.getSeconds()+''+d.getMilliseconds();
+}
+// iso
+function generateProcessingPostDate() {
+    var d = new Date();
+    return d.toISOString();
+}

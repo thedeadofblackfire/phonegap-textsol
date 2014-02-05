@@ -89,6 +89,23 @@ $(document).ready(function() {
         $(this).tab('show');
     })   
 
+	$(document).on('click', ".btnChatSendReply", function(e) {
+		e.preventDefault();		
+        chat_save_reply_message($(this));		
+    });
+    
+    // When the user presses enter on the message input, write the message to firebase.	
+   $(document).on('keypress', "#chatInput", function(e) {	   
+        if (e.keyCode == 13) {
+          chat_save_reply_message($('.btnChatSendReply'));
+          //var name = $('#nameInput').val();
+          //var text = $('#messageInput').val();
+          //messagesRef.push({name:name, text:text});
+          //$('#messageInput').val('');
+        }
+      });
+	  
+	/*
     $(document).on('click', ".btnChatSendReply", function(e) {
 		e.preventDefault();		
         var $this = $(this);
@@ -141,56 +158,8 @@ $(document).ready(function() {
             }
         })
         
-
     });
-
-    /*
-	$(document).on('click', ".chatBtn", function(e) {
-    //$('.chatBtn').on('click', function(e) {
-		e.preventDefault();		
-        var $this = $(this);
-        var wrapper = $(".tab-content .active .messageWrapper");
-        var id = $(".tab-content .active .messageWrapper p.message:last").attr('mid');
-        var textarea = $(this).siblings('textarea');
-        var message = $.trim(textarea.val());
-
-		var session_id = $('#chat li.active a').attr('href');
-        session_id = session_id && session_id.replace(/#/, ''); //strip for ie7 
-		
-        $this.siblings('p.err').remove();
-
-        if (message.length < 1)
-        {
-            textarea.addClass('bordererr');
-            textarea.after('<p class="err">Please enter your message.</p>');
-            return false;
-
-        }
-        $(this).html(' Wait... ');
-		//$(this).val(' Wait... ');
-        $(this).attr('disabled', 'disabled');
-
-        $.ajax({
-            url: API + "/chat/save_reply_message",
-            type: "POST",
-            data: {id: id, message: message, support: objChat.support_display_name, user_id: objUser.user_id, session_id: session_id},
-            success: function(data) {
-                $(".tab-content .active .messageWrapper").append(data);
-                //var wrapper=$(".tab-content .active .messageWrapper");
-                //var selector=$('#chat li.active a').attr('href');
-                // session_id = selector && selector.replace(/#/, ''); //strip for ie7                  
-                // select_tab_by_id(session_id);
-                $this.removeAttr('disabled');
-                $this.html('Send');
-				// $this.val('Send');
-                textarea.val('');
-                textarea.removeClass('bordererr');
-                wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
-            }
-        })
-
-    });
-    */
+	*/
 
     $('.sendEmail').on('click', function() {
         $('#emailModal').modal('show');
@@ -325,11 +294,73 @@ function chat_start()
 	    
     auto_refresh = setInterval(function() {
         chat_update()
-    }, 15000); // refresh every 25 seconds 
+    }, 5000); // refresh every 25 seconds 
     	
 }
 
+function chat_save_reply_message($this) {
 
+        var session_id = $this.attr('data-session');
+      
+        var wrapper = $(".messageWrapper");
+        var id = $(".messageWrapper .message:last").attr('mid');
+        //  var wrapper = $(".tab-content .active .messageWrapper");
+        //var id = $(".tab-content .active .messageWrapper p.message:last").attr('mid');
+        var textarea = $this.siblings('textarea');
+        var message = $.trim(textarea.val());
+        
+        console.log('sessionid='+session_id + ' message='+message+' mid='+id);
+	
+        $this.siblings('p.err').remove();
+
+        if (message.length < 1)
+        {
+            textarea.addClass('bordererr');
+            textarea.after('<p class="err">Please enter your message.</p>');
+            return false;
+
+        }
+        $this.html(' Wait... ');
+        $this.attr('disabled', 'disabled');
+
+        // pre place reply to not have long ajax call  
+        // var reply_processing_id = generateProcessingId();
+       
+        var reply_processing = {id: generateProcessingId(), reply: message, post_date: generateProcessingPostDate()};
+        console.log(reply_processing);
+        //2013-10-29 17:44:54
+        updateSessionReply(reply_processing, true);
+        
+        $.ajax({
+            url: API + "/chat/save_reply_message",
+            dataType: "json",
+            type: "POST",
+            //data: {id: id, message: message, support: SupportName},
+			data: {id: id, message: message, support: objChat.support_display_name, user_id: objUser.user_id, session_id: session_id, processing_id: reply_processing.id},
+            success: function(data) {                
+                if (data.reply) {                    
+                    // use processing_id to finalize reply message with rid
+                    //updateSessionReply(data.reply, true);
+                    completeSessionReply(data.reply);
+                    
+                    //var str = '<p class="reply" rid="'+data.reply.id+'"><b>'+objChat.support_display_name+'</b>: '+data.reply.reply+' <span class="time">'+data.reply.post_date_format+'</span></p>';
+                    //$(".messageWrapper").append(str);
+                }
+                //$(".tab-content .active .messageWrapper").append(data);
+                //var wrapper=$(".tab-content .active .messageWrapper");
+                //var selector=$('#chat li.active a').attr('href');
+                // session_id = selector && selector.replace(/#/, ''); //strip for ie7                  
+                // select_tab_by_id(session_id);
+                $this.removeAttr('disabled');
+                $this.html('Send');
+                textarea.val('');
+                textarea.removeClass('bordererr');
+                wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
+                // $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+            }
+        })
+}
+		
 function chat_update()
 {
     var wrapper = $(".messageWrapper");
