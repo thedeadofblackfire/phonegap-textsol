@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+		<title>Live Chat</title>
+        <meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">     
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/codiqa.ext.css" rel="stylesheet">
+        <!--<link rel="stylesheet" href="jqm/jquery.mobile-1.4.0.min.css"> -->    
+        <link rel="stylesheet" href="jqm/themes/jqm-textsol.css" />
+        <link rel="stylesheet" href="jqm/themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="jqm/jquery.mobile.structure-1.4.0.min.css">   
+    
+		<!--<link href="css/jquery.mobile.theme-1.3.1.css" rel="stylesheet">-->   
+		<!--<link href="css/textsol.css" rel="stylesheet"> -->
+        <link href="css/textsol.custom.css" rel="stylesheet">
+		<!--<link href="css/jquery.mobile.structure-1.3.1.css" rel="stylesheet">	-->		    
+    </head>
+    <body>
+	
+          
+   <div data-role="page" id="pageChatSession">
+      <div data-theme="a" data-role="header" data-position="fixed" data-fullscreenxxx="true">
+      <!--<a href="#"><img src="img/menu_icon_header.png" class="ui-btn-left"></a>-->
+          <a data-role="button" href="#pageChat" data-icon="bars" data-iconpos="notext" data-theme="a" data-inline="true" class="ui-icon-alt ui-btn-left">List</a>
+		  <span class="badge-chat notification_badge yellow"></span>
+          <h1>Nick</h1>
+		  <!--
+		  <div class="ui-bar ui-bar-b">
+			<h3 style="color:white">I'm just ini inline <a href="#" data-role="button" data-inline="true" data-mini="true">Button</a></h3>
+		  </div>
+		  -->
+      </div>
+      <div role="main" class="ui-content" class="container_session">
+      
+      <div class="zone_session2" id="8ff86a5">
+<div class="user_info both_shadow">&nbsp;&nbsp;<b>Browser:</b> Google Chrome&nbsp;&nbsp;<b>Url:</b> http://textwc.local/form/index/8f9ec9364c785910857e51f08e7e3254</div>
+<div class="plugins"><a class="btn closeChat btn-danger ui-link" style="width:auto!important;color:white;"><i class="icon-remove"></i> Close Chat</a></div>
+<input type="hidden" name="current_session_id" id="current_session_id" value="8ff86a5">
+<div class="messageWrapper chat">
+    <div class="message bubble_me me" mid="6945"><span class="tail">&nbsp;</span>test<time datetime="2014-02-03 02:54:18">02:54</time></div>
+    <div class="reply bubble_you you" rid="5080"><span class="tail2">&nbsp;</span>ok<time datetime="2014-02-03 02:54:48">02:54</time></div>
+    <div class="message bubble_me me" mid="6946"><span class="tail">&nbsp;</span>dacoord la verit<time datetime="2014-02-03 02:54:59">02:54</time></div>
+ </div>
+    <div class="chatform"><textarea style="width: 98%; height: 52px;" name="chatText" id="chatInput" placeholder="Reply here..." class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all"></textarea><a data-role="button" href="#" data-session="8ff86a5" class="btn btn-primary btnChatSendReply ui-link ui-btn ui-shadow ui-corner-all" role="button">Send</a></div>
+    </div>
+    
+    
+    
+    <style>
+    
+.messages a {
+    display: block;
+    color: #99a1a6;
+    font-size: 15px;
+    *zoom: 1;
+    -webkit-transition: border 0.4s;
+    -moz-transition: border 0.4s;
+    transition: border 0.4s;
+}
+
+.messages a:before,.messages a:after {
+    content: " ";
+    display: table;
+}
+
+.messages a:after {
+    clear: both;
+}
+
+.messages a.active {
+    padding-left: 7px;
+    border-left: 3px solid #34c9df;
+}
+
+@media (min-width: 650px) {
+    .messages a.active {
+        padding-left: 27px;
+    }
+}
+
+.messages a:hover,.messages a.active {
+    background: #f4f7f9;
+}
+
+.messages a img {
+    vertical-align: bottom;
+}
+
+.messages a .avatar,.messages a .author,.messages a .subject,.messages a .date {
+    display: inline-block;
+    float: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 28px;
+}
+
+.messages a .avatar {
+    width: 12%;
+}
+
+.messages a .avatar img {
+    max-width: 100%;
+}
+
+@media (min-width: 650px) {
+    .messages a .avatar {
+        width: 5%;
+    }
+}
+
+.messages a .author {
+    width: 15%;
+    color: #33363f;
+}
+
+.messages a .subject {
+    width: 65%;
+}
+
+@media (min-width: 650px) {
+    .messages a .subject {
+        width: 60%;
+    }
+}
+
+.messages a .date {
+    width: 20%;
+    text-align: right;
+}
+
+@media (min-width: 650px) {
+    .messages a .date {
+        padding-right: 10px;
+    }
+}
+
+.compose-btn {
+    margin: 12px 0 11px;
+}
+
+.chat-toggle {
+    position: relative;
+    display: block;
+}
+
+.chat-toggle>a:hover,.chat-toggle.open>a {
+    text-decoration: none;
+}
+
+.chat-toggle>a:focus,.chat-toggle.open>a {
+    outline: none;
+}
+
+.chat-toggle .dropdown-menu {
+    width: 100%;
+    border-radius: 0;
+    margin-top: 19px;
+    border-color: #dde2e6;
+    box-shadow: none;
+}
+
+.chat-avatar {
+    margin-bottom: 5px;
+}
+
+.chat-avatar.available {
+    box-shadow: 0 0 0 2px #fff,0 0 0 4px #45bf7b;
+}
+
+.chat-avatar.busy {
+    box-shadow: 0 0 0 2px #fff,0 0 0 4px #ffbf49;
+}
+
+.chat-avatar.signedoff {
+    box-shadow: 0 0 0 2px #fff,0 0 0 4px #99a1a6;
+}
+
+.people a {
+    color: #33363f;
+}
+
+.people a:hover {
+    text-decoration: none;
+}
+
+.chat-search {
+    margin-top: 16px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.messenger {
+    /*width: 274px;*/
+    /*
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 99999999;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    */
+}
+
+.chat-header {
+    padding: 6px 10px;
+}
+
+.chat-toggle {
+    padding-top: 2px;
+    color: rgba(255,255,255,0.8);
+}
+
+.chat-toggle:hover {
+    color: #fff;
+}
+
+.chat-messages {
+    /*height: 250px;*/
+    overflow: hidden;
+    overflow-y: scroll;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.messenger-body {
+    display: none;
+}
+
+.messenger-body.open {
+    display: block;
+}
+
+.chat-messages li {
+    margin: 15px 10px;
+    display: block;
+}
+
+.chat-messages li img {
+    float: left;
+}
+
+.chat-messages li.right img {
+    float: right;
+}
+
+.chat-messages li .message {
+    display: block;
+    background: #f3f5f7;
+    vertical-align: top;
+    margin-left: 32px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.chat-messages li .message:before {
+    content: "";
+    height: 0;
+    width: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 6px;
+    border-right-color: #f3f5f7;
+    position: absolute;
+    left: -12px;
+    top: 4px;
+}
+
+.chat-messages li.right .message {
+    margin-left: 0;
+    margin-right: 32px;
+    background: #c2eef5;
+}
+
+.chat-messages li.right .message:before {
+    content: "";
+    height: 0;
+    width: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 6px;
+    border-left-color: #c2eef5;
+    left: 100%;
+}
+
+.chat-footer {
+    border-top: 1px solid #e8ecef;
+}
+    </style>
+    
+    <div class="messenger bg-white">
+  		<div class="chat-header text-white bg-gray-dark">
+  			Henry Mccormick
+  			<a href="#" id="chat-toggle" class="pull-right chat-toggle">
+  				<span class="glyphicon glyphicon-chevron-down"></span>
+  			</a>
+  		</div>
+  		<div class="messenger-body open">
+  			<ul class="chat-messages">
+  				
+  			<li class="right"><img src="img/placeholders/avatars/9.jpg" class="img-circle"><div class="message">Hey, how are you?</div></li>
+            <li class="right"><img src="img/placeholders/avatars/9.jpg" class="img-circle"><div class="message">You like Sugoi Admin?</div></li>
+            <li class="right"><img src="img/placeholders/avatars/9.jpg" class="img-circle"><div class="message">Quiet slick, isn't it? Have a look at widgets page and remember - there's a lot more coming soon!</div></li>
+            <li><img src="img/placeholders/avatars/avatar.jpg" class="img-circle" width="26"><div class="message">fdgfdg</div></li>
+            <li><img src="img/placeholders/avatars/avatar.jpg" class="img-circle" width="26"><div class="message">bvb</div></li></ul>
+  			<div class="chat-footer">
+  				<div class="p-lr-10">
+						<input type="text" id="message-input" class="input-light input-large brad chat-search" placeholder="Your message...">
+					</div>
+  			</div>
+  		</div>
+  	</div>
+  
+  
+  <style>
+  * CHAT WIDGET */.chat-widget {
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+form.input-chat {
+    margin-top: 20px;
+}
+
+.chat-widget .media-list {
+    margin: 0;
+}
+
+.chat-widget .media-list .media {
+    border-bottom: none;
+}
+
+.chat-widget .media-list .media .media-object {
+    width: 50px;
+    padding: 4px;
+    border: 1px solid #eaeaea;
+}
+
+.chat-widget .media-list .media .media-body {
+    background: #f7f7f7;
+    border-radius: 3px;
+    padding: 10px;
+    color: #677179;
+}
+
+.chat-widget .media-list .media .media-body p.time {
+    text-align: right;
+    color: #909090;
+    font-size: 11px;
+    font-style: italic;
+}
+
+.chat-widget .media-list .media .media-body.success {
+    background: #EDFFED;
+}
+
+.chat-widget .media-list .media .media-body.warning {
+    background: #FFFCE0;
+}
+
+.chat-widget .media-list .media .media-body.danger {
+    background: #FFE8E8;
+}
+
+.chat-widget .media-list .media .media-body.info {
+    background: #E5F5FF;
+}
+  </style>
+  <div class="box-info animated fadeInDown">
+							<h2><strong>Chat</strong> Widget</h2>
+							<div class="additional-btn">
+								<a class="additional-icon" href="#"><i class="fa fa-refresh"></i></a>
+								  <a class="additional-icon" id="dropdownMenu4" data-toggle="dropdown">
+									<i class="fa fa-cog"></i>
+								  </a>
+								  <ul class="dropdown-menu pull-right animated half fadeInDown" role="menu" aria-labelledby="dropdownMenu4">
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+									<li role="presentation" class="divider"></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+								  </ul>
+								<a class="additional-icon" href="#"><i class="fa fa-question-circle"></i></a>
+							</div>
+								<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="chat-widget" style="overflow: hidden; width: auto; height: 300px;">
+									<ul class="media-list">
+									  <li class="media">
+										<a class="pull-left" href="#">
+										  <img class="media-object img-circle" src="/img/avatar/1.jpg" alt="Avatar">
+										</a>
+										<div class="media-body warning">
+										  Hello, liquam ultricies malesuada feugiat?
+										  <p class="time">Just Now</p>
+										</div>
+									  </li>
+									  <li class="media">
+										<a class="pull-right" href="#">
+										  <img class="media-object img-circle" src="/img/avatar/5.jpg" alt="Avatar">
+										</a>
+										<div class="media-body">
+										  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus
+										  <p class="time">A minute ago</p>
+										</div>
+									  </li>
+									  <li class="media">
+										<a class="pull-left" href="#">
+										  <img class="media-object img-circle" src="/img/avatar/2.jpg" alt="Avatar">
+										</a>
+										<div class="media-body danger">
+										 Cras sit amet erat sit amet lacus egestas placerat?
+										  <p class="time">23 minutes ago</p>
+										</div>
+									  </li>
+									  <li class="media">
+										<a class="pull-right" href="#">
+										  <img class="media-object img-circle" src="/img/avatar/5.jpg" alt="Avatar">
+										</a>
+										<div class="media-body">
+										  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus
+										  <p class="time">2 hours ago</p>
+										</div>
+									  </li>
+									  <li class="media">
+										<a class="pull-left" href="#">
+										  <img class="media-object img-circle" src="/img/avatar/3.jpg" alt="Avatar">
+										</a>
+										<div class="media-body success">
+										  Hello, liquam ultricies malesuada feugiat?
+										  <p class="time">5 hours ago</p>
+										</div>
+									  </li>
+									  <li class="media">
+										<a class="pull-right" href="#">
+										  <img class="media-object img-circle" src="/img/avatar/5.jpg" alt="Avatar">
+										</a>
+										<div class="media-body">
+										  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus
+										  <p class="time">Yesterday at 01:45 PM</p>
+										</div>
+									  </li>
+									  <li class="media">
+										<a class="pull-left" href="#">
+										  <img class="media-object img-circle" src="/img/avatar/4.jpg" alt="Avatar">
+										</a>
+										<div class="media-body info">
+										  Hello, liquam ultricies malesuada feugiat?
+										  <p class="time">2 days ago at 05:45 PM</p>
+										</div>
+									  </li>
+									  <li class="media">
+										<a class="pull-right" href="#">
+										  <img class="media-object img-circle" src="/img/avatar/5.jpg" alt="Avatar">
+										</a>
+										<div class="media-body">
+										  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus
+										  <p class="time">January 17, 2014 at 08:22 AM</p>
+										</div>
+									  </li>
+									</ul>
+								  </div><div class="slimScrollBar" style="background-color: rgb(134, 134, 134); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; height: 118.26544021024966px; background-position: initial initial; background-repeat: initial initial;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; background-color: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px; background-position: initial initial; background-repeat: initial initial;"></div></div>
+								  
+								  <form role="form" class="input-chat">
+									<input type="text" class="form-control input-lg" placeholder="Type and press Enter...">
+								  </form>
+						</div>
+                        
+                        
+                        
+
+      
+      </div>
+      <!--
+      <div data-theme="d" data-role="footer" data-position="fixed">
+          <h2>
+              send
+          </h2>
+           <span class="ui-title" />
+      </div>
+      -->
+	  
+  </div>
+  
+  
+   <div data-role="page" data-control-title="Settings" id="pageSettings">
+      <div data-theme="a" data-role="header">
+            <!--
+          <a data-role="button" href="#" 
+          class="btn-logout ui-btn-right">
+              Log Out
+          </a>
+          -->
+          <h3>
+              Settings
+          </h3>
+      </div>
+      <div role="main" class="ui-content">
+          <h4>
+              Below are your Live Chat Settings
+          </h4>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <div class="ui-grid-a">
+              <div class="ui-block-a">
+                  <div data-controltype="textblock">
+                      <p>
+                      <label for="toggleswitchremotechat">Availability</label>
+                      </p>
+                  </div>
+              </div>
+              <div class="ui-block-b">
+                  <div data-role="fieldcontain" data-controltype="toggleswitch">
+                      <select name="toggleswitchremotechat" id="toggleswitchremotechat" data-role="slider"
+                      data-mini="true">
+                          <option value="Off">Off</option>
+                          <option value="On">On</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <div class="ui-grid-a">
+              <div class="ui-block-a">
+                  <div data-controltype="textblock">
+                      <p>
+                      <label for="toggleswitchnotification">Notification</label>                          
+                      </p>
+                  </div>
+              </div>
+              <div class="ui-block-b">
+                  <div data-role="fieldcontain" data-controltype="toggleswitch">
+                      <select name="toggleswitchnotification" id="toggleswitchnotification" data-role="slider"
+                      data-mini="true">
+                          <option value="Off">Off</option>
+                          <option value="On">On</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+          <!--
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <a data-role="button" href="#page4" data-icon="gear" data-iconpos="left">
+              Configure Sounds
+          </a>       
+          -->
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <a data-role="button" href="#" data-icon="delete" data-iconpos="left" class="btn-logout">
+              Sign Out
+          </a>
+      </div>
+      
+    <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li class="ui-badge-container">
+                        <span class="badge-chat notification_badge yellow"></span>
+                        <a href="#pageChat" data-transition="none" data-icon="comment">Chats</a>
+                    </li>
+                    <li><a href="#pageAccount" data-transition="none" data-icon="user">Visitors</a></li>
+                    <li><a href="#pageSettings" data-transition="none" data-icon="gear" class="ui-btn-active">Settings</a></li>
+                </ul>
+            </div><!-- /navbar -->
+    </div><!-- /footer -->
+  </div>
+    
+  <div class="play"></div>
+  
+        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script> 
+        <script type="text/javascript" charset="utf-8" src="jqm/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="jqm/jquery.mobile-1.4.0.min.js"></script>
+		<!--<script type="text/javascript" charset="utf-8" src="js/jquery-1.9.1.js"></script>-->
+		<!--<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.3.1.js"></script>-->
+		<!--<script type="text/javascript" charset="utf-8" src="js/codiqa.ext.js"></script>	-->
+                   
+        <!--<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script> -->
+        <!--<script type="text/javascript" charset="utf-8" src="pushwoosh.js"></script>-->
+        
+		<!--<script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>-->
+		<!--<script type="text/javascript" charset="utf-8" src="js/bootstrap-tab.js"></script>-->
+		<!--<script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>-->
+        <!--<script type="text/javascript" charset="utf-8" src="js/wcfwk.js"></script>-->
+        
+		<script type="text/javascript" charset="utf-8" src="js/textsol.js"></script>		        
+        <script type="text/javascript" charset="utf-8" src="js/textsol.chat.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/textsol.impush.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/textsol.push.js"></script>
+  
+        <script type="text/javascript">
+           // app.initialize();
+            
+              /*      
+            $(document).on('pageinit', '#pageLogin', function(e) {
+                console.log('#pageLogin pageinit');
+                checkPreAuth();
+            });
+            */
+    
+        </script>
+    </body>
+</html>

@@ -95,71 +95,12 @@ $(document).ready(function() {
     });
     
     // When the user presses enter on the message input, write the message to firebase.	
-   $(document).on('keypress', "#chatInput", function(e) {	   
+    $(document).on('keypress', ".chatform #chatInput", function(e) {	   
         if (e.keyCode == 13) {
-          chat_save_reply_message($('.btnChatSendReply'));
-          //var name = $('#nameInput').val();
-          //var text = $('#messageInput').val();
-          //messagesRef.push({name:name, text:text});
-          //$('#messageInput').val('');
+          chat_save_reply_message($('.btnChatSendReply'));     
         }
-      });
-	  
-	/*
-    $(document).on('click', ".btnChatSendReply", function(e) {
-		e.preventDefault();		
-        var $this = $(this);
-        var session_id = $(this).attr('data-session');
-      
-        var wrapper = $(".messageWrapper");
-        var id = $(".messageWrapper .message:last").attr('mid');
-        //  var wrapper = $(".tab-content .active .messageWrapper");
-        //var id = $(".tab-content .active .messageWrapper p.message:last").attr('mid');
-        var textarea = $(this).siblings('textarea');
-        var message = $.trim(textarea.val());
-        
-        console.log('sessionid='+session_id + ' message='+message+' mid='+id);
-	
-        $this.siblings('p.err').remove();
-
-        if (message.length < 1)
-        {
-            textarea.addClass('bordererr');
-            textarea.after('<p class="err">Please enter your message.</p>');
-            return false;
-
-        }
-        $(this).html(' Wait... ');
-        $(this).attr('disabled', 'disabled');
-
-        $.ajax({
-            url: API + "/chat/save_reply_message",
-            type: "POST",
-            data: {id: id, message: message, support: objChat.support_display_name, user_id: objUser.user_id, session_id: session_id},
-            success: function(data) {
-                // echo '<p class="reply"><b>' . objChat.support_display_name . '</b>: ' . $reply->reply . ' <span>' . change_date_format('h:i:s a', $reply->post_date) . '</span></p>';                     
-                if (data.reply) {
-                    updateSessionReply(data.reply, true);
-                    //var str = '<p class="reply" rid="'+data.reply.id+'"><b>'+objChat.support_display_name+'</b>: '+data.reply.reply+' <span class="time">'+data.reply.post_date_format+'</span></p>';
-                    //$(".messageWrapper").append(str);
-                }
-                //$(".tab-content .active .messageWrapper").append(data);
-                
-                //var wrapper=$(".tab-content .active .messageWrapper");
-                //var selector=$('#chat li.active a').attr('href');
-                // session_id = selector && selector.replace(/#/, ''); //strip for ie7                  
-                // select_tab_by_id(session_id);
-                $this.removeAttr('disabled');
-                $this.html('Send');
-				// $this.val('Send');
-                textarea.val('');
-                textarea.removeClass('bordererr');
-                wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
-            }
-        })
-        
     });
-	*/
+	      
 
     $('.sendEmail').on('click', function() {
         $('#emailModal').modal('show');
@@ -202,7 +143,6 @@ $(document).ready(function() {
         })
 
     });
-
 
 
 	$(document).on('click', ".closeChat", function(e) {    
@@ -360,7 +300,8 @@ function chat_save_reply_message($this) {
             }
         })
 }
-		
+	
+   
 function chat_update()
 {
     var wrapper = $(".messageWrapper");
@@ -434,58 +375,6 @@ function chat_update()
     });
     
 }
-
-/*
-function chat_update()
-{
-    var wrapper = $(".tab-content .active .messageWrapper");
-    var selector = $('#chat li.active a').attr('href');
-    session_id = selector && selector.replace(/#/, ''); //strip for ie7   
-    $.ajax({
-        //url: AjaxURL + 'update_chat',
-		url: API+'/chat/update_chat',
-        dataType: "json",
-        type: 'POST',
-        data: {session_id: session_id, user_id: objUser.user_id},
-        success: function(data) {
-
-            if (data.user.session_id) {
-
-                var find = $('#chat').find('a[href="#' + data.user.session_id + '"]');
-                //console.log(find.length);
-                if (find.length == 0)
-                {
-                    $('#chat').prepend('<li class="new_user"><a href="#' + data.user.session_id + '">' + data.user.name + '</a></li>');
-                    $('.tab-content').prepend('<div class="tab-pane" id="' + data.user.session_id + '"><div class="plugins"> <a class="btn closeChat btn-danger"><i class="icon-remove"></i> Close Chat</a> <a class="btn btn-primary sendEmail"><i class="icon-envelope"></i> Send Email</a></div><div class="messageWrapper">' + data.user.name + '</div><div class="chatform"><textarea style="width:80%; height: 60px;" name="chatText" id="chatInput"></textarea><br/><input type="submit" value="Send" class="btn btn-primary chatBtn" /></div></div>');
-                }
-
-            }
-
-            var newfind = $(".tab-content .active .messageWrapper p.message[mid='" + data.message.id + "']");
-            //console.log(data.alert);
-            if (data.alert != null)
-            {
-                $.each(data.alert, function(k, v) {
-                    for (var i = 0; i < v.no; i++) {
-                        new_message(v.session_id);
-                    }
-                })
-            }
-
-            if (newfind.length == 0)
-            {
-                $(".tab-content .active .messageWrapper").append(data.message.text);
-                $('#chat li.active a span').fadeOut(700);
-                setTimeout(function() {
-                    $('#chat li.active a span').remove()
-                }, 1500);
-                wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
-            }
-
-        }
-    });
-}
-*/
 
 function chat_view(id) {
     console.log('chat_view');
