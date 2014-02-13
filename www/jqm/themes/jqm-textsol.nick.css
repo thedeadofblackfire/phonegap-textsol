@@ -31,7 +31,6 @@ legend,
 .ui-input-search input {
 	color: inherit;
 	text-shadow: inherit;
-	height:60px;
 }
 /* Form labels (overrides font-weight bold in bars, and mini font-size) */
 .ui-mobile label,
@@ -235,7 +234,7 @@ html body .ui-group-theme-a .ui-bar-inherit {
 .ui-overlay-a,
 .ui-page-theme-a,
 .ui-page-theme-a .ui-panel-wrapper {
-	background: #fff /*{a-page-background-color}*/;
+	background: #f9f9f9 /*{a-page-background-color}*/;
 	border-color: #bbbbbb /*{a-page-border}*/;
 	color: #333333 /*{a-page-color}*/;
 	text-shadow: 0 /*{a-page-shadow-x}*/ 1px /*{a-page-shadow-y}*/ 0 /*{a-page-shadow-radius}*/ #f3f3f3 /*{a-page-shadow-color}*/;
@@ -247,12 +246,10 @@ html .ui-bar-a .ui-body-inherit,
 html .ui-body-a .ui-body-inherit,
 html body .ui-group-theme-a .ui-body-inherit,
 html .ui-panel-page-container-a {
-	background: #fff /*{a-body-background-color}*/;
+	background: #ffffff /*{a-body-background-color}*/;
 	border-color: #dddddd /*{a-body-border}*/;
-	color: #333 /*{a-body-color}*/;
+	color: #333333 /*{a-body-color}*/;
 	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #f3f3f3 /*{a-body-shadow-color}*/;
-	
-	
 }
 .ui-body-a {
 	border-width: 1px;
@@ -300,7 +297,6 @@ html head + body .ui-btn.ui-btn-a:visited {
 	border-color: #dddddd /*{a-bup-border}*/;
 	color: #333333 /*{a-bup-color}*/;
 	text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/;
-	
 }
 /* Button hover */
 .ui-page-theme-a .ui-btn:hover,
@@ -714,9 +710,9 @@ html head + body .ui-body-c.ui-focus {
 html .ui-bar-d .ui-bar-inherit,
 html .ui-body-d .ui-bar-inherit,
 html body .ui-group-theme-d .ui-bar-inherit {
-	
+	background: #f2e42c /*{d-bar-background-color}*/;
 	border-color: #dddddd /*{d-bar-border}*/;
-	color: #fff /*{d-bar-color}*/;
+	color: #333333 /*{d-bar-color}*/;
 	text-shadow: 0 /*{d-bar-shadow-x}*/ 1px /*{d-bar-shadow-y}*/ 0 /*{d-bar-shadow-radius}*/ #eeeeee /*{d-bar-shadow-color}*/;
 	font-weight: bold;
 }
