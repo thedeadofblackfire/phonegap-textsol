@@ -436,7 +436,7 @@ var currentUrl = $.mobile.activePage.data('url');
                 //$( "#left-panel" ).trigger( "updatelayout" );
                 
                 
-                handleRefreshOnlineUser();
+                handleRefreshOnlineUser(false);
                 
                 chat_start();
                 
@@ -454,12 +454,8 @@ var currentUrl = $.mobile.activePage.data('url');
         */
 	}
 
-    function handleRefreshOnlineUser() {
-        console.log('handleRefreshOnlineUser');
-        
-        // loop online users to display list of active chats
-        loadDataUserList(objChat);
-    }
+   
+
   
   /*
   $(document).on('pagebeforeshow', '#listview-page', function(){
@@ -632,6 +628,25 @@ function parseRSS() {
     function alertDismissed() {
         // do something
     } 
+    
+    function handleRefreshOnlineUser(loading) {
+        console.log('handleRefreshOnlineUser');
+        
+        if (loading) {            
+            $.getJSON(API+"/chat/online_user?user_id="+objUser.user_id, function(res) {			
+                console.log(res);
+                
+                objChat.online_user = res.online_user;
+                          
+                // loop online users to display list of active chats
+                loadDataUserList(objChat);
+                
+            });
+        } else {       
+            // loop online users to display list of active chats
+            loadDataUserList(objChat);
+        }
+    }
     
 function loadDataUserList(data) {
 	//var htmlUserList = templateChatUserList(data);

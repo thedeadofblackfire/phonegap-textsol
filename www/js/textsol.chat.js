@@ -172,6 +172,8 @@ $(document).ready(function() {
                     $('.btnChatSendReply').siblings('textarea').remove();
                     $('.btnChatSendReply').remove();
                     
+                    handleRefreshOnlineUser(true);
+                    
                     mofChangePage('#pageChat');
 					//$('.tab-content .active .chatBtn').siblings('textarea').remove();
                     //$('.tab-content .active .chatBtn').remove();
