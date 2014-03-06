@@ -17,6 +17,24 @@ var badgeChatCount = 0;
 var audioEnable = true;
 var isChatSession = false;
 
+var data_lang = {
+			"en" : {
+				"label.chats" : "Chats",
+				"label.settings" : "Settings",
+				"label.signout" : "Sign Out",
+				"desc.settings" : "Below are your Live Chat Settings",
+				"label.availability" : "Availability",
+				"label.notification" : "Notification",
+				"label.on" : "On",
+				"label.off" : "Off"
+				
+			},
+			"fr" : {
+				"label.chats" : "Chats",
+				"label.settings" : "Settings",
+				"label.signout" : "Sign Out"
+			}
+		};
 
 var app = {
     // Application Constructor
