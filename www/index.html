@@ -17,7 +17,29 @@
 		<!--<link href="css/jquery.mobile.theme-1.3.1.css" rel="stylesheet">-->   
 		<!--<link href="css/textsol.css" rel="stylesheet"> -->
         <link href="css/textsol.custom.css" rel="stylesheet">
-		<!--<link href="css/jquery.mobile.structure-1.3.1.css" rel="stylesheet">	-->		    
+		<!--<link href="css/jquery.mobile.structure-1.3.1.css" rel="stylesheet">	-->		
+
+		<script type="text/javascript">
+		
+		var data_lang = {
+			"en" : {
+				"label.chats" : "Chats",
+				"label.settings" : "Settings",
+				"label.signout" : "Sign Out",
+				"desc.settings" : "Below are your Live Chat Settings",
+				"label.availability" : "Availability",
+				"label.notification" : "Notification",
+				"label.on" : "On",
+				"label.off" : "Off"
+				
+			},
+			"fr" : {
+				"label.chats" : "Chats",
+				"label.settings" : "Settings",
+				"label.signout" : "Sign Out"
+			}
+		};
+		</script>		
     </head>
     <body>
 	
@@ -53,7 +75,7 @@
           </a>
           -->
           <h3>
-              Chats
+              label.chats
           </h3>		    
       </div>
       <div role="main" class="ui-content" id="listview-content">
@@ -83,10 +105,10 @@
                 <ul>
                     <li class="ui-badge-container">
                         <span class="badge-chat notification_badge yellow"></span>
-                        <a href="#pageChat" data-transition="none" data-icon="comment" class="ui-btn-active">Chats</a>
+                        <a href="#pageChat" data-transition="none" data-icon="comment" class="ui-btn-active">label.chats</a>
                     </li>
                     <!--<li><a href="#pageAccount" data-transition="none" data-icon="user">Visitors</a></li>-->
-                    <li><a href="#pageSettings" data-transition="none" data-icon="gear">Settings</a></li>
+                    <li><a href="#pageSettings" data-transition="none" data-icon="gear">label.settings</a></li>
                 </ul>
             </div><!-- /navbar -->
     </div><!-- /footer -->
@@ -174,10 +196,10 @@
                 <ul>
                     <li class="ui-badge-container">
                         <span class="badge-chat notification_badge yellow"></span>
-                        <a href="#pageChat" data-transition="none" data-icon="comment">Chats</a>
+                        <a href="#pageChat" data-transition="none" data-icon="comment">label.chats</a>
                     </li>
                     <li><a href="#pageAccount" data-transition="none" data-icon="user" class="ui-btn-active">Visitors</a></li>
-                    <li><a href="#pageSettings" data-transition="none" data-icon="gear">Settings</a></li>
+                    <li><a href="#pageSettings" data-transition="none" data-icon="gear">label.settings</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer -->    
@@ -192,19 +214,19 @@
           </a>
           -->
           <h3>
-              Settings
+              label.settings
           </h3>
       </div>
       <div role="main" class="ui-content">
           <h4 style="color:#fff;">
-              Below are your Live Chat Settings
+              desc.settings
           </h4>
           <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
           <div class="ui-grid-a">
               <div class="ui-block-a">
                   <div data-controltype="textblock">
                       <p>
-                      <label for="toggleswitchremotechat" style="color:#fff;">Availability</label>
+                      <label for="toggleswitchremotechat" style="color:#fff;">label.availability</label>
                       </p>
                   </div>
               </div>
@@ -212,8 +234,8 @@
                   <div data-role="fieldcontain" data-controltype="toggleswitch">
                       <select name="toggleswitchremotechat" id="toggleswitchremotechat" data-role="slider"
                       data-mini="true">
-                          <option value="Off">Off</option>
-                          <option value="On">On</option>
+                          <option value="Off">label.off</option>
+                          <option value="On">label.on</option>
                       </select>
                   </div>
               </div>
@@ -223,7 +245,7 @@
               <div class="ui-block-a">
                   <div data-controltype="textblock">
                       <p>
-                      <label for="toggleswitchnotification" style="color:#fff;">Notification</label>                          
+                      <label for="toggleswitchnotification" style="color:#fff;">label.notification</label>                          
                       </p>
                   </div>
               </div>
@@ -231,8 +253,8 @@
                   <div data-role="fieldcontain" data-controltype="toggleswitch">
                       <select name="toggleswitchnotification" id="toggleswitchnotification" data-role="slider"
                       data-mini="true">
-                          <option value="Off">Off</option>
-                          <option value="On">On</option>
+                          <option value="Off">label.off</option>
+                          <option value="On">label.on</option>
                       </select>
                   </div>
               </div>
@@ -245,7 +267,7 @@
           -->
           <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
           <a data-role="button" href="#" data-icon="delete" data-iconpos="left" class="btn-logout">
-              Sign Out
+              label.signout
           </a>
       </div>
       
@@ -254,10 +276,10 @@
                 <ul>
                     <li class="ui-badge-container">
                         <span class="badge-chat notification_badge yellow"></span>
-                        <a href="#pageChat" data-transition="none" data-icon="comment">Chats</a>
+                        <a href="#pageChat" data-transition="none" data-icon="comment">label.chats</a>
                     </li>
                     <!--<li><a href="#pageAccount" data-transition="none" data-icon="user">Visitors</a></li>-->
-                    <li><a href="#pageSettings" data-transition="none" data-icon="gear" class="ui-btn-active">Settings</a></li>
+                    <li><a href="#pageSettings" data-transition="none" data-icon="gear" class="ui-btn-active">label.settings</a></li>
                 </ul>
             </div><!-- /navbar -->
     </div><!-- /footer -->
@@ -266,7 +288,24 @@
   <div class="play"></div>
   
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script> 
-        <script type="text/javascript" charset="utf-8" src="jqm/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="jqm/jquery.min.js"></script>
+		<script>
+
+
+
+        //Declrations before load HTMLed.js
+		/*
+        	var global = {
+                 options : {
+                    autoDetect: false,  //This tells the browser to detect the language preference and load ".properties" file automatically
+                    langPref: "fr",     // if you set "autoDetect:false" you should mention the name of the ".properties" file you want to load 
+                    langBundle:"bundle",//folder name that contains all ".properties" files                    
+                }
+            };
+			*/
+        </script>
+        <!--<script type="text/javascript" charset="utf-8" src="js/HTMLed.js"></script> -->
+		
         <script type="text/javascript" charset="utf-8" src="jqm/jquery.mobile-1.4.0.min.js"></script>
 		<!--<script type="text/javascript" charset="utf-8" src="js/jquery-1.9.1.js"></script>-->
 		<!--<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.3.1.js"></script>-->
@@ -288,6 +327,23 @@
         <script type="text/javascript">
             app.initialize();
             
+
+			$(document).ready(function() {
+			//console.log(data_lang);
+			var to = $('body').html();
+				$.each(data_lang.en, function(key, val) {
+							//alert(key.toString());
+                            var regex = new RegExp('\\b'+key.toString()+'\\b','g');
+							//alert(to);
+                            //$('body').html( $('body').html().replace(regex,val.toString()));    
+                            to = to.replace(regex,val.toString()); 
+						
+                         });
+						 
+						   $('body').html(to);
+							
+                      });
+					
               /*      
             $(document).on('pageinit', '#pageLogin', function(e) {
                 console.log('#pageLogin pageinit');
