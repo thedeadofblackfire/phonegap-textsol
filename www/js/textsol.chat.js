@@ -149,7 +149,7 @@ $(document).ready(function() {
 		e.preventDefault();	
     //$('.closeChat').on('click', function() {
 
-        if (!confirm('Are you sure, want to close this chat session?'))
+        if (!confirm(lang.get('label.confirmclosechat')))
         {
             return false;
         }
@@ -157,7 +157,7 @@ $(document).ready(function() {
 		var session_id = $('#current_session_id').val();
         //var session_id = $('#chat li.active a').attr('href');
         //session_id = session_id && session_id.replace(/#/, ''); //strip for ie7 
-        $this.html(' wait... ');
+        $this.html(' '+lang.get('label.wait')+' ');
         $this.addClass('disabled');
         $.ajax({
             url: API + "/chat/send_chat_transcript_to_email",
@@ -168,7 +168,7 @@ $(document).ready(function() {
                 {
                     $this.addClass('btn-success disabled');
                     $this.removeClass('closeChat btn-danger');
-                    $this.html('Chat Closed');
+                    $this.html(lang.get('label.chatclosed'));
                     $('.btnChatSendReply').siblings('textarea').remove();
                     $('.btnChatSendReply').remove();
                     
@@ -181,22 +181,20 @@ $(document).ready(function() {
                 }
                 else
                 {
-                    $this.html('<i class="icon-remove"></i> Close Chat');
+                    $this.html('<i class="icon-remove"></i> '+lang.get('label.closechat'));
                     $this.removeClass('disabled');
-                    alert('Something went wrong. Please try again later.');
+                    alert(lang.get('label.somethingwrong'));
                 }
 
             }
         })
     });
 
-
+/*
     $('.soundOff').on('click', function() {
-
 
         var $this = $(this);
         var user_id = $this.attr('user_id');
-
 
         $.ajax({
             url: AjaxURL + "chat_sound",
@@ -221,7 +219,7 @@ $(document).ready(function() {
 
         })
     });
-
+*/
 
 })
 
@@ -262,11 +260,11 @@ function chat_save_reply_message($this) {
         if (message.length < 1)
         {
             textarea.addClass('bordererr');
-            textarea.after('<p class="err">Please enter your message.</p>');
+            textarea.after('<p class="err">'+lang.get('label.pleaseenteryourmessage')+'</p>');
             return false;
 
         }
-        $this.html(' Wait... ');
+        $this.html(' '+lang.get('label.wait')+' ');
         $this.attr('disabled', 'disabled');
 
         // pre place reply to not have long ajax call  
@@ -298,7 +296,7 @@ function chat_save_reply_message($this) {
                 // session_id = selector && selector.replace(/#/, ''); //strip for ie7                  
                 // select_tab_by_id(session_id);
                 $this.removeAttr('disabled');
-                $this.html('Send');
+                $this.html(lang.get('label.send'));
                 textarea.val('');
                 textarea.removeClass('bordererr');
                 wrapper.scrollTop = wrapper.animate({scrollTop: 10000});

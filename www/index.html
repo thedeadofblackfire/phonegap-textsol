@@ -22,6 +22,7 @@
     </head>
     <body>
 	
+    <div id="languagecontent">
 	<div data-role="page" data-control-title="Home" id="pageLogin" style="background: url('img/homebg.png') repeat">
       <div role="main" class="ui-content">
 		<div style="text-align:center" data-controltype="image" class="topband">
@@ -238,6 +239,27 @@
                   </div>
               </div>
           </div>
+          <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+          <div class="ui-grid-a">
+              <div class="ui-block-a">
+                  <div data-controltype="textblock">
+                      <p>
+                      <label for="selectlanguage" style="color:#fff;">label.language</label>                          
+                      </p>
+                  </div>
+              </div>
+              <div class="ui-block-b">
+                      <div class="ui-field-contain">
+    <select name="selectlanguage" id="selectlanguage" data-mini="true">
+        <option value="en">EN</option>
+                          <option value="es">ES</option>
+                          <option value="fr">FR</option>
+    </select>
+</div>
+
+               
+              </div>
+          </div>
           <!--
           <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
           <a data-role="button" href="#page4" data-icon="gear" data-iconpos="left">
@@ -263,7 +285,8 @@
             </div><!-- /navbar -->
     </div><!-- /footer -->
   </div>
-    
+
+</div>
   <div class="play"></div>
   
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script> 
@@ -296,31 +319,25 @@
 		<!--<script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>-->
         <!--<script type="text/javascript" charset="utf-8" src="js/wcfwk.js"></script>-->
         
+        <script type="text/javascript" charset="utf-8" src="js/textsol.lang.js"></script>	
 		<script type="text/javascript" charset="utf-8" src="js/textsol.js"></script>		        
         <script type="text/javascript" charset="utf-8" src="js/textsol.chat.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/textsol.impush.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/textsol.push.js"></script>
   
         <script type="text/javascript">
+        
+        
+            lang.initialize();
+            
             app.initialize();
             
-
+           
 			$(document).ready(function() {
-			//console.log(data_lang);
-			var to = $('body').html();
-				$.each(data_lang.en, function(key, val) {
-							//alert(key.toString());
-                            var regex = new RegExp('\\b'+key.toString()+'\\b','g');
-							//alert(to);
-                            //$('body').html( $('body').html().replace(regex,val.toString()));    
-                            to = to.replace(regex,val.toString()); 
-						
-                         });
-						 
-						   $('body').html(to);
-							
+		
                       });
 					
+                    
               /*      
             $(document).on('pageinit', '#pageLogin', function(e) {
                 console.log('#pageLogin pageinit');

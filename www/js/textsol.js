@@ -17,25 +17,6 @@ var badgeChatCount = 0;
 var audioEnable = true;
 var isChatSession = false;
 
-var data_lang = {
-			"en" : {
-				"label.chats" : "Chats",
-				"label.settings" : "Settings",
-				"label.signout" : "Sign Out",
-				"desc.settings" : "Below are your Live Chat Settings",
-				"label.availability" : "Availability",
-				"label.notification" : "Notification",
-				"label.on" : "On",
-				"label.off" : "Off"
-				
-			},
-			"fr" : {
-				"label.chats" : "Chats",
-				"label.settings" : "Settings",
-				"label.signout" : "Sign Out"
-			}
-		};
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -54,10 +35,11 @@ var app = {
 		if (objUser) {
 			objUser = JSON.parse(objUser);	
 			console.log('retrieved user: ', objUser);
+                        
 		} else {
             objUser = {};
-        }       
-
+        }                     
+        
         checkPreAuth();
         
         $.mobile.transitionFallbacks.slideout = "none";
@@ -356,6 +338,13 @@ var currentUrl = $.mobile.activePage.data('url');
         });
 		
 	});
+    
+    $(document).on('change', '#selectlanguage', function(e) {		
+       var current_status = $(this).val();
+       console.log('selectlanguage '+current_status);
+       //alert(current_status);
+       lang.set(current_status);
+	});
 	
 	/*
 	$(document).on('submit', "#loginForm", function(event) {
@@ -540,12 +529,20 @@ function parseRSS() {
 	function checkPreAuth() {
 		console.log('checkPreAuth');
 		//var form = $("#loginForm");	
-                  
+                            
 		if(Object.keys(objUser).length == 0 && window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
 			//$("#username", form).val(window.localStorage["username"]);
 			//$("#password", form).val(window.localStorage["password"]);
 			handleLogin(window.localStorage["username"], window.localStorage["password"]);
-		}
+		} 
+        
+        /*
+        console.log('tot');
+        if (objUser.country == 'FR') lang.set('fr');
+        else if (objUser.country == 'MEX') lang.set('es');
+        lang.initialize();
+        */        
+        
 	}
 
     function handleLoginForm() {
@@ -599,6 +596,12 @@ function parseRSS() {
 
 				    objUser = res.user;
                     
+                    /*
+                    if (objUser.country == 'FR') lang.set('fr');
+                    else if (objUser.country == 'MEX') lang.set('es');
+                    lang.initialize();
+                    */
+        
                     // launch the push notification center because it's required objUser
                     push_onDeviceReady();
 					
@@ -670,8 +673,8 @@ function loadDataUserList(data) {
 	//var htmlUserList = templateChatUserList(data);
     
     var htmlUserList = '';
-    var title = 'There are currently no chats in progress.'; //'You have no active chats'; //There are currently no chats in progress.
-    if (data.online_user.length > 0) title = '<img src="img/infoico.png" style="position:relative">Your currently active chats';
+    var title = lang.get('label.nochatsinprogress'); //'You have no active chats'; //There are currently no chats in progress.
+    if (data.online_user.length > 0) title = '<img src="img/infoico.png" style="position:relative">'+lang.get('label.currentlyactivechats');
     
     //htmlUserList += '<div class="ui-bar ui-bar-e"><h3 style="display:inline-block; width:92%; margin-top:5px;">This is an alert message. </h3><div style="display:inline-block; width:8%; margin-top:0px; text-align:right;"><a href="#" data-role="button" data-icon="delete" data-inline="true" data-iconpos="notext" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="e" title="Dismiss" class="ui-btn ui-btn-up-e ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text">Dismiss</span><span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span></span></a></div><p style="font-size:85%; margin:-.3em 0 1em;">And here\'s some additional text in a paragraph.</p></div>';
                     
@@ -815,11 +818,11 @@ function generateDetailVisitor(data) {
     //str += '<strong>User Info:</strong>&nbsp;&nbsp;';
     //if (data.visitor.email != '' || data.visitor.email != '0') str += '&nbsp;&nbsp;<b>Email:</b> '+data.visitor.email;
     //if (data.visitor.phone != '' || data.visitor.phone != '0') str += '&nbsp;&nbsp;<b>Phone:</b> '+data.visitor.phone;
-    if (data.visitor.country != '') str += '&nbsp;&nbsp;<b>Country:</b> '+data.visitor.country;   
-    if (data.visitor.city != '') str += '&nbsp;&nbsp;<b>City:</b> '+data.visitor.city;
+    if (data.visitor.country != '') str += '&nbsp;&nbsp;<b>'+lang.get('label.country')+':</b> '+data.visitor.country;   
+    if (data.visitor.city != '') str += '&nbsp;&nbsp;<b>'+lang.get('label.city')+':</b> '+data.visitor.city;
     //if (data.visitor.region != '') str += '&nbsp;&nbsp;<b>Region:</b> '+data.visitor.region;
-    if (data.visitor.browser != '') str += '&nbsp;&nbsp;<b>Browser:</b> '+data.visitor.browser;
-    if (data.visitor.referrer != '') str += '&nbsp;&nbsp;<b>Url:</b> '+data.visitor.referrer;
+    if (data.visitor.browser != '') str += '&nbsp;&nbsp;<b>'+lang.get('label.browser')+':</b> '+data.visitor.browser;
+    if (data.visitor.referrer != '') str += '&nbsp;&nbsp;<b>'+lang.get('label.url')+':</b> '+data.visitor.referrer;
     //if (data.visitor.visit != '') str += '&nbsp;&nbsp;<b>Visit Time:</b> '+data.visitor.visit;
     str += '</div>';
     
@@ -835,9 +838,9 @@ function generatePageSession(data) {
     str += generateDetailVisitor(data);
     str += '<div class="plugins">';    
     if (displayChatClose) {
-		str += '<a class="btn btn-success disabled">Chat Closed</a>';		
+		str += '<a class="btn btn-success disabled">'+lang.get('label.chatclosed')+'</a>';		
 	} else {
-		str += '<a class="btn closeChat btn-danger" style="width:auto!important;color:white;"><i class="icon-remove"></i> Close Chat</a>';		
+		str += '<a class="btn closeChat btn-danger" style="width:auto!important;color:white;"><i class="icon-remove"></i> '+lang.get('label.closechat')+'</a>';		
 	}            
     //str += ' <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>';
     str += '</div>';
@@ -878,8 +881,8 @@ function generatePageSession(data) {
 	*/
 	
 	str += '<div class="chat-footer chatform">';
-    str += '<input type="text" data-session="'+data.session_id+'" name="chatText" id="chatInput" class="input-light input-large brad chat-search" placeholder="Type and press Enter...">';
-    str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">Send</a>';
+    str += '<input type="text" data-session="'+data.session_id+'" name="chatText" id="chatInput" class="input-light input-large brad chat-search" placeholder="'+lang.get('label.pressenter')+'">';
+    str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">'+lang.get('label.send')+'</a>';
     str += '</div>';				
         
     str += '</div>';
@@ -891,7 +894,7 @@ function updateDataUserList(v) {
 	console.log('updateDataUserList');
     var str = generateLineUser(v,true);    
     $('#chat_userlist > li:first').after(str);
-    $('#chat_userlist li:first').html('Your currently active chats'); 
+    $('#chat_userlist li:first').html(lang.get('label.currentlyactivechats')); 
     //$('#chat_userlist').prepend(str);
 	$("#chat_userlist").listview('refresh');
 

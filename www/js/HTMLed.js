@@ -41,13 +41,16 @@ $(document).ready(
                         'global': false,
                         'async': false,
                         success: function(data){
-                        
+                        var to = $('body').html();
                         $.each(data, function(key, val) {
                             
                             var regex = new RegExp('\\b'+key.toString()+'\\b','g');
-                            $('body').html( $('body').html().replace(regex,val.toString()));    //replaces the strings in the html file
+                            //$('body').html( $('body').html().replace(regex,val.toString()));    //replaces the strings in the html file
+                             to = to.replace(regex,val.toString()); 
+						
                             
                             });
+                        $('body').html(to);
                       }
                 });
             }else{                
