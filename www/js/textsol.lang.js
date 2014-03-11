@@ -75,8 +75,8 @@ var data_lang = {
                 "label.pleaseenteryourmessage" : "Please enter your message."
 			}
 };
-
-
+       
+        
 var lang = {
     // Application Constructor
     initialize: function() {

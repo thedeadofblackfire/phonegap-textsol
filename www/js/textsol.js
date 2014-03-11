@@ -54,6 +54,8 @@ var app = {
         //checkConnection();	
 		console.log('onDeviceReady');
         
+        ln.init();
+        
         // save device info the first time for mobile's ower (device uuid)
         // http://docs.phonegap.com/en/3.2.0/cordova_device_device.md.html#Device
         
@@ -343,7 +345,13 @@ var currentUrl = $.mobile.activePage.data('url');
        var current_status = $(this).val();
        console.log('selectlanguage '+current_status);
        //alert(current_status);
-       lang.set(current_status);
+       //displayLanguage();
+       
+         i18n.setLng(current_status, function(t)
+                {
+                    $('body').i18n();
+                });
+       //lang.set(current_status);
 	});
 	
 	/*
@@ -673,8 +681,8 @@ function loadDataUserList(data) {
 	//var htmlUserList = templateChatUserList(data);
     
     var htmlUserList = '';
-    var title = lang.get('label.nochatsinprogress'); //'You have no active chats'; //There are currently no chats in progress.
-    if (data.online_user.length > 0) title = '<img src="img/infoico.png" style="position:relative">'+lang.get('label.currentlyactivechats');
+    var title = i18n.t('label.nochatsinprogress'); //'You have no active chats'; //There are currently no chats in progress.
+    if (data.online_user.length > 0) title = '<img src="img/infoico.png" style="position:relative">'+i18n.t('label.currentlyactivechats');
     
     //htmlUserList += '<div class="ui-bar ui-bar-e"><h3 style="display:inline-block; width:92%; margin-top:5px;">This is an alert message. </h3><div style="display:inline-block; width:8%; margin-top:0px; text-align:right;"><a href="#" data-role="button" data-icon="delete" data-inline="true" data-iconpos="notext" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="e" title="Dismiss" class="ui-btn ui-btn-up-e ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text">Dismiss</span><span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span></span></a></div><p style="font-size:85%; margin:-.3em 0 1em;">And here\'s some additional text in a paragraph.</p></div>';
                     
@@ -818,11 +826,11 @@ function generateDetailVisitor(data) {
     //str += '<strong>User Info:</strong>&nbsp;&nbsp;';
     //if (data.visitor.email != '' || data.visitor.email != '0') str += '&nbsp;&nbsp;<b>Email:</b> '+data.visitor.email;
     //if (data.visitor.phone != '' || data.visitor.phone != '0') str += '&nbsp;&nbsp;<b>Phone:</b> '+data.visitor.phone;
-    if (data.visitor.country != '') str += '&nbsp;&nbsp;<b>'+lang.get('label.country')+':</b> '+data.visitor.country;   
-    if (data.visitor.city != '') str += '&nbsp;&nbsp;<b>'+lang.get('label.city')+':</b> '+data.visitor.city;
+    if (data.visitor.country != '') str += '&nbsp;&nbsp;<b>'+i18n.t('label.country')+':</b> '+data.visitor.country;   
+    if (data.visitor.city != '') str += '&nbsp;&nbsp;<b>'+i18n.t('label.city')+':</b> '+data.visitor.city;
     //if (data.visitor.region != '') str += '&nbsp;&nbsp;<b>Region:</b> '+data.visitor.region;
-    if (data.visitor.browser != '') str += '&nbsp;&nbsp;<b>'+lang.get('label.browser')+':</b> '+data.visitor.browser;
-    if (data.visitor.referrer != '') str += '&nbsp;&nbsp;<b>'+lang.get('label.url')+':</b> '+data.visitor.referrer;
+    if (data.visitor.browser != '') str += '&nbsp;&nbsp;<b>'+i18n.t('label.browser')+':</b> '+data.visitor.browser;
+    if (data.visitor.referrer != '') str += '&nbsp;&nbsp;<b>'+i18n.t('label.url')+':</b> '+data.visitor.referrer;
     //if (data.visitor.visit != '') str += '&nbsp;&nbsp;<b>Visit Time:</b> '+data.visitor.visit;
     str += '</div>';
     
@@ -838,9 +846,9 @@ function generatePageSession(data) {
     str += generateDetailVisitor(data);
     str += '<div class="plugins">';    
     if (displayChatClose) {
-		str += '<a class="btn btn-success disabled">'+lang.get('label.chatclosed')+'</a>';		
+		str += '<a class="btn btn-success disabled">'+i18n.t('label.chatclosed')+'</a>';		
 	} else {
-		str += '<a class="btn closeChat btn-danger" style="width:auto!important;color:white;"><i class="icon-remove"></i> '+lang.get('label.closechat')+'</a>';		
+		str += '<a class="btn closeChat btn-danger" style="width:auto!important;color:white;"><i class="icon-remove"></i> '+i18n.t('label.closechat')+'</a>';		
 	}            
     //str += ' <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>';
     str += '</div>';
@@ -881,8 +889,8 @@ function generatePageSession(data) {
 	*/
 	
 	str += '<div class="chat-footer chatform">';
-    str += '<input type="text" data-session="'+data.session_id+'" name="chatText" id="chatInput" class="input-light input-large brad chat-search" placeholder="'+lang.get('label.pressenter')+'">';
-    str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">'+lang.get('label.send')+'</a>';
+    str += '<input type="text" data-session="'+data.session_id+'" name="chatText" id="chatInput" class="input-light input-large brad chat-search" placeholder="'+i18n.t('label.pressenter')+'">';
+    str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">'+i18n.t('label.send')+'</a>';
     str += '</div>';				
         
     str += '</div>';
@@ -894,7 +902,7 @@ function updateDataUserList(v) {
 	console.log('updateDataUserList');
     var str = generateLineUser(v,true);    
     $('#chat_userlist > li:first').after(str);
-    $('#chat_userlist li:first').html(lang.get('label.currentlyactivechats')); 
+    $('#chat_userlist li:first').html(i18n.t('label.currentlyactivechats')); 
     //$('#chat_userlist').prepend(str);
 	$("#chat_userlist").listview('refresh');
 

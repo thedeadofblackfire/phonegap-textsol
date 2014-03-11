@@ -1,0 +1,42 @@
+{
+    "label":
+    {
+        "chats": "Chats",
+        "settings": "Configuration",
+        "visitors": "Visiteurs",
+        "list": "Liste",
+		"signout": "Quitter",		
+		"availability": "Availability",
+		"notification": "Notification",
+        "language": "Langage",
+		"on": "Oui",
+		"off": "Non",
+        "chatclosed": "Chat Closed",
+        "closechat": "Close Chat",                
+        "country": "Pays",
+        "browser": "Navigateur",
+        "city": "Ville",
+		"url": "Url",
+        "send": "Envoyer",                
+        "pressenter": "Type and press Enter...",
+        "currentlyactivechats": "Your currently active chats",
+        "nochatsinprogress": "There are currently no chats in progress.", 
+        "confirmclosechat": "Are you sure want to close this chat session?",                
+        "somethingwrong": "Something went wrong. Please try again later.",
+        "wait": "Wait...",
+        "pleaseenteryourmessage": "Please enter your message."
+    },
+    "description":
+    {
+        "settings": "Below are your Live Chat Settings"
+    },
+    "buttons":
+    {
+        "language": "Language en"
+    },
+    "messages":
+    {
+        "success": "Current language: __language__ (__local__) [__code__]",
+        "error": "Error getting language!"
+    }
+}
