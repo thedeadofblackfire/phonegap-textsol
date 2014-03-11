@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.webcreators.textsol"
-        version   = "0.0.7">
+        version   = "0.0.71">
 
     <name>Live Chat</name>
 
@@ -81,11 +81,6 @@
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />   
 --<	
 	
-	<!--
-	<gap:plugin name="org.apache.cordova.device" />
-	<gap:plugin name="org.apache.cordova.network-information" />
-	<gap:plugin name="org.apache.cordova.dialogs" />
-	-->
 	
     <!--
         Define access to external domains.
@@ -96,7 +91,7 @@
         Otherwise, you can specify specific domains:
     -->
     <access origin="*" />    
-    <access origin="*.pushwoosh.com"/>
+    <!--<access origin="*.pushwoosh.com"/>-->
 	<!--<access origin="*.textsol.com"/>-->
     <!--
     	<access origin="http://eoi.com" subdomains="true" /> 
