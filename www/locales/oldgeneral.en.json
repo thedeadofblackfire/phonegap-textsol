@@ -18,7 +18,9 @@
         "city": "City",
 		"url": "Url",
         "send": "Send",                
-        "pressenter": "Type and press Enter...",            
+        "pressenter": "Type and press Enter...",
+        "currentlyactivechats": "Your currently active chats",
+        "nochatsinprogress": "There are currently no chats in progress.", 
         "confirmclosechat": "Are you sure want to close this chat session?",                
         "somethingwrong": "Something went wrong. Please try again later.",
         "wait": "Wait...",
@@ -26,8 +28,6 @@
     },
     "description":
     {
-        "currentlyactivechats": "Your currently active chats",
-        "nochatsinprogress": "There are currently no chats in progress.",
         "settings": "Below are your Live Chat Settings"
     },
     "buttons":

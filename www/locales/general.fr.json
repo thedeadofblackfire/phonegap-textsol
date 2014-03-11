@@ -6,7 +6,7 @@
         "visitors": "Visiteurs",
         "list": "Liste",
 		"signout": "Quitter",		
-		"availability": "Availability",
+		"availability": "Disponibilité",
 		"notification": "Notification",
         "language": "Langage",
 		"on": "Oui",
@@ -18,16 +18,16 @@
         "city": "Ville",
 		"url": "Url",
         "send": "Envoyer",                
-        "pressenter": "Type and press Enter...",
-        "currentlyactivechats": "Your currently active chats",
-        "nochatsinprogress": "There are currently no chats in progress.", 
+        "pressenter": "Ecrire et pressez la touche entrée...",
         "confirmclosechat": "Are you sure want to close this chat session?",                
-        "somethingwrong": "Something went wrong. Please try again later.",
-        "wait": "Wait...",
-        "pleaseenteryourmessage": "Please enter your message."
+        "somethingwrong": "Erreur! Merci de reessayer ultérieurement.",
+        "wait": "En cours...",
+        "pleaseenteryourmessage": "Entrer votre message..."
     },
     "description":
     {
+        "currentlyactivechats": "Vos conversations en cours",
+        "nochatsinprogress": "Il n'y a pas de conversations en cours.",
         "settings": "Below are your Live Chat Settings"
     },
     "buttons":

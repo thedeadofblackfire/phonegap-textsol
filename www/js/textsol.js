@@ -681,8 +681,8 @@ function loadDataUserList(data) {
 	//var htmlUserList = templateChatUserList(data);
     
     var htmlUserList = '';
-    var title = i18n.t('label.nochatsinprogress'); //'You have no active chats'; //There are currently no chats in progress.
-    if (data.online_user.length > 0) title = '<img src="img/infoico.png" style="position:relative">'+i18n.t('label.currentlyactivechats');
+    var title = i18n.t('description.nochatsinprogress'); //'You have no active chats'; //There are currently no chats in progress.
+    if (data.online_user.length > 0) title = '<img src="img/infoico.png" style="position:relative">'+i18n.t('description.currentlyactivechats');
     
     //htmlUserList += '<div class="ui-bar ui-bar-e"><h3 style="display:inline-block; width:92%; margin-top:5px;">This is an alert message. </h3><div style="display:inline-block; width:8%; margin-top:0px; text-align:right;"><a href="#" data-role="button" data-icon="delete" data-inline="true" data-iconpos="notext" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="e" title="Dismiss" class="ui-btn ui-btn-up-e ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text">Dismiss</span><span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span></span></a></div><p style="font-size:85%; margin:-.3em 0 1em;">And here\'s some additional text in a paragraph.</p></div>';
                     
@@ -902,7 +902,7 @@ function updateDataUserList(v) {
 	console.log('updateDataUserList');
     var str = generateLineUser(v,true);    
     $('#chat_userlist > li:first').after(str);
-    $('#chat_userlist li:first').html(i18n.t('label.currentlyactivechats')); 
+    $('#chat_userlist li:first').html(i18n.t('description.currentlyactivechats')); 
     //$('#chat_userlist').prepend(str);
 	$("#chat_userlist").listview('refresh');
 

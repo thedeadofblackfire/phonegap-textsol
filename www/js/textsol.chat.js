@@ -1,9 +1,4 @@
 
-/* 
- Created by: Manish Gopal Singh
- 
- Name: Chat Engine 1.0
- */
 
 (function($) {
 
