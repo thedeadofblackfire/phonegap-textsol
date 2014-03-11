@@ -2,7 +2,7 @@
     "label":
     {
         "chats": "Chats",
-        "settings": "Configuration",
+        "settings": "Préférences",
         "visitors": "Visiteurs",
         "list": "Liste",
 		"signout": "Quitter",		
@@ -19,7 +19,7 @@
 		"url": "Url",
         "send": "Envoyer",                
         "pressenter": "Ecrire et pressez la touche entrée...",
-        "confirmclosechat": "Are you sure want to close this chat session?",                
+        "confirmclosechat": "Etes vous sûr de fermer cette conversation ?",                
         "somethingwrong": "Erreur! Merci de reessayer ultérieurement.",
         "wait": "En cours...",
         "pleaseenteryourmessage": "Entrer votre message..."
@@ -28,15 +28,6 @@
     {
         "currentlyactivechats": "Vos conversations en cours",
         "nochatsinprogress": "Il n'y a pas de conversations en cours.",
-        "settings": "Below are your Live Chat Settings"
-    },
-    "buttons":
-    {
-        "language": "Language en"
-    },
-    "messages":
-    {
-        "success": "Current language: __language__ (__local__) [__code__]",
-        "error": "Error getting language!"
+        "settings": "Veuillez configurer vos préférences ci-dessous"
     }
 }
