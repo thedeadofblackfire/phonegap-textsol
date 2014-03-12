@@ -2,11 +2,11 @@
     "label":
     {
         "chats": "Chats",
-        "settings": "Préférences",
+        "settings": "PrÃ©fÃ©rences",
         "visitors": "Visiteurs",
         "list": "Liste",
 		"signout": "Quitter",		
-		"availability": "Disponibilité",
+		"availability": "DisponibilitÃ©",
 		"notification": "Notification",
         "language": "Langage",
 		"on": "Oui",
@@ -18,9 +18,9 @@
         "city": "Ville",
 		"url": "Url",
         "send": "Envoyer",                
-        "pressenter": "Ecrire et pressez la touche entrée...",
-        "confirmclosechat": "Etes vous sûr de fermer cette conversation ?",                
-        "somethingwrong": "Erreur! Merci de reessayer ultérieurement.",
+        "pressenter": "Ecrire et pressez la touche entrÃ©e...",
+        "confirmclosechat": "Etes vous sÃ»r de fermer cette conversation ?",                
+        "somethingwrong": "Erreur! Merci de reessayer ultÃ©rieurement.",
         "wait": "En cours...",
         "pleaseenteryourmessage": "Entrer votre message..."
     },
@@ -28,6 +28,6 @@
     {
         "currentlyactivechats": "Vos conversations en cours",
         "nochatsinprogress": "Il n'y a pas de conversations en cours.",
-        "settings": "Veuillez configurer vos préférences ci-dessous"
+        "settings": "Veuillez configurer vos prÃ©fÃ©rences ci-dessous"
     }
 }
