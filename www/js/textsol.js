@@ -349,6 +349,7 @@ var currentUrl = $.mobile.activePage.data('url');
        
          i18n.setLng(current_status, function(t)
                 {
+                    //handleRefreshOnlineUser(true);
                     $('body').i18n();
                 });
        //lang.set(current_status);
@@ -890,7 +891,8 @@ function generatePageSession(data) {
 	
 	str += '<div class="chat-footer chatform">';
     str += '<input type="text" data-session="'+data.session_id+'" name="chatText" id="chatInput" class="input-light input-large brad chat-search" placeholder="'+i18n.t('label.pressenter')+'">';
-    str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">'+i18n.t('label.send')+'</a>';
+    //str += '<a data-role="button" href="#" data-session="'+data.session_id+'" class="btn btn-primary btnChatSendReply">'+i18n.t('label.send')+'</a>';
+    str += '<a data-role="button" href="#" data-icon="arrow-r" data-iconpos="right" data-session="'+data.session_id+'" class="btnChatSendReply" data-i18n="label.send">'+i18n.t('label.send')+'</a>';  
     str += '</div>';				
         
     str += '</div>';
