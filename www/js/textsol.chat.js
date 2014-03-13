@@ -76,6 +76,7 @@ function new_message(id) {
 }
 
 var auto_refresh;
+var auto_refresh_users;
 
 $(document).ready(function() {
 
@@ -230,8 +231,13 @@ function chat_start()
     */
 	    
     auto_refresh = setInterval(function() {
-        chat_update()
+        chat_update();
     }, 5000); // refresh every 25 seconds 
+    
+    // clean old users
+    auto_refresh_users = setInterval(function() {
+        handleRefreshOnlineUser(true);
+    }, 120000); // refresh every 2 min 
     	
 }
 

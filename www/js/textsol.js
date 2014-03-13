@@ -16,6 +16,7 @@ var objSession = {}; // notification
 var badgeChatCount = 0;
 var audioEnable = true;
 var isChatSession = false;
+var current_session_id = '';
 
 var app = {
     // Application Constructor
@@ -686,22 +687,37 @@ function loadDataUserList(data) {
     if (data.online_user.length > 0) title = '<img src="img/infoico.png" style="position:relative">'+i18n.t('description.currentlyactivechats');
     
     //htmlUserList += '<div class="ui-bar ui-bar-e"><h3 style="display:inline-block; width:92%; margin-top:5px;">This is an alert message. </h3><div style="display:inline-block; width:8%; margin-top:0px; text-align:right;"><a href="#" data-role="button" data-icon="delete" data-inline="true" data-iconpos="notext" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="e" title="Dismiss" class="ui-btn ui-btn-up-e ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text">Dismiss</span><span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span></span></a></div><p style="font-size:85%; margin:-.3em 0 1em;">And here\'s some additional text in a paragraph.</p></div>';
+    var focusChatStillAvailable = false;
                     
     htmlUserList += '<ul id="chat_userlist" data-role="listview" data-theme="a" data-divider-theme="d" data-count-theme="a">';
     htmlUserList += '<li data-role="list-divider" id="activechat_title">'+title+'</li>';
     $.each(data.online_user, function(k, v) {
-        htmlUserList += generateLineUser(v,false);            
+        htmlUserList += generateLineUser(v,false);     
+           
+        if (current_session_id != '' && v.session_id == current_session_id) {
+            focusChatStillAvailable = true;
+        } 
+            
     });
     htmlUserList += '</ul>';
     
 	$('#container_chat_userlist').html(htmlUserList);
-	//$("#container_chat_userlist ul").listview('refresh');
+	
+    $("#listview-content").trigger('create');  
+    
+    // check if current chat session need to be close (visitor has closed the chat)
+    if (isChatSession && !focusChatStillAvailable) {
+        // we close chat
+        console.log('force close chat by user #'+current_session_id);
+        mofChangePage('#pageChat');
+    }    
+                
+    //$("#container_chat_userlist ul").listview('refresh');
 	//$("chat_userlist").listview('refresh');
 					
     //var source   = $("#articles-template").html();
     //var template = Handlebars.compile(source);
-	
-    $("#listview-content").trigger('create');  
+    
      // $("#pageChat").trigger('pagecreate');
       //$("#chat_userlist ul").listview('refresh');
       //$("#chat_userlist ul").listview().listview('refresh');
@@ -738,7 +754,7 @@ function displayBadgeChat() {
 
 function addUnread(session_id) {
 	console.log('addUnread '+session_id+' badgeChatCount='+badgeChatCount);
-	var current_session_id = $('#current_session_id').val();
+	current_session_id = $('#current_session_id').val();
 	// don't display bubble if current session
 	if (isChatSession && session_id == current_session_id) {
 		// do nothing but play the incoming message sound
@@ -799,8 +815,7 @@ function generateLineUser(v, newuser) {
     var browser = '';
 	//browser = pictureBrowser(v);        
     //if (browser != '') browser = '<img src="img/browser/'+browser+'" alt="'+v.browser+'">';
-    
-	
+    	
     var lg = '<img src="img/country/us.png" alt="United States" class="ui-li-icon">';
      
     var info = lg;
@@ -855,6 +870,8 @@ function generatePageSession(data) {
     str += '</div>';
     
     str += '<input type="hidden" name="current_session_id" id="current_session_id" value="'+data.session_id+'" />';
+    
+    current_session_id = data.session_id;
     
     str += '<ul class="messageWrapper chat-messages">';
     if (data.conversation != null) {
