@@ -12,8 +12,7 @@
         <!--<link rel="stylesheet" href="jqm/jquery.mobile-1.4.2.min.css"> -->    
         <link rel="stylesheet" href="jqm/themes/jqm-textsol.css" />
         <link rel="stylesheet" href="jqm/themes/jquery.mobile.icons.min.css" />
-        <link rel="stylesheet" href="jqm/jquery.mobile.structure-1.4.2.min.css">   
- 
+        <link rel="stylesheet" href="jqm/jquery.mobile.structure-1.4.2.min.css">    
 		<!--<link href="css/textsol.css" rel="stylesheet"> -->
         <link href="css/textsol.custom.css" rel="stylesheet">	
 	
@@ -21,28 +20,30 @@
     <body>
 	
     <div id="languagecontent">
-	<div data-role="page" data-control-title="Home" id="pageLogin" style="background: url('img/homebg.png') repeat">
-      <div role="main" class="ui-content">
-		<div style="text-align:center" data-controltype="image" class="topband">
-              <img style="width: 350px; height: 118px" src="img/homelogo.png">
+    
+        <div data-role="page" data-control-title="Home" id="pageLogin" style="background: url('img/homebg.png') repeat">
+          <div role="main" class="ui-content">
+              <div style="text-align:center" data-controltype="image" class="topband">
+                  <img style="width: 350px; height: 118px" src="img/homelogo.png">
+              </div>
+            
+              <form id="loginForm" method="POST">
+              <div data-role="fieldcontain" data-controltype="textinput">
+                  <input name="username" id="username" placeholder="email" value="" type="text">
+              </div>
+              <div data-role="fieldcontain" data-controltype="textinput">
+                  <input name="password" id="password" placeholder="password" value="" type="password">
+              </div>
+              
+              <a data-role="button" data-transition="flow" href="#" id="btnLogin" data-icon="arrow-r" data-iconpos="right">
+                  Login
+              </a>		  
+              <!--
+               <input type="submit" value="Login" id="submitButton" data-transition="flow" data-icon="arrow-r" data-iconpos="right">
+              -->
+              </form>
           </div>
-        
-		  <form id="loginForm" method="POST">
-          <div data-role="fieldcontain" data-controltype="textinput">
-              <input name="username" id="username" placeholder="email" value="" type="text">
-          </div>
-          <div data-role="fieldcontain" data-controltype="textinput">
-              <input name="password" id="password" placeholder="password" value="" type="password">
-          </div>
-		  
-          <a data-role="button" data-transition="flow" href="#" id="btnLogin" data-icon="arrow-r" data-iconpos="right">
-              Login
-          </a>		  
-		  <!--
-		   <input type="submit" value="Login" id="submitButton" data-transition="flow" data-icon="arrow-r" data-iconpos="right">
-		  -->
-      </div>
-    </div>
+        </div>
 
  
  <div data-role="page" data-control-title="Chat" id="pageChat" style="background: url('img/homebg.png') repeat">
