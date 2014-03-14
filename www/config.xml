@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.webcreators.textsol"
-        version   = "0.0.74">
+        version   = "0.0.75">
 
     <name>Live Chat</name>
 
@@ -13,7 +13,7 @@
     </description>
 
     <author href="http://www.webcreators.com" email="support@webcreators.com">
-        WebCreators Team
+        WebCreators
     </author>
 
 
