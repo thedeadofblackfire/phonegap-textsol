@@ -31,19 +31,21 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, true);
         //document.addEventListener('deviceready', this.onDeviceReady, false);
        
-		// get automatically user from session
-		objUser = window.sessionStorage.getItem('user');
-		if (objUser) {
-			objUser = JSON.parse(objUser);	
-			console.log('retrieved user: ', objUser);
-                        
-		} else {
-            objUser = {};
-        }                     
-        
-        checkPreAuth();
-        
-        $.mobile.transitionFallbacks.slideout = "none";
+        if (ENV == 'dev') {
+            // get automatically user from session
+            objUser = window.sessionStorage.getItem('user');
+            if (objUser) {
+                objUser = JSON.parse(objUser);	
+                console.log('retrieved user: ', objUser);
+                            
+            } else {
+                objUser = {};
+            }                     
+            
+            checkPreAuth();
+            
+            $.mobile.transitionFallbacks.slideout = "none";
+        }
 		        
 		//document.addEventListener('load', this.onDeviceReady, true);		
     },
@@ -57,6 +59,20 @@ var app = {
         
         ln.init();
         
+        if (ENV == 'production') {
+            objUser = window.sessionStorage.getItem('user');
+            if (objUser) {
+                objUser = JSON.parse(objUser);	
+                console.log('retrieved user: ', objUser);
+                            
+            } else {
+                objUser = {};
+            }                     
+            
+            checkPreAuth();
+            
+            $.mobile.transitionFallbacks.slideout = "none";
+        }
         // save device info the first time for mobile's ower (device uuid)
         // http://docs.phonegap.com/en/3.2.0/cordova_device_device.md.html#Device
         
