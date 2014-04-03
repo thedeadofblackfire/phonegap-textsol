@@ -77,6 +77,8 @@ label.ui-btn {
 	font-weight: bold;
 	border-width: 1px;
 	border-style: solid;
+	
+	
 }
 .ui-btn:link {
 	text-decoration: none !important;
@@ -102,12 +104,16 @@ label.ui-btn {
 .ui-li-count {
 	-webkit-border-radius: .3125em /*{global-radii-buttons}*/;
 	border-radius: .3125em /*{global-radii-buttons}*/;
+	padding-top:20px;
+	padding-bottom:20px;
+	
 }
 /* Icon-only buttons */
 .ui-btn-icon-notext.ui-btn-corner-all,
 .ui-btn-icon-notext.ui-corner-all {
 	-webkit-border-radius: 1em;
 	border-radius: 1em;
+	
 }
 /* Radius clip workaround for cleaning up corner trapping */
 .ui-btn-corner-all,
@@ -296,10 +302,11 @@ html .ui-bar-a .ui-btn:visited,
 html .ui-body-a .ui-btn:visited,
 html body .ui-group-theme-a .ui-btn:visited,
 html head + body .ui-btn.ui-btn-a:visited {
-	background: #f6f6f6 /*{a-bup-background-color}*/;
+	background: #6daf15 /*{a-bup-background-color}*/;
 	border-color: #dddddd /*{a-bup-border}*/;
-	color: #333333 /*{a-bup-color}*/;
-	text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/;
+	color: #fff /*{a-bup-color}*/;
+	font-size:25px;
+	
 	
 }
 /* Button hover */

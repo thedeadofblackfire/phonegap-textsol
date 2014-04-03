@@ -684,6 +684,10 @@ function parseRSS() {
                 console.log(res);
                 
                 objChat.online_user = res.online_user;
+                
+                // bug here : clean badge, bad thing
+                badgeChatCount = 0;
+                displayBadgeChat();
                           
                 // loop online users to display list of active chats
                 loadDataUserList(objChat);
