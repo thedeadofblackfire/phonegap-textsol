@@ -108,6 +108,10 @@ label.ui-btn {
 	padding-bottom:20px;
 	
 }
+.ui-slider-track.ui-corner-all {
+	padding-top:0px;
+	padding-bottom:0px;
+}
 /* Icon-only buttons */
 .ui-btn-icon-notext.ui-btn-corner-all,
 .ui-btn-icon-notext.ui-corner-all {
