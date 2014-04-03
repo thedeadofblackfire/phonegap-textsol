@@ -23,11 +23,15 @@
     
         <div data-role="page" data-control-title="Home" id="pageLogin" style="background: url('img/homebg.png') repeat">
           <div role="main" class="ui-content">
-              <div style="text-align:center" data-controltype="image" class="topband">
-                  <img style="width: 350px; height: 118px" src="img/homelogo.png">
+              <div style="text-align:center" data-controltype="image" class="topband">               
+				  <img style="width: 478px; height: 130px" src="img/homelogo.png">
               </div>
             
               <form id="loginForm" method="POST">
+			  <!--
+			  <A href="#"><div class="loginbut">Login</div></A>
+          <a href="#"><div class="regbut">Register</div></a>
+		  -->
               <div data-role="fieldcontain" data-controltype="textinput">
                   <input name="username" id="username" placeholder="email" value="" type="text">
               </div>
@@ -41,6 +45,7 @@
               <!--
                <input type="submit" value="Login" id="submitButton" data-transition="flow" data-icon="arrow-r" data-iconpos="right">
               -->
+			  <!--  <br /><br /><a href="#">Forgot Password?</a>-->
               </form>
           </div>
         </div>
