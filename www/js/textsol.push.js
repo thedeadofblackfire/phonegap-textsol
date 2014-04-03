@@ -7,17 +7,27 @@
             function push_onDeviceReady() {
                 console.log('push_onDeviceReady');
             
-                $("#app-status-ul").append('<li>deviceready event received</li>');
+                traceHandler('<li>deviceready event received</li>');
                 
 				document.addEventListener("backbutton", function(e)
 				{
-                	$("#app-status-ul").append('<li>backbutton event received</li>');
+                	traceHandler('<li>backbutton event received</li>');
   					
       				if( $("#home").length > 0 || $(push_homeid).length > 0 )
 					{
 						// call this to get a new token each time. don't call it to reuse existing token.						
 						e.preventDefault();
-                        //pushNotification.unregister(successHandler, errorHandler);
+                        pushNotification.unregister(successHandler, errorHandler);
+                        
+                        ImPush.userId = objUser.user_id;
+                        ImPush.operatorId = objUser.operator_id;
+                        ImPush.appCode = "539F5-D40CA";
+                        ImPush.unregister(function(data) {                        
+                            traceHandler("ImPush unregister success: " + JSON.stringify(data));
+                        }, function(errorregistration) {
+                            alert("Couldn't unregister with ImPush" +  errorregistration);
+                        });
+                    
                         ImPush.sendAppClose();
 						navigator.app.exitApp();
 					}
@@ -31,10 +41,10 @@
 				{ 
                 	pushNotification = window.plugins.pushNotification;
                 	if (device.platform == 'android' || device.platform == 'Android') {
-						$("#app-status-ul").append('<li>registering android</li>');
+						traceHandler('<li>registering android</li>');
                     	pushNotification.register(successHandler, errorHandler, {"senderID":push_senderID,"ecb":"onNotificationGCM"});		// required!
 					} else {
-						$("#app-status-ul").append('<li>registering iOS</li>');
+						traceHandler('<li>registering iOS</li>');
                     	pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
                 	}
                 }
@@ -49,7 +59,7 @@
             // handle APNS notifications for iOS
             function onNotificationAPN(e) {
                 if (e.alert) {
-                     $("#app-status-ul").append('<li>push-notification: ' + e.alert + '</li>');
+                     traceHandler('<li>push-notification: ' + e.alert + '</li>');
                      navigator.notification.alert(e.alert);
                      // JSON.stringify(e)  //if you want to access additional custom data in the payload
                 }
@@ -67,14 +77,14 @@
             
             // handle GCM notifications for Android
             function onNotificationGCM(e) {
-                $("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
+                traceHandler('<li>EVENT -> RECEIVED:' + e.event + '</li>');
                 
                 switch( e.event )
                 {
                     case 'registered':
 					if ( e.regid.length > 0 )
 					{
-						$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
+						traceHandler('<li>REGISTERED -> REGID:' + e.regid + "</li>");
 						// Your GCM push server needs to know the regID before it can push to this device
 						// here is where you might want to send it the regID for later use.
 						console.log("regID = " + e.regid);
@@ -85,9 +95,8 @@
                          ImPush.operatorId = objUser.operator_id;
 						 //alert(ImPush.userId);
                          ImPush.appCode = "539F5-D40CA";
-                         ImPush.register(e.regid, function(data) {
-                             console.log("ImPush register success: " + JSON.stringify(data));
-                             $("#app-status-ul").append("ImPush register success: " + JSON.stringify(data));
+                         ImPush.register(e.regid, function(data) {                             
+                             traceHandler("ImPush register success: " + JSON.stringify(data));
                              
                              ImPush.sendAppOpen();
                          }, function(errorregistration) {
@@ -97,7 +106,7 @@
                          PushWoosh.appCode = "539F5-D40CA";
                          PushWoosh.register(e.regid, function(data) {
                              console.log("PushWoosh register success: " + JSON.stringify(data));
-                             $("#app-status-ul").append("PushWoosh register success: " + JSON.stringify(data));
+                             traceHandler("PushWoosh register success: " + JSON.stringify(data));
                              
                              PushWoosh.sendAppOpen();
                          }, function(errorregistration) {
@@ -112,7 +121,7 @@
                     	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
                     	if (e.foreground)
                     	{
-							$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+							traceHandler('<li>--INLINE NOTIFICATION--' + '</li>');
 							
 							// if the notification contains a soundname, play it.
                             //var my_media = new Media("/android_asset/www/"+e.soundname);
@@ -120,40 +129,39 @@
 							my_media.play();
                             
                             chat_update();
-							$("#app-status-ul").append('<li>--chat_update--' + '</li>');
+							traceHandler('<li>--chat_update--' + '</li>');
 						}
 						else
 						{	// otherwise we were launched because the user touched a notification in the notification tray.
 							if (e.coldstart)
-								$("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
+								traceHandler('<li>--COLDSTART NOTIFICATION--' + '</li>');
 							else
-							$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+							traceHandler('<li>--BACKGROUND NOTIFICATION--' + '</li>');
 						}
 							
-						$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
-						$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+						traceHandler('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+						traceHandler('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
                     break;
                     
                     case 'error':
-						$("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+						traceHandler('<li>ERROR -> MSG:' + e.msg + '</li>');
                     break;
                     
                     default:
-						$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+						traceHandler('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
                     break;
                 }
             }
             
             function tokenHandler (result) {
-                $("#app-status-ul").append('<li>token: '+ result +'</li>');
+                traceHandler('<li>token: '+ result +'</li>');
                 // Your iOS push server needs to know the token before it can push to this device
                 // here is where you might want to send it the token for later use.
                 ImPush.userId = objUser.user_id;
                 ImPush.operatorId = objUser.operator_id;
                 ImPush.appCode = "539F5-D40CA";
-                ImPush.register(result, function(data) {
-                        console.log("ImPush register success: " + JSON.stringify(data));
-                        $("#app-status-ul").append("ImPush register success: " + JSON.stringify(data));
+                ImPush.register(result, function(data) {            
+                        traceHandler("ImPush register success: " + JSON.stringify(data));
                     }, function(errorregistration) {
                         alert("Couldn't register with ImPush" +  errorregistration);
                     });
@@ -162,7 +170,7 @@
                 PushWoosh.appCode = "539F5-D40CA";
                 PushWoosh.register(result, function(data) {
                         console.log("PushWoosh register success: " + JSON.stringify(data));
-                        $("#app-status-ul").append("PushWoosh register success: " + JSON.stringify(data));
+                        traceHandler("PushWoosh register success: " + JSON.stringify(data));
                     }, function(errorregistration) {
                         alert("Couldn't register with PushWoosh" +  errorregistration);
                     });
@@ -170,11 +178,16 @@
             }
 			
             function successHandler (result) {
-                $("#app-status-ul").append('<li>success:'+ result +'</li>');
+                traceHandler('<li>success:'+ result +'</li>');
             }
             
             function errorHandler (error) {
-                $("#app-status-ul").append('<li>error:'+ error +'</li>');
+                traceHandler('<li>error:'+ error +'</li>');
+            }
+            
+            function traceHandler(message) {
+                console.log(message);
+                //$("#app-status-ul").append(message);
             }
             
 			//document.addEventListener('deviceready', push_onDeviceReady, true);

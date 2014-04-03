@@ -364,6 +364,9 @@ top: 28px;
     padding: 5px 10px;
     border-radius: 5px;
     position: relative;
+    padding-top:20px;
+	padding-bottom:20px;
+	font-size:25px;
 }
 
 .chat-messages li .message_text:before {
@@ -383,6 +386,9 @@ top: 28px;
     margin-left: 0;
     margin-right: 32px;
     background: #c2eef5;
+    padding-top:20px;
+	padding-bottom:20px;
+	font-size:25px;
 }
 
 .chat-messages li.right .message_text:before {
