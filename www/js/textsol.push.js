@@ -19,6 +19,7 @@
 						e.preventDefault();
                         pushNotification.unregister(successHandler, errorHandler);
                         
+                        /*
                         ImPush.userId = objUser.user_id;
                         ImPush.operatorId = objUser.operator_id;
                         ImPush.appCode = "539F5-D40CA";
@@ -27,6 +28,7 @@
                         }, function(errorregistration) {
                             alert("Couldn't unregister with ImPush" +  errorregistration);
                         });
+                        */
                     
                         ImPush.sendAppClose();
 						navigator.app.exitApp();
