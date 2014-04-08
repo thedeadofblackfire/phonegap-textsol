@@ -22,7 +22,9 @@
         "confirmclosechat": "Estas seguro que quieres terminar esta sesión de Chat?",                
         "somethingwrong": "Se presento un error. Por favor inténtalo de nuevo más tarde.",
         "wait": "Un momento...",
-        "pleaseenteryourmessage": "Por favor agrega tu mensaje."
+        "pleaseenteryourmessage": "Por favor agrega tu mensaje.",
+        "closepanel": "Close panel",
+        "details": "Details"
     },
     "description":
     {

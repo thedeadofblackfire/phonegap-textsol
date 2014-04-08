@@ -240,6 +240,8 @@ jQuery(document).ready(function($){
                // Get the content element for the page to set it
                $content = $page.children( ".ui-content" );
                $content.html(chapterHTML);
+               
+          
                        
                isChatSession = true;
                // flag unread 
@@ -834,7 +836,7 @@ function generateLineUser(v, newuser) {
  
     var browser = '';
 	//browser = pictureBrowser(v);        
-    //if (browser != '') browser = '<img src="img/browser/'+browser+'" alt="'+v.browser+'">';
+    //if (browser != '') browser = '<img src="img/browser/64/'+browser+'" alt="'+v.browser+'">';
     	
     var lg = '<img src="img/country/us.png" alt="United States" class="ui-li-icon">';
      
@@ -846,7 +848,7 @@ function generateLineUser(v, newuser) {
     var str = '<li data-icon="false"';   
     if (newuser) str += 'class="new_user"';    
     //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + '<h2>' +v.name + '</h2><p>started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
-    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="a">' + browser + '<h2>' + v.name + '</h2><p>'+info+'</p> <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="a">' + browser + '<h2>' + v.name + '</h2><p>'+info+'</p> <p class="ui-li-aside"><small>'+formatDate(v.start_date)+'</small></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
     
     //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + v.name + ' <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
         
@@ -858,17 +860,28 @@ function generateLineUser(v, newuser) {
 function generateDetailVisitor(data) {
     console.log('generateDetailVisitor');
     var str = '';
-    str += '<div class="user_info both_shadow">';
+    
+    str += '<div class="ui-panel-inner user_infox both_shadowx">';
+    str += '<h3>'+i18n.t('label.details')+'</h3>';
+    str += '<p>';
     //str += '<strong>User Info:</strong>&nbsp;&nbsp;';
     //if (data.visitor.email != '' || data.visitor.email != '0') str += '&nbsp;&nbsp;<b>Email:</b> '+data.visitor.email;
     //if (data.visitor.phone != '' || data.visitor.phone != '0') str += '&nbsp;&nbsp;<b>Phone:</b> '+data.visitor.phone;
-    if (data.visitor.country != '') str += '&nbsp;&nbsp;<b>'+i18n.t('label.country')+':</b> '+data.visitor.country;   
-    if (data.visitor.city != '') str += '&nbsp;&nbsp;<b>'+i18n.t('label.city')+':</b> '+data.visitor.city;
-    //if (data.visitor.region != '') str += '&nbsp;&nbsp;<b>Region:</b> '+data.visitor.region;
-    if (data.visitor.browser != '') str += '&nbsp;&nbsp;<b>'+i18n.t('label.browser')+':</b> '+data.visitor.browser;
-    if (data.visitor.referrer != '') str += '&nbsp;&nbsp;<b>'+i18n.t('label.url')+':</b> '+data.visitor.referrer;
-    //if (data.visitor.visit != '') str += '&nbsp;&nbsp;<b>Visit Time:</b> '+data.visitor.visit;
+    if (data.visitor.country != '') str += '<br><b>'+i18n.t('label.country')+':</b> '+data.visitor.country;   
+    if (data.visitor.city != '') str += '<br><b>'+i18n.t('label.city')+':</b> '+data.visitor.city;
+    if (data.visitor.region != '') str += '<br><b>Region:</b> '+data.visitor.region;
+    if (data.visitor.browser != '') str += '<br><b>'+i18n.t('label.browser')+':</b> '+data.visitor.browser;
+    if (data.visitor.referrer != '') str += '<br><b>'+i18n.t('label.url')+':</b> '+data.visitor.referrer;
+    if (data.visitor.visit != '') str += '<br><b>Visit Time:</b> '+data.visitor.visit;
+        
+    str += '</p>';
+    str += '<a href="#" data-rel="close" data-theme="d" class="ui-btn ui-btn-d ui-mini ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-left ui-btn-inline theme">'+i18n.t('label.closepanel')+'</a>';
+    
     str += '</div>';
+      
+    
+    $('#panelvisitor').html(str);
+    //$( "#panelvisitor" ).trigger( "updatelayout" );
     
     return str;
 }
@@ -879,13 +892,23 @@ function generatePageSession(data) {
     var str = '';
        
     str += '<div class="zone_session2" id="'+data.session_id+'">';
-    str += generateDetailVisitor(data);
+    //str += generateDetailVisitor(data);
+    generateDetailVisitor(data);
+    
     str += '<div class="plugins">';    
+    
+    str += '<a href="#panelvisitor" class="btn btn-primary" style="width:auto!important;color:white;"><i class="icon-info-sign"></i> '+i18n.t('label.details')+'</a> ';
+     
     if (displayChatClose) {
 		str += '<a class="btn btn-success disabled">'+i18n.t('label.chatclosed')+'</a>';		
 	} else {
 		str += '<a class="btn closeChat btn-danger" style="width:auto!important;color:white;"><i class="icon-remove"></i> '+i18n.t('label.closechat')+'</a>';		
-	}            
+	}      
+
+   
+    //str += '<a href="#panelvisitor" class="ui-btn ui-mini">Anchor</a>';   
+    //str += '<a href="#panelvisitor" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-left ui-icon-bars">Default panel</a>';
+    
     //str += ' <a class="btn sendEmail btn-primary" style="width:auto!important;"><i class="icon-envelope"></i> Send Email</a>';
     str += '</div>';
     
@@ -955,7 +978,8 @@ function updateSessionMessage(v, toAppend) {
     
 	//var str = '<div class="message bubble_me me" mid="'+v.id+'"><span class="tail">&nbsp;</span>'+v.message+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
     
-	var str = '<li class="message right" mid="'+v.id+'"><img src="img/placeholders/avatars/2.jpg" class="img-circle"><div class="message_text">'+v.message+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div></li>';         
+	var str = '<li class="message right" mid="'+v.id+'"><div class="message_text">'+v.message+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div></li>';         
+	//var str = '<li class="message right" mid="'+v.id+'"><img src="img/placeholders/avatars/2.jpg" class="img-circle"><div class="message_text">'+v.message+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div></li>';         
 			
 	if (toAppend) $(".messageWrapper").append(str);
     else return str;
@@ -965,7 +989,9 @@ function updateSessionReply(v, toAppend) {
     //var str = '<p class="reply treply" rid="'+v.id+'"><b>'+objChat.support_display_name+'</b>: '+v.reply+' <span class="time">'+formatDate(v.post_date)+'</span></p>';
     
     //var str = '<div class="reply bubble_you you" rid="'+v.id+'"><span class="tail2">&nbsp;</span>'+v.reply+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div>';
-    var str = '<li class="reply" rid="'+v.id+'"><img src="img/placeholders/avatars/avatar.jpg" class="img-circle" width="26"><div class="message_text">'+v.reply+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div></li>';         
+    var str = '<li class="reply" rid="'+v.id+'"><div class="message_text">'+v.reply+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div></li>';         
+	
+    //var str = '<li class="reply" rid="'+v.id+'"><img src="img/placeholders/avatars/avatar.jpg" class="img-circle" width="26"><div class="message_text">'+v.reply+'<time datetime="'+v.post_date+'">'+formatDateLight(v.post_date)+'</time></div></li>';         
 	    
     if (toAppend) $(".messageWrapper").append(str);	
     else return str;    

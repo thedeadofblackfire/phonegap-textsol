@@ -9,7 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">     
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/codiqa.ext.css" rel="stylesheet">
-        <!--<link rel="stylesheet" href="jqm/jquery.mobile-1.4.2.min.css"> -->    
+        <link rel="stylesheet" href="jqm/jquery.mobile-1.4.2.min.css"> 
         <link rel="stylesheet" href="jqm/themes/jqm-textsol.css" />
         <link rel="stylesheet" href="jqm/themes/jquery.mobile.icons.min.css" />
         <link rel="stylesheet" href="jqm/jquery.mobile.structure-1.4.2.min.css">    
@@ -27,26 +27,31 @@
 				  <img style="width: 478px; height: 130px" src="img/homelogo.png">
               </div>
             
-              <form id="loginForm" method="POST">
+              <form id="loginForm" method="POST" class="ui-body ui-body-a ui-corner-all">
+               <fieldset>
 			  <!--
 			  <A href="#"><div class="loginbut">Login</div></A>
           <a href="#"><div class="regbut">Register</div></a>
 		  -->
-              <div data-role="fieldcontain" data-controltype="textinput">
+              <div data-role="ui-field-contain">
+                  <label for="username" class="ui-hidden-accessible">Enter your email:</label>
                   <input name="username" id="username" placeholder="Email" value="" type="text">
               </div>
-              <div data-role="fieldcontain" data-controltype="textinput">
+              <div data-role="ui-field-contain">
+                  <label for="password" class="ui-hidden-accessible">Enter your password:</label>
                   <input name="password" id="password" placeholder="Password" value="" type="password">
               </div>
-              
+              <a href="#" id="btnLogin" class="ui-btn ui-corner-all ui-icon-carat-r ui-shadow ui-btn-icon-right">Login</a>
+               <!--
 			  <div class="ui-grid-a">
 					<div class="ui-block-a"><a class="ui-btn ui-icon-arrow-r ui-btn-icon-right ui-shadow ui-corner-all" href="#" id="btnLogin">Login</a></div>
 				</div>
-               
+               -->
               <!--
                <input type="submit" value="Login" id="submitButton" data-transition="flow" data-icon="arrow-r" data-iconpos="right">
               -->
 			  <!--  <br /><br /><a href="#">Forgot Password?</a>-->
+              </fieldset>
               </form>
           </div>
         </div>
@@ -125,7 +130,13 @@
       -->    
   </div>
           
-   <div data-role="page" id="pageChatSession" style="background: url('img/homebg.png') repeat">
+   <div data-role="page" id="pageChatSession" style="background: url('img/homebg.png') repeat;background-color:#3D63FE;">
+   
+   
+        <div data-role="panel" id="panelvisitor" class="ui-panelxxx">
+            <!-- panel content goes here -->
+        </div><!-- /panel -->
+        
       <div data-theme="a" data-role="header" data-position="fixed" data-fullscreenxxx="true">
       <!--<a href="#"><img src="img/menu_icon_header.png" class="ui-btn-left"></a>-->
           <a data-role="button" href="#pageChat" data-icon="bars" data-iconpos="notext" data-theme="a" data-inline="true" class="ui-icon-alt ui-btn-left" data-i18n="label.list">label.list</a>
@@ -137,7 +148,7 @@
 		  </div>
 		  -->
       </div>
-      <div role="main" class="ui-content" class="container_session"></div>
+      <div role="main" class="ui-content" class="container_session" style="background: url('img/homebg.png') repeat"></div>
       <!--
       <div data-theme="d" data-role="footer" data-position="fixed">
           <h2>
@@ -191,6 +202,7 @@
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer -->    
+        
   </div>
   
    <div data-role="page" data-control-title="Settings" id="pageSettings" style="background: url('img/homebg.png') repeat">

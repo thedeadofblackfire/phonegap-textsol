@@ -22,7 +22,9 @@
         "confirmclosechat": "Etes vous sûr de fermer cette conversation ?",                
         "somethingwrong": "Erreur! Merci de reessayer ultérieurement.",
         "wait": "En cours...",
-        "pleaseenteryourmessage": "Entrer votre message..."
+        "pleaseenteryourmessage": "Entrer votre message...",
+        "closepanel": "Fermer",
+        "details": "Détails"
     },
     "description":
     {

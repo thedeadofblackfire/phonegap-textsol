@@ -53,10 +53,12 @@ box-shadow: 1px 10px 20px #000000;
 	
     .badge { margin-left: 5px}
     
-    .user_info { margin:0px; 
+    .user_info { 
+    margin:0px; 
     margin-bottom: 10px;
-    padding: 10px;    
+    padding: 4px;    
     background:#ffffff;
+    font-size:10px;
     /*
     background: -webkit-linear-gradient(#e1e1e1, #ffffff);
 			background: -moz-linear-gradient(#e1e1e1, #ffffff);
@@ -360,7 +362,7 @@ top: 28px;
     display: block;
     background: #f3f5f7;
     vertical-align: top;
-    margin-left: 32px;
+    /*margin-left: 32px;*/
     padding: 5px 10px;
     border-radius: 5px;
     position: relative;
@@ -384,7 +386,7 @@ top: 28px;
 
 .chat-messages li.right .message_text {
     margin-left: 0;
-    margin-right: 32px;
+    /*margin-right: 32px;*/
     background: #c2eef5;
     padding-top:20px;
 	padding-bottom:20px;
