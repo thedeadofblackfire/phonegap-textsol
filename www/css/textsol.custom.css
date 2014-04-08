@@ -395,7 +395,9 @@ top: 28px;
 	padding-bottom:20px;
 	font-size:25px;
 }
-
+input#chatInput {
+font-size:25px;
+}
 .chat-messages li.right .message_text:before {
     content: "";
     height: 0;
