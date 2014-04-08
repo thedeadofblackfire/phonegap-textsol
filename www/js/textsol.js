@@ -711,7 +711,7 @@ function loadDataUserList(data) {
     //htmlUserList += '<div class="ui-bar ui-bar-e"><h3 style="display:inline-block; width:92%; margin-top:5px;">This is an alert message. </h3><div style="display:inline-block; width:8%; margin-top:0px; text-align:right;"><a href="#" data-role="button" data-icon="delete" data-inline="true" data-iconpos="notext" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="e" title="Dismiss" class="ui-btn ui-btn-up-e ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-notext"><span class="ui-btn-inner"><span class="ui-btn-text">Dismiss</span><span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span></span></a></div><p style="font-size:85%; margin:-.3em 0 1em;">And here\'s some additional text in a paragraph.</p></div>';
     var focusChatStillAvailable = false;
                     
-    htmlUserList += '<ul id="chat_userlist" data-role="listview" data-theme="a" data-divider-theme="d" data-count-theme="a">';
+    htmlUserList += '<ul id="chat_userlist" data-role="listview" data-theme="d" data-divider-theme="d" data-count-theme="a">';
     htmlUserList += '<li data-role="list-divider" id="activechat_title">'+title+'</li>';
     $.each(data.online_user, function(k, v) {
         htmlUserList += generateLineUser(v,false);     
@@ -848,7 +848,7 @@ function generateLineUser(v, newuser) {
     var str = '<li data-icon="false"';   
     if (newuser) str += 'class="new_user"';    
     //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + '<h2>' +v.name + '</h2><p>started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
-    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="a">' + browser + '<h2>' + v.name + '</h2><p>'+info+'</p> <p class="ui-li-aside"><small>'+formatDate(v.start_date)+'</small></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
+    str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="a">' + browser + '<h3>' + v.name + '</h3><p>'+info+'</p> <p class="ui-li-aside"><small>'+formatDate(v.start_date)+'</small></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
     
     //str += '><a href="#pageChatSession?id=' + v.session_id + '" sid="'+v.session_id+'" data-theme="e">' + lg + v.name + ' <p class="ui-li-aside">started at <strong>'+formatDate(v.start_date)+'</strong></p> <span class="ui-li-count">'+(parseInt(v.totalmsg) + parseInt(v.totalreply))+'</span></a></li>';
         
@@ -867,12 +867,14 @@ function generateDetailVisitor(data) {
     //str += '<strong>User Info:</strong>&nbsp;&nbsp;';
     //if (data.visitor.email != '' || data.visitor.email != '0') str += '&nbsp;&nbsp;<b>Email:</b> '+data.visitor.email;
     //if (data.visitor.phone != '' || data.visitor.phone != '0') str += '&nbsp;&nbsp;<b>Phone:</b> '+data.visitor.phone;
+    if (data.visitor.ip != '') str += '<br><b>'+i18n.t('label.ip')+':</b> '+data.visitor.ip;
     if (data.visitor.country != '') str += '<br><b>'+i18n.t('label.country')+':</b> '+data.visitor.country;   
     if (data.visitor.city != '') str += '<br><b>'+i18n.t('label.city')+':</b> '+data.visitor.city;
-    if (data.visitor.region != '') str += '<br><b>Region:</b> '+data.visitor.region;
+    if (data.visitor.region != '') str += '<br><b>'+i18n.t('label.region')+':</b> '+data.visitor.region;
+    if (data.visitor.platform != '') str += '<br><b>'+i18n.t('label.platform')+':</b> '+data.visitor.platform;
     if (data.visitor.browser != '') str += '<br><b>'+i18n.t('label.browser')+':</b> '+data.visitor.browser;
-    if (data.visitor.referrer != '') str += '<br><b>'+i18n.t('label.url')+':</b> '+data.visitor.referrer;
-    if (data.visitor.visit != '') str += '<br><b>Visit Time:</b> '+data.visitor.visit;
+    if (data.visitor.referrer != '') str += '<br><b>'+i18n.t('label.url')+':</b> '+data.visitor.referrer;       
+    if (data.visitor.visit != '') str += '<br><b>'+i18n.t('label.visittime')+':</b> '+data.visitor.visit;
         
     str += '</p>';
     str += '<a href="#" data-rel="close" data-theme="d" class="ui-btn ui-btn-d ui-mini ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-left ui-btn-inline theme">'+i18n.t('label.closepanel')+'</a>';
@@ -897,7 +899,7 @@ function generatePageSession(data) {
     
     str += '<div class="plugins">';    
     
-    str += '<a href="#panelvisitor" class="btn btn-primary" style="width:auto!important;color:white;"><i class="icon-info-sign"></i> '+i18n.t('label.details')+'</a> ';
+    str += '<a href="#panelvisitor" class="btn btn-primary" style="width:auto!important;color:white;"><i class="icon-info-sign"></i> '+i18n.t('label.details')+'</a>&nbsp;&nbsp;';
      
     if (displayChatClose) {
 		str += '<a class="btn btn-success disabled">'+i18n.t('label.chatclosed')+'</a>';		

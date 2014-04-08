@@ -24,7 +24,11 @@
         "wait": "等一下...... ",
         "pleaseenteryourmessage": "请输入您的消息。",
         "closepanel": "Close panel",
-        "details": "Details"        
+        "details": "Details",
+        "platform": "Platform",
+        "region": "Region",
+        "visittime": "Visit Time",
+        "ip": "IP Address"        
     },
     "description":
     {

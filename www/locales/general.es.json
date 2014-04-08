@@ -24,7 +24,11 @@
         "wait": "Un momento...",
         "pleaseenteryourmessage": "Por favor agrega tu mensaje.",
         "closepanel": "Close panel",
-        "details": "Details"
+        "details": "Details",
+        "platform": "Platform",
+        "region": "Region",
+        "visittime": "Visit Time",
+        "ip": "IP Address"
     },
     "description":
     {

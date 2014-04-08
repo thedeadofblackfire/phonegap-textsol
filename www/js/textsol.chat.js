@@ -300,6 +300,7 @@ function chat_save_reply_message($this) {
                 $this.html(i18n.t('label.send'));
                 textarea.val('');
                 textarea.removeClass('bordererr');
+                $('p.err').remove();
                 wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
                 // $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
             }

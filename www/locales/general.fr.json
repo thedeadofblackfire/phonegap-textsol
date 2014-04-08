@@ -24,7 +24,11 @@
         "wait": "En cours...",
         "pleaseenteryourmessage": "Entrer votre message...",
         "closepanel": "Fermer",
-        "details": "Détails"
+        "details": "Détails",
+        "platform": "OS",
+        "region": "Région",
+        "visittime": "Visite",
+        "ip": "Adresse IP"
     },
     "description":
     {
