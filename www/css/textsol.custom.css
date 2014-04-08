@@ -449,7 +449,7 @@ border-bottom-right-radius:12px;
 
 #loginForm {
 	background-color:#FFF;
-	padding:20px;
+	padding:10px;
 	-moz-border-radius-topleft: 12px;
 -moz-border-radius-topright:11px;
 -moz-border-radius-bottomleft:11px;
@@ -463,7 +463,7 @@ border-top-right-radius:11px;
 border-bottom-left-radius:11px;
 border-bottom-right-radius:12px;
 margin-top:20%;
-height:340px;
+/*height:340px;*/
 }
 
 .loginbut {

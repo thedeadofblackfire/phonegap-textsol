@@ -256,14 +256,18 @@ function chat_save_reply_message($this) {
         
         console.log('sessionid='+session_id + ' message='+message+' mid='+id);
 	
-        $this.siblings('p.err').remove();
+        //$this.siblings('p.err').remove();
 
         if (message.length < 1)
         {
-            textarea.addClass('bordererr');
-            textarea.after('<p class="err">'+i18n.t('label.pleaseenteryourmessage')+'</p>');
+            if (ENV == 'dev') {
+				alert(i18n.t('label.pleaseenteryourmessage'));
+			} else {
+				navigator.notification.alert(i18n.t('label.pleaseenteryourmessage'), alertDismissed);
+			}			                    
+            //textarea.addClass('bordererr');
+            //textarea.after('<p class="err">'+i18n.t('label.pleaseenteryourmessage')+'</p>');
             return false;
-
         }
         $this.html(' '+i18n.t('label.wait')+' ');
         $this.attr('disabled', 'disabled');
@@ -299,8 +303,8 @@ function chat_save_reply_message($this) {
                 $this.removeAttr('disabled');
                 $this.html(i18n.t('label.send'));
                 textarea.val('');
-                textarea.removeClass('bordererr');
-                $('p.err').remove();
+                //textarea.removeClass('bordererr');
+                //$('p.err').remove();
                 wrapper.scrollTop = wrapper.animate({scrollTop: 10000});
                 // $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
             }
