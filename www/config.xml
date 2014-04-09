@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.webcreators.textsol"
-        version   = "0.9.8">
+        version   = "0.5.0">
 
     <name>Live Chat</name>
 
@@ -16,13 +16,12 @@
         Blastis Corp
     </author>
 
-
     <!--
         If you do not want any permissions to be added to your app, add the
         following tag to your config.xml; you will still have the INTERNET
         permission on your app, which PhoneGap requires.
     -->
-    <!--<preference name="permissions"                value="none"/>-->
+    <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
     <preference name="phonegap-version"           value="3.3.0" />          <!-- all: current version of PhoneGap -->
@@ -43,28 +42,14 @@
 
 	<gap:platform name="ios" />
     <gap:platform name="android" />
-    <!-- Plugins can also be added here. -->
-    <!--
-        <gap:plugin name="Example" />
-        A list of available plugins are available at https://build.phonegap.com/docs/plugins
-    -->
     
-    <!--
-    <gap:plugin name="org.apache.cordova.device" />
-    <gap:plugin name="org.apache.cordova.network-information" />
-    <gap:plugin name="org.apache.cordova.dialogs" />
-    <gap:plugin name="org.apache.cordova.vibration" />
-	<gap:plugin name="org.apache.cordova.media" />
-    <gap:plugin name="com.phonegap.plugins.pushplugin" />
-    -->
-    
+    <!-- Plugins can also be added here. -->   
     <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
     <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
     <gap:plugin name="org.apache.cordova.dialogs" version="0.2.6" />
     <gap:plugin name="org.apache.cordova.media" version="0.2.8" />
     <gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
     <gap:plugin name="org.apache.cordova.vibration" version="0.3.7" />
-
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />
@@ -89,7 +74,7 @@
     <gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios"     width="640" height="960" />
     <gap:splash src="res/screen/ios/screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />   
--->	
+    -->	
 	
 	
     <!--
