@@ -15,7 +15,7 @@ box-shadow: 1px 10px 20px #000000;
 .ui-page { -webkit-backface-visibility: hidden; }
 
 .ui-page, .ui-panel-content-wrap {
-      background:url(img/homebg.png) repeat;
+      background:url(../img/homebg.png) repeat;
 }
 
     li.new_user a{
@@ -35,7 +35,7 @@ box-shadow: 1px 10px 20px #000000;
      margin:0px;
      padding:0px;
     }
-    .container_session.ui-content {
+    #sessionContent .ui-content {
      margin:0px;
      padding:0px;
     }

@@ -239,10 +239,12 @@ jQuery(document).ready(function($){
                
                // Get the content element for the page to set it
                $content = $page.children( ".ui-content" );
-               $content.html(chapterHTML);
-               
+               $('#sessionContent').html(chapterHTML);
+			   //$content.html(chapterHTML);
+			   //alert($('#sessionContent').html());
+               //alert(chapterHTML);
           
-                       
+				       
                isChatSession = true;
                // flag unread 
                checkUnread(sessionid);
